@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIRA</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
+    
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo"><img src="img/mira logoblack.png" alt=""></a>
+
+        <i class='bx bx-menu-alt-left' id="menu-icon"></i> 
+
+        <nav class="navbar" id="navbarid">
+            <button class="btn" id="retourner_au_home">Retourner</button>
+        </nav>
+    </header>
+
+    <section class="cree_un_projet">
+        <p id="nom_prenom_admin"></p>
+        <br>
+        <div id="notificationbg_space">
+            <div class="notification" >
+                <div class="image_notif_bg" ></div>
+                <div class="text_notif_bg" id="text_notif_bg" >
+                    <div class="time_and_titre">
+                    </div>
+                </div>
+            </div>
+            <div class="notification" >
+                <div class="image_notif_bg"></div>
+                <div class="text_notif_bg" >
+                    <div class="time_and_titre">
+                    </div>
+                </div>
+            </div>
+            <div class="notification" >
+                <div class="image_notif_bg" ></div>
+                <div class="text_notif_bg" id="text_notif_bg" >
+                    <div class="time_and_titre">
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+        <button class="btn" id="voir_plus_de_notif"> voir plus </button>      
+    </section>
+
+    <div class="activatoin_compt" id="wt" >
+        <div class="indexpage" >
+            <img  src="img/mira logoblack.png" alt="">
+        </div>
+    </div>
+
+
+    <script src="notification.js" type="module"></script>
+    
+</body>
+</html>

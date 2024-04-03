@@ -609,9 +609,45 @@ select:focus {
     flex-direction: row;
 }
 
+ /*-----------------------------------------------------notification */
 
+.notification{
+  width: 100%;
+  padding: 3px;
+  background-color: #ccc;
+  border-radius: 8px;
+  align-items: center;
+  display: flex;
+  margin-bottom: 8px;
 
+}
+.image_notif_bg{
+  display: flex;
+  width: 50px;
+  height: 50px;
+  background-color: #b8b8b8;
+  border-radius: 25px;
+  margin: 5px;
+  justify-content: center;
+  align-items: center;
 
+}
+.image_notif_bg img{
+  display: flex;
+  width: 40px;
+  height: 40px;
+}
+.time_and_titre{
+  display: flex;
+  flex-direction: row;
+}
+.date_noti{
+  margin-left:5px ;
+}
+.text_notif_bg{
+  padding-left: 7px;
+  width: 80%;
+}
 
 @media (max-width:617px){
     .bg{

@@ -223,6 +223,7 @@ notifbtn.addEventListener("click", async (e) => {
     await updateDoc(notifinumberRef, {
         numero: numeroprim
     });
+    window.location.href = 'notification.html';
 });
 deconection.addEventListener("click", async (e) => {
     e.preventDefault();
