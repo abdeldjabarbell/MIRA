@@ -38,6 +38,8 @@ const  wt = document.getElementById("wt");
 
 const  AjouterProduitForm = document.getElementById("AjouterProduitForm");
 
+const  retourner_au_home = document.getElementById("retourner_au_home");
+
 const  select_action = document.getElementById("select_action");
 
 const  typeproduit = document.getElementById("typeproduit");
@@ -162,7 +164,11 @@ select_action.addEventListener('change', async function(event) {
 
 
 //-------------------------------- firebase opartions -------------------------
+retourner_au_home.addEventListener("click", async (e) => {
+    e.preventDefault();
+    window.location.href = 'homepage.html';
 
+});
 
 auth.onAuthStateChanged(async (user) => {
     if (user) {

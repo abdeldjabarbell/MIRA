@@ -38,6 +38,7 @@ const activatoin_compt = document.getElementById("activatoin_compt");
 const acive_compt_form = document.getElementById("acive_compt_form");
 const deconnecter_acv_msg = document.getElementById("deconnecter_acv_msg");
 
+const creat_project_btnn = document.getElementById("creat_project_btnn");
 
 const message_cerification_consol = document.getElementById("message_cerification");
 
@@ -227,4 +228,10 @@ deconection.addEventListener("click", async (e) => {
     e.preventDefault();
     wt.style.display="flex"
     logout();
+});
+
+creat_project_btnn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    window.location.href = 'creeProduit.html';
+
 });
