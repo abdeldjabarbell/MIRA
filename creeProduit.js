@@ -88,6 +88,8 @@ fileInput1.addEventListener('change', async function(event) {
     reader.onload = function() {
       const imageUrl = reader.result;
       gallery1.style.display="flex";
+      imagge1.innerHTML="";
+
       // Affichage de l'image dans la galerie
       const img = document.createElement('img');
       img.src = imageUrl;
@@ -105,6 +107,8 @@ fileInput2.addEventListener('change', async function(event) {
     reader.onload = function() {
       const imageUrl = reader.result;
       gallery2.style.display="flex";
+      imagge2.innerHTML="";
+
       // Affichage de l'image dans la galerie
       const img = document.createElement('img');
       img.src = imageUrl;
@@ -122,6 +126,8 @@ fileInput3.addEventListener('change', async function(event) {
     reader.onload = function() {
       const imageUrl = reader.result;
       gallery3.style.display="flex";
+      imagge3.innerHTML="";
+
       // Affichage de l'image dans la galerie
       const img = document.createElement('img');
       img.src = imageUrl;
@@ -139,6 +145,7 @@ fileInput4.addEventListener('change', async function(event) {
     reader.onload = function() {
       const imageUrl = reader.result;
       gallery4.style.display="flex";
+      imagge4.innerHTML="";
       // Affichage de l'image dans la galerie
       const img = document.createElement('img');
       img.src = imageUrl;
@@ -268,11 +275,10 @@ produitcollection.addEventListener('change', async function () {
     try {
         const querySnapshot = await getDocs(collection(db, 'items', selectedId, 'produits', selectedId2, 'produits'));
         querySnapshot.forEach((doc) => {
-          console.log(querySnapshot);
-          const prenomAdm = doc.data().titre;
-          console.log("titre: "+prenomAdm);
+          const prenomAdm = doc.data().Titre;
             // Ajouter les options au troisième select
             addOption(produitselect, doc.id, prenomAdm);
+
         });
     } catch (error) {
         
@@ -280,7 +286,101 @@ produitcollection.addEventListener('change', async function () {
     }
 });
 
+produitselect.addEventListener('change', async function () {
+    const selectedId3 = produitselect.value;
+    const selectedId2 = produitcollection.value;
+    const selectedId = typeproduit.value;
 
+
+    try {
+        const querySnapshot = await getDocs(collection(db, 'items', selectedId, 'produits', selectedId2, 'produits'), selectedId3);
+        querySnapshot.forEach((doc) => {
+            const data = doc.data(); // Stocker les données du document dans une variable pour éviter de répéter doc.data()
+
+            const Titreedit_ = data.Titre;
+            const Sous_titre_ = data.Sous_titre;
+            const Description_ = data.Description;
+            const prix_ = data.prix;
+            const promotion_ = data.promotion;
+            const quantiteproduit_ = data.quantiteproduit;
+            const colors_in_stock_ = data.colors_in_stock;
+            const colors_number_ = data.colors_number;
+            const idproduitSimilaire_1 = data.idproduitSimilaire1;
+            const idproduitSimilaire_2 = data.idproduitSimilaire2;
+            const idproduitSimilaire_3 = data.idproduitSimilaire3;
+            const downloadURL_1 = data.imageUrl_produit_1; 
+            const downloadURL_2 = data.imageUrl_produit_2;
+            const downloadURL_3 = data.imageUrl_produit_3;
+            const downloadURL_4 = data.imageUrl_produit_4;
+
+
+            const Titre = document.getElementById("Titre");
+            const Soustitre = document.getElementById("Soustitre");
+            const Description = document.getElementById("Description");
+            const prix = document.getElementById("prix");
+            const promotion = document.getElementById("promotion");
+            const quantiteproduit = document.getElementById("quantiteproduit");
+            const idproduitSimilaire1 = document.getElementById("idproduitSimilaire1");
+            const idproduitSimilaire2 = document.getElementById("idproduitSimilaire2");
+            const idproduitSimilaire3 = document.getElementById("idproduitSimilaire3");
+
+            Titre.value=Titreedit_;
+            Soustitre.value=Sous_titre_;
+            Description.value=Description_;
+            prix.value=prix_;
+            promotion.value=promotion_;
+            quantiteproduit.value=quantiteproduit_;
+            idproduitSimilaire1.value=idproduitSimilaire_1;
+            idproduitSimilaire2.value=idproduitSimilaire_2;
+            idproduitSimilaire3.value=idproduitSimilaire_3;
+            console.log("data image 1 :", downloadURL_1);
+
+            // Récupérer les éléments de la galerie d'images
+            const gallery1 = document.getElementById('gallery1');
+            const gallery2 = document.getElementById('gallery2');
+            const gallery3 = document.getElementById('gallery3');
+            const gallery4 = document.getElementById('gallery4');
+
+            const imagge1 = document.getElementById('imagge1');
+            const imagge2 = document.getElementById('imagge2');
+            const imagge3 = document.getElementById('imagge3');
+            const imagge4 = document.getElementById('imagge4');
+
+            // Créer et ajouter les éléments img à chaque galerie
+            const imgElement1 = document.createElement('img');
+            imgElement1.src = downloadURL_1;
+            const imgElement2 = document.createElement('img');
+            imgElement2.src = downloadURL_2;
+            const imgElement3 = document.createElement('img');
+            imgElement3.src = downloadURL_3;
+            const imgElement4 = document.createElement('img');
+            imgElement4.src = downloadURL_4;
+
+            // Afficher les galeries et mettre à jour les images
+            gallery1.style.display = "flex";
+            imagge1.innerHTML = ''; 
+            imagge1.appendChild(imgElement1);
+            gallery2.style.display = "flex";
+            imagge2.innerHTML = ''; 
+            imagge2.appendChild(imgElement2);
+            gallery3.style.display = "flex";
+            imagge3.innerHTML = ''; 
+            imagge3.appendChild(imgElement3);
+            gallery4.style.display = "flex";
+            imagge4.innerHTML = ''; 
+            imagge4.appendChild(imgElement4);
+
+
+            
+
+
+        });
+    } catch (error) {
+        console.error("Erreur lors de la récupération des données de la sous-collection :", error);
+    }
+
+
+});
 
 
 
@@ -377,38 +477,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const file4 = fileInput4.files[0];
         
             try {
-                const user = auth.currentUser;
-                if (user) {
-                    const userId = user.uid;
-                    const userRef = doc(db, "admins", userId);
-                    const docSnapshot = await getDoc(userRef);
-                    if (docSnapshot.exists()) {
-                        const nomAdm = docSnapshot.data().nom;
-                        const prenomAdm = docSnapshot.data().prenom;
-        
-                        const timestamp = serverTimestamp();
-                        const notificationsCollectionRef = collection(db, 'notifications'); // Référence à la collection de notifications
-                        const notificationData = {
-                            title_notif: "🚀 Nouveau produit", 
-                            notification: "🚀 Nouveau produit partagé par l'administrateur " + prenomAdm + " " + nomAdm,
-                            timestamp: timestamp,
-                        };
-                        
-                        // Créer le numéro de notification
-                        const notifNumberRef = doc(db, "notifications", "notif_number");
-                        const notifSnapshot = await getDoc(notifNumberRef);
-                        if (notifSnapshot.exists()) {
-                            const numero = notifSnapshot.data().numero;
-                            const numeroprim = numero + 1;
-                            await updateDoc(notifNumberRef, {
-                                numero: numeroprim
-                            });
-                        }
-                        
-                        await addDoc(notificationsCollectionRef, notificationData);
-
-                    }
-                }
         
                 // Upload des images dans le stockage Firebase
                 const storageRef1 = ref(storage, 'images/' + file1.name);
@@ -445,6 +513,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     prix: prix,
                     promotion: promotion,
                     quantiteproduit: quantiteproduit,
+                    colors_number: n_colors,
                     colors: colors_in_stock,
                     etoile: 0,
                     idproduit_Similaire1: idproduitSimilaire1,
@@ -457,6 +526,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     timestamp: serverTimestamp()
                 });
         
+
+
                 message_cree_produit.innerHTML = 'Le produit a été partagé sur MIRA store';
                 message_cree_produit.style.color = "green";
         
@@ -464,6 +535,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 loaderpartager.style.display = "none";
                 const informationproduitBG = document.getElementById("informationproduitBG");
                 informationproduitBG.style.borderLeft="2px solid green";
+
+                const user = auth.currentUser;
+                if (user) {
+                    const userId = user.uid;
+                    const userRef = doc(db, "admins", userId);
+                    const docSnapshot = await getDoc(userRef);
+                    if (docSnapshot.exists()) {
+                        const nomAdm = docSnapshot.data().nom;
+                        const prenomAdm = docSnapshot.data().prenom;
+        
+                        const timestamp = serverTimestamp();
+                        const notificationsCollectionRef = collection(db, 'notifications'); // Référence à la collection de notifications
+                        const notificationData = {
+                            title_notif: "🚀 Nouveau produit", 
+                            notification: "🚀 Nouveau produit partagé par l'administrateur " + prenomAdm + " " + nomAdm,
+                            timestamp: timestamp,
+                        };
+                        
+                        // Créer le numéro de notification
+                        const notifNumberRef = doc(db, "notifications", "notif_number");
+                        const notifSnapshot = await getDoc(notifNumberRef);
+                        if (notifSnapshot.exists()) {
+                            const numero = notifSnapshot.data().numero;
+                            const numeroprim = numero + 1;
+                            await updateDoc(notifNumberRef, {
+                                numero: numeroprim
+                            });
+                        }
+                        
+                        await addDoc(notificationsCollectionRef, notificationData);
+
+                    }
+                }
 
                 setTimeout(() => {
                     refreshPage();
@@ -492,7 +596,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
+    
 
 
 
