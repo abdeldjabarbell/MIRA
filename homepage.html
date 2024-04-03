@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIRA</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
+    
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo"><img src="img/mira logoblack.png" alt=""></a>
+
+        <i class='bx bx-menu-alt-left' id="menu-icon"></i> 
+
+        <nav class="navbar" id="navbarid">
+            <a href="#home"class="active">Accueil</a>
+            <a href="#commandes">Commandes </a>
+            <a href="#message">Messages</a>
+            <a href="#notification" id="notifbtn">
+                <div class="titlenavbar">
+                    <div class="titletext">Notifications </div>
+                    <div class="titlenumber" id="titlenumberNotif" style="display: none;"></div>
+                </div>
+            </a>
+            <br>
+            <button class="btn" id="deconection">déconnecter</button>
+        </nav>
+    </header>
+
+    <div class="backgroundHome">
+        <div class="serchBackground">
+            <input type="text" id="shershtab" name="shershtab" required placeholder="Chercher..."><br><br>
+            <button class="btn" type="submit" >chercher</button>
+        </div>
+        <div class="bgBtnCreatProject">
+            <div class="informationAdmin">
+                <h3 id="nom_prenom_admin">ADMIN MIRA</h3>
+            </div>
+            <button class="btn" style="background:rgb(255, 200, 0) ;color: black;">Créer +</button>
+        </div>
+        <div class="BackgroundofActivity">
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="activatoin_compt" id="activatoin_compt" style="display: none;">
+        <div class="boxactivation">
+            <h1>Activation de compte</h1>
+            <p>Bienvenue dans l'Espace Administrateur de MIRA ! Pour activer votre compte, veuillez saisir le code de vérification que vous avez reçu par e-mail :</p>
+            <form id="acive_compt_form"  method="post">
+                <label for="code_verification">Code de vérification :</label><br>
+                <input type="text" id="code_verification" name="code_verification" required><br><br>
+                <button class="btn" type="submit" style="font-size: 11px;">
+                    <div id="original" style="display: block;">
+                        Activer mon compte
+                    </div>
+                    <div class="cs-loader-inner" id="loader" style="display: none;">
+                        <label>	●</label>
+                        <label>	●</label>
+                        <label>	●</label>
+                        <label>	●</label>
+                    </div>
+                    <div id="Done" style="display: none;">
+                        terminée
+                    </div>
+                
+                </button>
+            </form>
+            <br>
+            <p>Si vous n'avez pas reçu de code de vérification, veuillez vérifier votre dossier de courriers indésirables (spam).</p>
+            <p>Je ne veux pas activer mon compte. <a href="#" id="deconnecter_acv_msg">Me déconnecter.</a></p>
+            <br>
+            <p id="message_cerification"></p>
+        </div>
+    </div>
+
+    <div class="activatoin_compt" id="wt">
+        <div class="indexpage" >
+            <img  src="img/mira logoblack.png" alt="">
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <script type="module" src="homepage.js"></script>
+    
+</body>
+</html>

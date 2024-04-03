@@ -1,0 +1,746 @@
+*{
+     margin: 0;
+     padding: 0; 
+     box-sizing: border-box; 
+     text-decoration: none; 
+     border: none; 
+     outline: none; 
+     scroll-behavior: smooth; 
+     font-family: 'Poppins' , sans-serif;
+}
+:root{
+    --bg-color:#dedede;
+    --second-bg-color:#bdbdbd;
+    --text-color:#000000;
+    --btn-color:#343434;
+    --btnHover-color:#0a0a0a;
+    --error-text: rgb(255, 65, 48);
+}
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+body{
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+section{
+    min-height: 100vh;
+    padding: 10rem 9% 2rem;
+}
+  
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 9%;
+    background: var(--bg-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    box-shadow: 0 .5rem 1rem #0a0a0a23;
+}
+.header.sticky{
+    border-bottom: .1rem solid rgba(0, 0, 0, 2);
+}
+.logo{
+    font-size: 2.5rem;
+    color: var(--text-color);
+    font-weight: 600;
+    cursor: default;
+    transition: .5s;
+}
+.logo:hover{
+    color: var(--main-color);
+    
+}
+
+.navbar a{
+font-size: 1.7rem;
+color: var(--text-color);
+margin-left: 4rem;
+transition: .3s;
+}
+.navbar a:hover,
+.navbar a.active{
+    color: var(--main-color);
+}
+
+#menu-icon{
+     font-size: 3.6rem;
+     color: var(--text-color);
+     display: none;
+}
+
+/*------------------------login register*/
+.bg{
+    min-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.bg_img{
+    width: 40%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.bg_img img{
+    width: 200px;
+
+}
+.textbgimg{
+    padding: 3rem 5% ;
+
+}
+.bg_v_ligne{
+    width: 3px;
+    height: 70vh;
+    background-color: var(--second-bg-color);
+}
+.loginRegisterbg{
+    width: 60vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.conncxion_inputs{
+    width: 40vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+.inpts{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px; 
+    margin-top: 20px; 
+}
+
+.inpts label{
+    font-size: 12px;
+    margin: 5px;
+}
+
+ 
+  input{
+    padding: 7px; 
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+    box-sizing: border-box;
+  }
+  
+  input:focus {
+    outline: none; 
+    border-color: #7a7a7a;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
+  }
+  /*-----------------------------------------------------login register*/
+
+  /*-----------------------------------------------------btn*/
+
+  .btn {
+    display: block; 
+    width: 150px; 
+    padding: 10px; 
+    background-color: var(--btn-color); 
+    color: #fff; 
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s; 
+  }
+  
+  .btn:hover {
+    background-color:var(--btnHover-color); 
+  }
+
+  .btn.souvgarder{
+    display: block; 
+    width: 150px; 
+    padding: 10px; 
+    background-color: rgb(0, 96, 0); 
+    color: #fff; 
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s; 
+
+  }
+  .btn.souvgarder:hover {
+    background-color:rgb(0, 45, 0); 
+  }
+
+  .btn.modifier{
+    display: block; 
+    width: 150px; 
+    padding: 10px; 
+    background-color: rgb(255, 158, 1); 
+    color: #fff; 
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s; 
+  }
+  .btn.modifier:hover {
+    background-color:rgb(135, 83, 0); 
+  }
+
+
+  .btn.supprimer{
+    display: block; 
+    width: 150px; 
+    padding: 10px; 
+    background-color: rgb(255, 1, 1); 
+    color: #fff; 
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s; 
+  }
+  .btn.supprimer:hover {
+    background-color:rgb(135, 0, 0); 
+  }
+  /*-----------------------------------------------------btn*/
+
+
+
+
+
+
+
+  /*-----------------------------------------------------loader*/
+
+
+
+       
+  .cs-loader-inner {
+    position: relative;
+    width: 100%;
+    color: var(--main-color);
+    padding: 0;
+    text-align: center;
+  }
+  
+  .cs-loader-inner label {
+    font-size: 13px;
+    opacity: 0;
+    display:inline-block;
+  }
+  
+  @keyframes lol {
+    0% {
+      opacity: 0;
+      transform: translateX(-65px);
+    }
+    33% {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+    66% {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(65px);
+    }
+  }
+  
+  @-webkit-keyframes lol {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateX(-100px);
+    }
+    33% {
+      opacity: 1;
+      -webkit-transform: translateX(0px);
+    }
+    66% {
+      opacity: 1;
+      -webkit-transform: translateX(0px);
+    }
+    100% {
+      opacity: 0;
+      -webkit-transform: translateX(100px);
+    }
+  }
+  
+  .cs-loader-inner label:nth-child(6) {
+    -webkit-animation: lol 1.5s infinite ease-in-out;
+    animation: lol 1.5s infinite ease-in-out;
+  }
+  
+  .cs-loader-inner label:nth-child(5) {
+    -webkit-animation: lol 1.5s 100ms infinite ease-in-out;
+    animation: lol 1.5s 100ms infinite ease-in-out;
+  }
+  
+  .cs-loader-inner label:nth-child(4) {
+    -webkit-animation: lol 1.5s 200ms infinite ease-in-out;
+    animation: lol 1.5s 200ms infinite ease-in-out;
+  }
+  
+  .cs-loader-inner label:nth-child(3) {
+    -webkit-animation: lol 1.5s 300ms infinite ease-in-out;
+    animation: lol 1.5s 300ms infinite ease-in-out;
+  }
+  
+  .cs-loader-inner label:nth-child(2) {
+    -webkit-animation: lol 1.5s 400ms infinite ease-in-out;
+    animation: lol 1.5s 400ms infinite ease-in-out;
+  }
+  
+  .cs-loader-inner label:nth-child(1) {
+    -webkit-animation: lol 1.5s 500ms infinite ease-in-out;
+    animation: lol 1.5s 500ms infinite ease-in-out;
+  } 
+
+
+
+  /*-----------------------------------------------------loader*/
+
+  /*-----------------------------------------------------connection efter register*/
+  .wating{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+  }
+  .attender_bg{
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.645);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .loader_of_watingpage{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 11;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+    /*-----------------------------------------------------connection efter register*/
+
+    /*-----------------------------------------------------indexpage*/
+
+    .indexpage {
+        position: fixed;
+        z-index: 300;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+
+    }
+    .indexpage img{
+        width: 70px;
+        animation: logo-animation 2s infinite alternate; /* Animation répétée en boucle */
+    }
+    @keyframes logo-animation {
+        0% {
+            transform: scale(1);
+
+        }
+        50% {
+            transform: scale(1.2);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+ /*-----------------------------------------------------indexpage*/
+
+
+
+
+
+
+
+
+
+  /*-----------------------------------------------------home page  phone*/
+
+ .header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 9%;
+    background: var(--bg-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+.header.sticky{
+    border-bottom: .1rem solid rgba(0, 0, 0, 2);
+}
+
+.logo img{
+    width: 85px;
+  }
+  .navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+.navbar a{
+font-size: 1.3rem;
+color: var(--text-color);
+margin-right: 4rem;
+padding: 3px;
+transition: .3s;
+justify-content: center;
+align-items: center;
+}
+.navbar a:hover,
+.navbar a.active{
+    transform: scale(1.2);
+    font-weight: 600;
+}
+
+#menu-icon{
+     font-size: 3.6rem;
+     color: var(--text-color);
+     display: none;
+}
+
+
+
+ /*-----------------------------------------------------activation compt*/
+
+
+ .activatoin_compt{
+    position: fixed;
+    z-index: 200;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.645);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10rem 9% 2rem;
+
+ }
+ /*-----------------------------------------------------notification*/
+ .titlenavbar{
+    display: flex;
+    flex-direction: row;
+ }
+
+.titlenumber{
+    display: flex;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background: rgb(219, 0, 0);
+    font-size: 8px;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    color: white;
+    margin-left: 2px;
+
+}
+
+
+ /*-----------------------------------------------------homePage*/
+
+.backgroundHome{
+    min-height: 100vh;
+    padding: 8rem 0% 2rem;
+    background: var(--second-bg-color);
+    display: flex;
+    flex-direction: column;
+}
+.serchBackground{
+    width: 100vw;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+.serchBackground input{
+    width: 30vw;
+}
+.serchBackground label{
+    font-size: 14px;
+    padding-right: 3px;
+}
+.BackgroundofActivity{
+    width: 100vw;
+    height: 100%;
+}
+
+.bgBtnCreatProject{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    height: 50px;
+    padding-left:4vw ;
+}
+.bgBtnCreatProject button{
+    margin-right: 3vw;
+    border: 1px solid var(--text-color);
+    font-weight: 500;
+    transition: 0.3s;
+    font-size: 15px;
+}
+.bgBtnCreatProject button:hover{
+    box-shadow: 0 .5rem 1rem var(--btn-color);
+
+}
+.BackgroundofActivity{
+    width: 100vw;
+    height: 66vh;
+    background-color: #a3a3a3;
+
+}
+
+ /*-----------------------------------------------------cree ou modifier un produit */
+
+.cree_un_projet{
+    background-color: var(--second-bg-color);
+}
+.cree_un_projet h1{
+    font-size: 16px;
+}
+.cree_un_projet p{
+    font-size: 12px;
+    margin-top: 6px;
+}
+.cree_un_projet label{
+    font-size: 12px;
+    font-weight: 600;
+}
+.informationproduitBG{
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid black;
+    padding-left: 5px;
+}
+.cree_un_projet_admin_name{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+select{
+    width: 200px;
+    padding: .7rem;
+    border-radius: 5px; 
+    border: 1px solid #ccc;
+}
+
+  
+select:focus {
+    outline: none; 
+    border-color: #7a7a7a;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
+}
+.gallerybg input{
+    font-size: 12px;
+}
+.gallery_{
+    width: 100%;
+    height: 240px;
+}
+.imagge{
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+}
+.imagge img{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+
+}
+
+.inpts_produit{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+}
+.btncolors{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+
+
+@media (max-width:617px){
+    .bg{
+        min-height: 100vh;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .bg_img{
+        width: 100vw;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding-top: 3rem;
+    }
+    .bg_img img{
+        width: 150px;
+    }
+
+    .bg_v_ligne{
+        display: none;
+    }
+    .loginRegisterbg{
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+    }
+    .conncxion_inputs{
+        width: 100%;
+        width: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+    }
+    .inpts{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        margin: 20px; 
+    }
+    .bg_connexion{
+        width: 100vw;
+        height: 100%;
+        padding: 3rem 5% ;
+
+    }
+    .btn {
+        width: 100px; 
+        padding: 9px; 
+        background-color: var(--btn-color); 
+        color: #fff; 
+        border: none; 
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s; 
+        font-size: 10px;
+      }
+      
+      .btn:hover {
+        background-color:var(--btnHover-color); 
+      }
+
+      .cs-loader-inner label {
+        font-size: 10px;
+        opacity: 0;
+        display:inline-block;
+      }
+      .logo img{
+        width: 85px;
+      }
+      #menu-icon{
+        display: block;
+    }
+    .navbar{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 1rem 3%;
+        background: var(--bg-color);
+        border-top: .1rem solid rgba(0, 0, 0, 2);
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 2);
+        display: none;
+    }
+    .navbar.active {
+        display: block;
+
+    }
+
+    .navbar a {
+        display: block;
+        font-size: 1.3rem;
+    }
+    .navbar a.active{
+        display: block;
+        font-size: 1.4rem;
+        padding: 1rem 3%;
+        
+    }
+    .bgBtnCreatProject button{
+        margin-right: 7vw;
+
+    }
+    .serchBackground input{
+        width: 50vw;
+    }
+
+    .inpts_produit{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        
+    }
+    select{
+        width: 100%;
+        padding: .7rem;
+        border-radius: 5px; 
+        border: 1px solid #ccc;
+    }
+
+
+}
+

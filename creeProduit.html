@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIRA</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
+    
+</head>
+<body>
+    <header class="header">
+        <a href="#" class="logo"><img src="img/mira logoblack.png" alt=""></a>
+
+        <i class='bx bx-menu-alt-left' id="menu-icon"></i> 
+
+        <nav class="navbar" id="navbarid">
+            <button class="btn" id="retourner_au_home">Retourner</button>
+        </nav>
+    </header>
+
+    <section class="cree_un_projet">
+        <div class="cree_un_projet_admin_name">
+            <img src="img/mira logoblack.png" alt="" style="width: 50px;">
+            <h1>Bienvenue sur votre espace pour partager un nouveau produit à vendre.</h1>
+            <p id="nom_prenom_admin"></p>
+        </div>
+        <div class="informationproduitBG" id="informationproduitBG">
+                <form id="AjouterProduitForm" class="AjouterProduit">
+                    <br>
+                    <h3>Action :</h3>
+                    <select name="action" id="select_action">
+                        <option value="choisir" selected disabled>Choisir une action</option>
+                        <option value="ajouter">Ajouter</option>
+                        <option value="modifier">Modifier</option>
+                    </select>
+                    <br><br>
+                
+                    <!-- Explication pour l'utilisateur -->
+                    <h1>Informations pour trouver ou sauvegarder le produit</h1>
+                    <p>Vous devez fournir des informations pour identifier le produit ou le sauvegarder dans la base de données.</p>
+                
+                    <h3>Type :</h3>
+                    <select name="type_de_produit" id="typeproduit">
+                        <option value="type de produit">Type de produit</option>
+                    </select>
+                    <br><br>
+                    <h3>Collection :</h3>
+                    <p style="font-size: 11px;">ps : Pour afficher les collestion disponible il faut selectioner un type de produit</p>
+                    <select name="produitcollection" id="produitcollection">
+                        <option value="collection du produit">Collection du produit</option>
+                    </select>
+                    <br><br>
+                    <h3>Produit :</h3>
+                    <p style="font-size: 11px;">ps : Dans "Ation" choisir "Modifier" pour afficher cette option </p>
+
+                    <select name="produit" id="produitselect" style="display: none;">
+                        <option value="produit">Produit</option>
+                    </select>
+                    <br><br>
+                
+                    <!-- Explication pour l'utilisateur -->
+                    <h1>Informations générales du produit</h1>
+                    <p>Vous devez fournir des informations générales sur le produit, telles que le titre, le sous-titre et la description.</p>
+                
+                    <p>3/1/ Veuillez inclure les détails du titre et du sous-titre du produit</p>
+                    <div class="inpts_produit">
+                        <label for="Titre">Titre:</label>
+                        <input type="text" id="Titre" required>
+                    </div>
+                    <div class="inpts_produit">
+                        <label for="Soustitre">Sous-titre:</label>
+                        <input type="text" id="Soustitre" required>
+                   
+                    </div>
+                    <p>3/2/ Veuillez fournir une description qui identifie clairement le produit</p>
+                    <div class="inpts_produit">
+                        <label for="Description">Description :</label>
+                        <input type="text" id="Description" required>
+                    </div>
+                    <br>
+                
+                    <!-- Explication pour l'utilisateur -->
+                    <h1>Informations de vente</h1>
+                    <p>Vous devez fournir des informations sur le prix, les promotions et la quantité de stock disponible pour le produit.</p>
+                
+                    <p>4/1/ Veuillez fournir le prix du produit</p>
+                    <div class="inpts_produit">
+                        <label for="prix">Prix :</label>
+                        <input type="number" id="prix" required value="0">
+                    </div>
+                    <p>4/2/ Veuillez fournir le pourcentage de promotion (si vous ne voulez pas faire de promotion, laissez le pourcentage à 0%)</p>
+                    <div class="inpts_produit">
+                        <label for="promotion">Promotion % :</label>
+                        <input type="number" id="promotion" required value="0">
+                    </div>
+                    <p>4/3/ Veuillez fournir la quantité de ce produit dans votre stock</p>
+                    <div class="inpts_produit">
+                        <label for="quantiteproduit">Quantité :</label>
+                        <input type="number" id="quantiteproduit" required value="0">
+                    </div>
+                    <br>
+                    <h3>4/4/ Sélectionnez les couleurs disponibles dans votre stock</h3>
+                    <p>Veuillez choisir les couleurs disponibles pour ce produit en utilisant le sélecteur de couleur ci-dessous. Vous pouvez également ajouter plus de couleurs en cliquant sur le bouton "+".</p>
+                    <div id="inputs_add_inputs"></div>
+                    
+                    <div id="ajoutercouleurBg" class="btncolors">
+                        <button class="btn souvgarder" id="addcolor" style="width: 50px;margin-right: 5px;">+</button>
+                        <button class="btn supprimer" id="delectcolor" style="width: 50px; display: none;">-</button>
+                    </div>
+
+                    <br>
+                    
+
+                    
+                    <!-- Explication pour l'utilisateur -->
+                    <h1>Images de produit</h1>
+                    <p>Vous pouvez télécharger jusqu'à quatre images du produit.</p>
+
+                    <div class="imgbg">
+                        <div class="gallerybg" >
+                            <input type="file" id="fileInput1">
+                            <div class="gallery_" id="gallery1" style="display: none;">
+                                <div class ="imagge" id ="imagge1"></div>
+                            </div>
+                        </div>
+                        <div class="gallerybg">
+                            <input type="file" id="fileInput2">
+                            <div class="gallery_" id="gallery2" style="display: none;">
+                                <div class ="imagge" id ="imagge2"></div>
+                            </div>
+                        </div>
+                        <div class="gallerybg">
+                            <input type="file" id="fileInput3">
+                            <div class="gallery_" id="gallery3" style="display: none;">
+                                <div class ="imagge" id ="imagge3"></div>
+                            </div>
+                        </div>
+                        <div class="gallerybg">
+                            <input type="file" id="fileInput4">
+                            <div class="gallery_" id="gallery4" style="display: none;">
+                                <div class ="imagge" id ="imagge4"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                
+                    <!-- Explication pour l'utilisateur -->
+                    <h1>ID des produits similaires</h1>
+                    <p>Vous pouvez spécifier jusqu'à trois ID de produits similaires pour référence.</p>
+                
+                    <div class="inpts_produit">
+                        <label for="idproduitSimilaire1">ID 1 :</label>
+                        <input type="text" id="idproduitSimilaire1" required>
+                    </div>
+                    <div class="inpts_produit">
+                        <label for="idproduitSimilaire2">ID 2 :</label>
+                        <input type="text" id="idproduitSimilaire2" required>
+                    </div>
+                    <div class="inpts_produit">
+                        <label for="idproduitSimilaire3">ID 3 :</label>
+                        <input type="text" id="idproduitSimilaire3" required>
+                    </div>
+                    <br>
+                    <h1>Etape finele :</h1>
+                    <br>
+                
+                    <div class="btnss">
+                        <button class="btn souvgarder" id="btnn_save" type="submit" style="display: none;">
+                            <div id="originalpartager" style="display: block;">
+                                partager
+                            </div>
+                            <div class="cs-loader-inner" id="loaderpartager" style="display: none;">
+                                <label>	●</label>
+                                <label>	●</label>
+                                <label>	●</label>
+                                <label>	●</label>
+                            </div>
+                            <div id="Donepartager" style="display: none;">
+                                terminée
+                            </div>
+                        </button>
+                
+                        <button class="btn modifier" id="btnn_edit" type="submit" style="display: none;">
+                            <div id="originaledit" style="display: block;">
+                                modifier
+                            </div>
+                            <div class="cs-loader-inner" id="loaderedit" style="display: none;">
+                                <label>	●</label>
+                                <label>	●</label>
+                                <label>	●</label>
+                                <label>	●</label>
+                            </div>
+                            <div id="Doneedit" style="display: none;">
+                                terminée
+                            </div>
+                        </button>
+                    </div>
+                    <br><br>
+                    <p id="message_cree_produit"></p>
+                    <br><br>
+
+                </form>
+        </div>
+    </section>
+
+    <div class="activatoin_compt" id="wt">
+        <div class="indexpage" >
+            <img  src="img/mira logoblack.png" alt="">
+        </div>
+    </div>
+
+    <script src="creeProduit.js" type="module"></script>
+    
+</body>
+</html>
