@@ -286,34 +286,66 @@ produitcollection.addEventListener('change', async function () {
     }
 });
 
+
 produitselect.addEventListener('change', async function () {
     const selectedId3 = produitselect.value;
     const selectedId2 = produitcollection.value;
     const selectedId = typeproduit.value;
-
+    verifier_n_colors();
 
     try {
-        const querySnapshot = await getDocs(collection(db, 'items', selectedId, 'produits', selectedId2, 'produits'), selectedId3);
-        querySnapshot.forEach((doc) => {
-            const data = doc.data(); // Stocker les données du document dans une variable pour éviter de répéter doc.data()
-
+        const docRef = doc(db, 'items', selectedId, 'produits', selectedId2, 'produits', selectedId3);
+        const docSnap = await getDoc(docRef);
+        
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            console.log("data :", data);
             const Titreedit_ = data.Titre;
             const Sous_titre_ = data.Sous_titre;
             const Description_ = data.Description;
             const prix_ = data.prix;
             const promotion_ = data.promotion;
             const quantiteproduit_ = data.quantiteproduit;
-            const colors_in_stock_ = data.colors_in_stock;
-            const colors_number_ = data.colors_number;
-            const idproduitSimilaire_1 = data.idproduitSimilaire1;
-            const idproduitSimilaire_2 = data.idproduitSimilaire2;
-            const idproduitSimilaire_3 = data.idproduitSimilaire3;
+            const n_colors_in_stock_ = data.colors.length;
+            const colors_in_stock_ = data.colors;
+    
+            console.log("colors_in_stock_ :", colors_in_stock_);
+            const inputs_add_inputs = document.getElementById("inputs_add_inputs");
+            inputs_add_inputs.innerHTML="";
+
+            for(let nc=0 ; nc<n_colors_in_stock_ ;nc++){
+
+                const inputs_add_inputs = document.getElementById("inputs_add_inputs");
+                const add_colorbg_ = document.createElement("div");
+                add_colorbg_.classList.add("inpts_produit");
+                add_colorbg_.id="inpts_produit"+(nc+1);
+                const color_label = document.createElement("label");
+                color_label.textContent = "Couleur " + (nc+1) + ":";
+                const color_input = document.createElement("input");
+                color_input.type = "color";
+                color_input.id="color_input"+(nc+1);
+                color_input.value= colors_in_stock_[nc];
+                color_input.style.width = "50px";
+                color_input.style.height = "50px";
+                color_input.style.cursor = "pointer";
+                const br = document.createElement("br");
+        
+                add_colorbg_.appendChild(color_label);
+                add_colorbg_.appendChild(color_input);
+                add_colorbg_.appendChild(br);
+        
+                inputs_add_inputs.appendChild(add_colorbg_);
+
+            }
+    
+            const idproduitSimilaire_1 = data.idproduit_Similaire1;
+            const idproduitSimilaire_2 = data.idproduit_Similaire2;
+            const idproduitSimilaire_3 = data.idproduit_Similaire3;
             const downloadURL_1 = data.imageUrl_produit_1; 
             const downloadURL_2 = data.imageUrl_produit_2;
             const downloadURL_3 = data.imageUrl_produit_3;
             const downloadURL_4 = data.imageUrl_produit_4;
-
-
+    
             const Titre = document.getElementById("Titre");
             const Soustitre = document.getElementById("Soustitre");
             const Description = document.getElementById("Description");
@@ -323,30 +355,27 @@ produitselect.addEventListener('change', async function () {
             const idproduitSimilaire1 = document.getElementById("idproduitSimilaire1");
             const idproduitSimilaire2 = document.getElementById("idproduitSimilaire2");
             const idproduitSimilaire3 = document.getElementById("idproduitSimilaire3");
-
-            Titre.value=Titreedit_;
-            Soustitre.value=Sous_titre_;
-            Description.value=Description_;
-            prix.value=prix_;
-            promotion.value=promotion_;
-            quantiteproduit.value=quantiteproduit_;
-            idproduitSimilaire1.value=idproduitSimilaire_1;
-            idproduitSimilaire2.value=idproduitSimilaire_2;
-            idproduitSimilaire3.value=idproduitSimilaire_3;
-            console.log("data image 1 :", downloadURL_1);
-
-            // Récupérer les éléments de la galerie d'images
+    
+            Titre.value = Titreedit_;
+            Soustitre.value = Sous_titre_;
+            Description.value = Description_;
+            prix.value = prix_;
+            promotion.value = promotion_;
+            quantiteproduit.value = quantiteproduit_;
+            idproduitSimilaire1.value = idproduitSimilaire_1;
+            idproduitSimilaire2.value = idproduitSimilaire_2;
+            idproduitSimilaire3.value = idproduitSimilaire_3;
+    
             const gallery1 = document.getElementById('gallery1');
             const gallery2 = document.getElementById('gallery2');
             const gallery3 = document.getElementById('gallery3');
             const gallery4 = document.getElementById('gallery4');
-
+    
             const imagge1 = document.getElementById('imagge1');
             const imagge2 = document.getElementById('imagge2');
             const imagge3 = document.getElementById('imagge3');
             const imagge4 = document.getElementById('imagge4');
-
-            // Créer et ajouter les éléments img à chaque galerie
+    
             const imgElement1 = document.createElement('img');
             imgElement1.src = downloadURL_1;
             const imgElement2 = document.createElement('img');
@@ -355,8 +384,7 @@ produitselect.addEventListener('change', async function () {
             imgElement3.src = downloadURL_3;
             const imgElement4 = document.createElement('img');
             imgElement4.src = downloadURL_4;
-
-            // Afficher les galeries et mettre à jour les images
+    
             gallery1.style.display = "flex";
             imagge1.innerHTML = ''; 
             imagge1.appendChild(imgElement1);
@@ -370,51 +398,109 @@ produitselect.addEventListener('change', async function () {
             imagge4.innerHTML = ''; 
             imagge4.appendChild(imgElement4);
 
-
-            
-
-
-        });
+        }
     } catch (error) {
         console.error("Erreur lors de la récupération des données de la sous-collection :", error);
     }
+    
 
 
 });
 
+async function verifier_n_colors() {
+    const selectedId3 = produitselect.value;
+    const selectedId2 = produitcollection.value;
+    const selectedId = typeproduit.value;
+    let n_colors = 0; // Déclarer la variable n_colors ici
 
+    try {
+        const docRef = doc(db, 'items', selectedId, 'produits', selectedId2, 'produits', selectedId3);
+        const docSnap = await getDoc(docRef);
+        
+        if (docSnap.exists()) {
+            console.log("docSnap exists");
 
-document.addEventListener('DOMContentLoaded', function() {
+            const data = docSnap.data();
+            n_colors = data.colors.length;
+            const delectcolor = document.getElementById("delectcolor");
+            if(n_colors ===0){
+                delectcolor.style.display="none";
+            }
+            if(n_colors >0){
+                delectcolor.style.display="block";
+            }
+            console.log(" docSnap exists n_colors =" +n_colors);
+        }
+        else{
+            n_colors =0;
+            console.log("docSnap exists pas  n="+n_colors);
+        }
+
+    } catch (error) {
+        console.error('Une erreur s\'est produite :', error);
+    }
+
+    return n_colors; // Retourner la valeur de n_colors
+}
+
+document.addEventListener('DOMContentLoaded', async function() {
     const addcolor = document.getElementById("addcolor");
     const delectcolor = document.getElementById("delectcolor");
     let colors_in_stock = [];
-    let n_colors = 0;
-    
-    if(n_colors=0){
-        delectcolor.style.display="none"
-    }
-    if(n_colors>0){
-        delectcolor.style.display="flex"
-    }
+    let k = 0;
 
-    addcolor.addEventListener('click', function(event) {
+    addcolor.addEventListener('click', async function() {
+        let snapshot = await verifier_n_colors(); // Attendre la résolution de la promesse
+        console.log("snapshot n : " + snapshot);
+        let n_colors = 0;
+
+        n_colors = snapshot +k;
         n_colors++;
-        addColorInput();
-    });
-
-    delectcolor.addEventListener('click', function(event) {
+        console.log("vouveau n_colors = " + n_colors);
         if (n_colors > 0) {
-            const lastColor = document.getElementById("add_colorbg_" + n_colors);
-            lastColor.remove();
-            n_colors--;
+            delectcolor.style.display = "block";
         }
-
+        addColorInput(n_colors);
+    
+        k++;
+        console.log("k: " + k);
+        console.log("-----------------");
     });
+    
+    delectcolor.addEventListener('click', async function() {
+        let s = await verifier_n_colors(); // Attendre la résolution de la promesse
+        let n_colors = 0;
+        n_colors = s + k;
+        console.log("s: " + s);
+        console.log("k: " + k);
+        console.log("n_colors: " + n_colors);
+    
+        const id_delet_input = "inpts_produit" + n_colors;
+        const element_delet_input = document.getElementById(id_delet_input);
+        n_colors--;
+        console.log("id - = " + id_delet_input);
+    
+        if (n_colors === 0) {
+            delectcolor.style.display = "none";
+        }
+        const inputs_add_inputs = document.getElementById("inputs_add_inputs");
+        inputs_add_inputs.removeChild(element_delet_input);
+    
+        k--;
+        console.log("k: " + k);
+        console.log("-----------------");
+    });
+    
 
-    function addColorInput() {
+
+    async function addColorInput(n_colors) {
+        const id_delet_input = "inpts_produit" + n_colors;
+        console.log("id: " + id_delet_input);
+
         const inputs_add_inputs = document.getElementById("inputs_add_inputs");
         const add_colorbg_ = document.createElement("div");
         add_colorbg_.classList.add("inpts_produit");
+        add_colorbg_.id="inpts_produit"+n_colors;
         const color_label = document.createElement("label");
         color_label.textContent = "Couleur " + n_colors + ":";
         const color_input = document.createElement("input");
@@ -431,6 +517,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         inputs_add_inputs.appendChild(add_colorbg_);
     }
+
 
     btnn_save.addEventListener("click", async (e) => {
         e.preventDefault();
@@ -584,24 +671,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 informationproduitBG.style.borderLeft="2px solid red";
             }
         }
-        
-         
-           
-
-            
-
-    
-    
     });
-
-
-
-    
-
-
-
-
-
 
     function refreshPage() {
         window.location.reload(); 
@@ -609,6 +679,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     
 });
+
+
 
 
 
