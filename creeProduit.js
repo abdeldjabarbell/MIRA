@@ -76,6 +76,7 @@ const  Doneedit = document.getElementById("Doneedit");
 
 const  message_cree_produit = document.getElementById("message_cree_produit");
 
+const  p_image_modifier = document.getElementById("p_image_modifier");
 
 
 
@@ -160,12 +161,15 @@ select_action.addEventListener('change', async function(event) {
         btnn_save.style.display = "block";
         btnn_edit.style.display = "none";
         produitselect.style.display = "none";
+        p_image_modifier.style.display = "none";
 
     }
     else if (select_action.value === "modifier") {
         btnn_save.style.display = "none"; 
         btnn_edit.style.display = "block";
         produitselect.style.display = "block";
+        p_image_modifier.style.display = "block";
+
     }
 });
 
@@ -286,6 +290,7 @@ produitcollection.addEventListener('change', async function () {
     }
 });
 
+let k = 0;
 
 produitselect.addEventListener('change', async function () {
     const selectedId3 = produitselect.value;
@@ -398,6 +403,10 @@ produitselect.addEventListener('change', async function () {
             imagge4.innerHTML = ''; 
             imagge4.appendChild(imgElement4);
 
+            
+            k = 0;
+            return k;
+
         }
     } catch (error) {
         console.error("Erreur lors de la récupération des données de la sous-collection :", error);
@@ -447,7 +456,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const addcolor = document.getElementById("addcolor");
     const delectcolor = document.getElementById("delectcolor");
     let colors_in_stock = [];
-    let k = 0;
+    let Edit_colors_in_stock = [];
 
     addcolor.addEventListener('click', async function() {
         let snapshot = await verifier_n_colors(); // Attendre la résolution de la promesse
@@ -525,29 +534,35 @@ document.addEventListener('DOMContentLoaded', async function() {
         loaderpartager.style.display="block"
         const selec1 = typeproduit.value;
         const selec2 = produitcollection.value;
-        console.log( "select:"+selec1+";"+selec2+";");
+        let n_colors = 0;
+        let s = await verifier_n_colors(); // verifier nomber des coleur sur databse si lutilisatur import les donnees 
+        n_colors = s+k;
         if (n_colors > 0) {
             for (let i = 0; i < n_colors; i++) {
                 var inputid = "color_input" + (i + 1); 
                 var inputvalue = document.getElementById(inputid).value;
                 colors_in_stock.push(inputvalue);
             }
-            console.log(colors_in_stock);
-            if(selec2==="collection du produit"){
-                message_cree_produit.innerHTML="choisir une collection pour votre  produit";
-                message_cree_produit.style.color="red";
-                originalpartager.style.display="block"
-                loaderpartager.style.display="none"
-            }
-            else{
+            if (selec2 === "collection du produit" || selec2 === "Choisir une collection" || selec1 === "type de produit") {
+                message_cree_produit.innerHTML = "Assurez-vous que tous les champs ne sont pas vides.";
+                message_cree_produit.style.color = "red";
+                originalpartager.style.display = "block";
+                loaderpartager.style.display = "none";
+                const informationproduitBG = document.getElementById("informationproduitBG");
+                informationproduitBG.style.borderLeft="2px solid red";
+            } else {
                 uploadImage();
             }
+            
+            
 
         } else {
             message_cree_produit.innerHTML="Ajoutez une couleur";
             message_cree_produit.style.color="red";
             originalpartager.style.display="block"
             loaderpartager.style.display="none"
+            const informationproduitBG = document.getElementById("informationproduitBG");
+            informationproduitBG.style.borderLeft="2px solid red";
         }
          //------------- photos produits
          async function uploadImage() {
@@ -677,6 +692,175 @@ document.addEventListener('DOMContentLoaded', async function() {
         window.location.reload(); 
     }
 
+    btnn_edit.addEventListener("click", async (e) => {
+        e.preventDefault();
+        originaledit.style.display="none"
+        loaderedit.style.display="block"
+        const selec1 = typeproduit.value;
+        const selec2 = produitcollection.value;
+        const selec3 = produitselect.value;
+        let n_colors = 0;
+        let s = await verifier_n_colors(); // verifier nomber des coleur sur databse si lutilisatur import les donnees 
+        n_colors = s+k;
+        if (n_colors > 0) {
+            for (let i = 0; i < n_colors; i++) {
+                var inputid_edit = "color_input" + (i + 1); 
+                var inputvalue_edit = document.getElementById(inputid_edit).value;
+                Edit_colors_in_stock.push(inputvalue_edit);
+            }
+            if (selec3 === "Choisir un produit" || selec3 === "produit" || selec2 === "collection du produit" || selec2 === "Choisir une collection" || selec1 === "type de produit") {
+                message_cree_produit.innerHTML = "Confirmer que tous les champs ne sont pas vides";
+                message_cree_produit.style.color = "red";
+                originaledit.style.display = "block";
+                loaderedit.style.display = "none";
+                const informationproduitBG = document.getElementById("informationproduitBG");
+                informationproduitBG.style.borderLeft="2px solid red";
+            }
+            
+            else{
+                edit_operation();
+            }
+
+        } else {
+            message_cree_produit.innerHTML="Ajoutez une couleur";
+            message_cree_produit.style.color="red";
+            originaledit.style.display="block"
+            loaderedit.style.display="none"
+            const informationproduitBG = document.getElementById("informationproduitBG");
+            informationproduitBG.style.borderLeft="2px solid red";
+        }
+         async function edit_operation() {
+            message_cree_produit.innerHTML = "Modification de produit en cours...";
+            message_cree_produit.style.color = "green";
+        
+            const fileInput1 = document.getElementById('fileInput1');
+            const file1 = fileInput1.files[0];
+            const fileInput2 = document.getElementById('fileInput2');
+            const file2 = fileInput2.files[0];
+            const fileInput3 = document.getElementById('fileInput3');
+            const file3 = fileInput3.files[0];
+            const fileInput4 = document.getElementById('fileInput4');
+            const file4 = fileInput4.files[0];
+        
+            try {
+        
+                // Upload des images dans le stockage Firebase
+                const storageRef1 = ref(storage, 'images/' + file1.name);
+                await uploadBytes(storageRef1, file1);
+                const storageRef2 = ref(storage, 'images/' + file2.name);
+                await uploadBytes(storageRef2, file2);
+                const storageRef3 = ref(storage, 'images/' + file3.name);
+                await uploadBytes(storageRef3, file3);
+                const storageRef4 = ref(storage, 'images/' + file4.name);
+                await uploadBytes(storageRef4, file4);
+        
+                // Récupération des URLs de téléchargement des images
+                const downloadURL1 = await getDownloadURL(storageRef1);
+                const downloadURL2 = await getDownloadURL(storageRef2);
+                const downloadURL3 = await getDownloadURL(storageRef3);
+                const downloadURL4 = await getDownloadURL(storageRef4);
+                
+                // Récupération des valeurs des champs de formulaire
+                const Titre = document.getElementById("Titre").value;
+                const Soustitre = document.getElementById("Soustitre").value;
+                const Description = document.getElementById("Description").value;
+                const prix = parseFloat(document.getElementById("prix").value);
+                const promotion = parseFloat(document.getElementById("promotion").value);
+                const quantiteproduit = parseInt(document.getElementById("quantiteproduit").value);
+                const idproduitSimilaire1 = document.getElementById("idproduitSimilaire1").value;
+                const idproduitSimilaire2 = document.getElementById("idproduitSimilaire2").value;
+                const idproduitSimilaire3 = document.getElementById("idproduitSimilaire3").value;
+                
+
+                const docRef = doc(db, 'items', selec1, 'produits', selec2, 'produits', selec3);
+                const docSnapshot = await getDoc(docRef);
+                if (docSnapshot.exists()) {
+                    const newData = {
+                        Titre: Titre,
+                        Sous_titre: Soustitre,
+                        Description: Description,
+                        prix: prix,
+                        promotion: promotion,
+                        quantiteproduit: quantiteproduit,
+                        colors_number: n_colors,
+                        colors: colors_in_stock,
+                        idproduit_Similaire1: idproduitSimilaire1,
+                        idproduit_Similaire2: idproduitSimilaire2,
+                        idproduit_Similaire3: idproduitSimilaire3,
+                        imageUrl_produit_1: downloadURL1,
+                        imageUrl_produit_2: downloadURL2,
+                        imageUrl_produit_3: downloadURL3,
+                        imageUrl_produit_4: downloadURL4,
+                        timestamp: serverTimestamp()
+                    };
+                    await updateDoc(docRef, newData);
+                    message_cree_produit.innerHTML = 'Les données de l\'élément ont été mises à jour avec succès. 🛠️';
+                    message_cree_produit.style.color = "green";
+                    Doneedit.style.display = "block";
+                    loaderedit.style.display = "none";
+                    const informationproduitBG = document.getElementById("informationproduitBG");
+                    informationproduitBG.style.borderLeft="2px solid green";
+                    const user = auth.currentUser;
+                    if (user) {
+                        const userId = user.uid;
+                        const userRef = doc(db, "admins", userId);
+                        const docSnapshot = await getDoc(userRef);
+                        if (docSnapshot.exists()) {
+                            const nomAdm = docSnapshot.data().nom;
+                            const prenomAdm = docSnapshot.data().prenom;
+            
+                            const timestamp = serverTimestamp();
+                            const notificationsCollectionRef = collection(db, 'notifications'); // Référence à la collection de notifications
+                            const notificationData = {
+                                title_notif: "🛠️ Produit Modifié", 
+                                notification: "🛠️ Un produit a été modifié par l'administrateur " + prenomAdm + " " + nomAdm,
+                                timestamp: timestamp,
+                            };
+                            
+                            // Créer le numéro de notification
+                            const notifNumberRef = doc(db, "notifications", "notif_number");
+                            const notifSnapshot = await getDoc(notifNumberRef);
+                            if (notifSnapshot.exists()) {
+                                const numero = notifSnapshot.data().numero;
+                                const numeroprim = numero + 1;
+                                await updateDoc(notifNumberRef, {
+                                    numero: numeroprim
+                                });
+                            }
+                            
+                            await addDoc(notificationsCollectionRef, notificationData);
+    
+                        }
+                    }
+                    setTimeout(() => {
+                        refreshPage();
+                    }, 1500);
+
+                } else {
+                    message_cree_produit.innerHTML = 'L\'élément que vous essayez de mettre à jour n\'existe pas dans la base de données.';
+                    message_cree_produit.style.color = "red";
+                    Doneedit.style.display = "block";
+                    loaderedit.style.display = "none";
+                    const informationproduitBG = document.getElementById("informationproduitBG");
+                    informationproduitBG.style.borderLeft="2px solid red";
+                }
+
+            } catch (error) {
+                message_cree_produit.innerHTML = 'Erreur lors du partage du produit: ' + error.message;
+                message_cree_produit.style.color = "red";
+        
+                originaledit.style.display = "block";
+                loaderedit.style.display = "none";
+                Doneedit.style.display = "none";
+
+                const informationproduitBG = document.getElementById("informationproduitBG");
+                informationproduitBG.style.borderLeft="2px solid red";
+            }
+        }
+
+
+
+    });
     
 });
 
