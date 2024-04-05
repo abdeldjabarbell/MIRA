@@ -403,7 +403,7 @@ produitselect.addEventListener('change', async function () {
             imagge4.innerHTML = ''; 
             imagge4.appendChild(imgElement4);
 
-            
+
             k = 0;
             return k;
 
@@ -702,6 +702,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         let n_colors = 0;
         let s = await verifier_n_colors(); // verifier nomber des coleur sur databse si lutilisatur import les donnees 
         n_colors = s+k;
+
         if (n_colors > 0) {
             for (let i = 0; i < n_colors; i++) {
                 var inputid_edit = "color_input" + (i + 1); 
@@ -783,7 +784,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                         promotion: promotion,
                         quantiteproduit: quantiteproduit,
                         colors_number: n_colors,
-                        colors: colors_in_stock,
+                        colors: Edit_colors_in_stock,
                         idproduit_Similaire1: idproduitSimilaire1,
                         idproduit_Similaire2: idproduitSimilaire2,
                         idproduit_Similaire3: idproduitSimilaire3,
