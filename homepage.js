@@ -241,10 +241,28 @@ creat_project_btnn.addEventListener("click", async (e) => {
 
 
 
+const  anuller_modification_store = document.getElementById("anuller_modification_store");
+const  cree_stor_btn = document.getElementById("cree_stor_btn");
+const  cree_stor_in_mira_bg = document.getElementById("cree_stor_in_mira_bg");
+
+
+anuller_modification_store.addEventListener("click", async (e) => {
+    e.preventDefault();
+    cree_stor_in_mira_bg.style.display="none";
+
+});
+
+cree_stor_btn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    cree_stor_in_mira_bg.style.display="block";
+
+});
 
 const  fileInput1 = document.getElementById("fileInput1");
 const  gallery1 = document.getElementById("gallery1");
 const  imagge1 = document.getElementById("imagge1");
+
+
 
 //creat stor
 fileInput1.addEventListener('change', async function(event) {
