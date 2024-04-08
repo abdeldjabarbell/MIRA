@@ -824,6 +824,8 @@ select:focus {
     }
     .cree_stor_in_mira_bg{
       display: flex;
+      z-index: 150;
+      position: fixed;
       flex-direction: column;
       min-height: 100vh;
 
@@ -832,4 +834,3 @@ select:focus {
 
     
 }
-

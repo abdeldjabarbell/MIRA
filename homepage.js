@@ -377,7 +377,9 @@ button_partager_store.addEventListener("click", async (e) => {
 
             
             // Récupération des valeurs des champs de formulaire
-            const Nom_store = document.getElementById("Nom_store").value;
+            const Nom_store_ = document.getElementById("Nom_store").value;
+            const Nom_store = convertToLowerCase(Nom_store_);
+
 
 
              // Enregistrement des données dans Firestore
@@ -578,7 +580,9 @@ button_modifier_store.addEventListener("click", async (e) => {
 
 
 });
-
+function convertToLowerCase(text) {
+    return text.toLowerCase();
+}
 
 
 
@@ -599,7 +603,9 @@ querySnapshot.forEach((doc) => {
 });
 cree_une_collection_.addEventListener('change', async function () {
     const selectedId1 = cree_une_collection_.value;
-    const  Nom_collection = document.getElementById("Nom_collection");
+    const  Nom_collection_ = document.getElementById("Nom_collection");
+    const Nom_collection = convertToLowerCase(Nom_collection_);
+
     Nom_collection.value = "";
 
     // Effacer les options précédentes du troisième select
@@ -635,7 +641,9 @@ button_partager_store_collection.addEventListener("click", async (e) => {
         message_cree_collection_store_collection.innerHTML = "Opération de la creation du colletion en cours...";
         message_cree_collection_store_collection.style.color = "green";  
         try {
-            const Nom_collection = document.getElementById("Nom_collection").value;
+            const Nom_collection_ = document.getElementById("Nom_collection").value;
+            const Nom_collection = convertToLowerCase(Nom_collection_);
+
             const docRef = await setDoc(doc(db, 'items', selectedId1,'produits',Nom_collection), {
                  Nom_collection: Nom_collection,
                  timestamp: serverTimestamp()

@@ -1,3 +1,25 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js";
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-auth.js";
+import { getFirestore, doc,setDoc, getDoc,query, where , getDocs,updateDoc ,addDoc ,collection ,serverTimestamp} from "https://www.gstatic.com/firebasejs/9.6.5/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.6.5/firebase-storage.js';
+
+// Initialiser Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyDu_UWSfMLfSMO17f3zD_pFF6STW4ZIBPk",
+    authDomain: "mira-dz.firebaseapp.com",
+    projectId: "mira-dz",
+    storageBucket: "mira-dz.appspot.com",
+    messagingSenderId: "47453902449",
+    appId: "1:47453902449:web:f1f296c3700ace1ba86dd0",
+    measurementId: "G-DQTBCNNNHJ"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+
+
 const search_backround = document.getElementById('search_backround');
 const header = document.getElementById('header');
 
@@ -50,39 +72,77 @@ function closesuggedtionTab(){
 
 
 
-const stor_home = document.querySelector(".stor_home"); 
-const img = document.createElement('img');
-img.src = 'img/post_insta9.jpg'; 
-img.classList="img_stor_home"
-stor_home.appendChild(img);
-
-const stor_home_content= document.createElement("div");
-stor_home_content.classList="stor_home_content_classList"
-stor_home.appendChild(stor_home_content);
-
-const logo_mira_white_stor_ = document.createElement("img");
-logo_mira_white_stor_.classList="logo_mira_white_stor__classList";
-logo_mira_white_stor_.src = 'img/MIRA white.png';
-
-
-const title_stor_ = document.createElement("h1");
-title_stor_.classList="title_stor_classList";
-title_stor_.innerHTML="DECORATION";
-
-const button_stor_ = document.createElement("button");
-button_stor_.classList="custom-btn btn-mira"
-button_stor_.innerHTML="voire les produits";
-
-const button_stor_hover = document.createElement("div");
-button_stor_hover.classList="button_stor_hover_clas";
-button_stor_.appendChild(button_stor_hover);
 
 
 
+async function afficherDetailsMagasin(nomMagasin) {
+    const docRef = doc(db, 'items', nomMagasin);
+    const docSnap = await getDoc(docRef);
+    console.log("docSnap :", docSnap);
 
-stor_home_content.appendChild(logo_mira_white_stor_);
-stor_home_content.appendChild(title_stor_);
-stor_home_content.appendChild(button_stor_);
+    if (docSnap.exists()) {
+        const stor_home = document.querySelector(".stor_home");
+        const stor_content = document.querySelector(".stor_content_");
+        //----------------------------------------------------------
+        const data = docSnap.data();
+        const image_couverture = data.image_couverture;
+        const img = document.createElement('img');
+        img.src = image_couverture;
+        img.classList = "img_stor_home";
+        stor_home.appendChild(img);
+
+        const stor_home_content = document.createElement("div");
+        stor_home_content.classList = "stor_home_content_classList";
+        stor_home.appendChild(stor_home_content);
+
+        const logo_mira_white_stor_ = document.createElement("img");
+        logo_mira_white_stor_.classList = "logo_mira_white_stor__classList";
+        logo_mira_white_stor_.src = 'img/MIRA white.png';
+
+        const title_stor_ = document.createElement("h1");
+        title_stor_.classList = "title_stor_classList";
+        title_stor_.innerHTML = nomMagasin;
+
+        const button_stor_ = document.createElement("button");
+        button_stor_.classList = "custom-btn btn-mira";
+        button_stor_.innerHTML = "Voir les produits";
+
+        button_stor_.addEventListener("click", async (e) => {
+            const headerhight = header.offsetHeight;
+            const storhomeImgHight = stor_home.offsetHeight;
+            const storhomeImgscroll = storhomeImgHight - headerhight +10;
+            window.scrollTo({
+                top: storhomeImgscroll,
+                behavior: "smooth", // Pour un défilement fluide
+                duration: 2000 // Durée de la transition en millisecondes
+            });
+        });
+
+        const button_stor_hover = document.createElement("div");
+        button_stor_hover.classList = "button_stor_hover_clas";
+        button_stor_.appendChild(button_stor_hover);
+
+        stor_home_content.appendChild(logo_mira_white_stor_);
+        stor_home_content.appendChild(title_stor_);
+        stor_home_content.appendChild(button_stor_);
+        //---------------------------------------------------------
+        
+        const nn = document.querySelector(".stor_content_");
+
+
+
+
+
+
+    }
+    else {
+        console.log("error: Aucune donnée trouvée pour le magasin sélectionné : " + nomMagasin);
+    }
+}
+
+// Utilisation de la fonction pour afficher les détails du magasin "Femmes"
+const selected_store = "hahahahahah";
+afficherDetailsMagasin(selected_store);
 
 
 
@@ -116,6 +176,23 @@ function scrollFunction() {
         search_btn.style.color="white";
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ScrollReveal({ 
