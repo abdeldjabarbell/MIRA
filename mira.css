@@ -1,0 +1,331 @@
+*{
+    margin: 0;
+    padding: 0; 
+    box-sizing: border-box; 
+    text-decoration: none; 
+    border: none; 
+    outline: none; 
+    scroll-behavior: smooth; 
+    font-family: 'Poppins' , sans-serif;
+}
+:root{
+   --bg-color:#fcfcfc;
+   --second-bg-color:#bdbdbd;
+   --text-color:#000000;
+   --btn-color:#343434;
+   --btnHover-color:#0a0a0a;
+   --error-text: rgb(255, 65, 48);
+}
+html{
+   font-size: 62.5%;
+   overflow-x: hidden;
+}
+body{
+   background: var(--bg-color);
+   color: var(--text-color);
+}
+section{
+   min-height: 100vh;
+   padding: 10rem 9% 2rem;
+}
+ 
+.header{
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   padding: 10px 9%;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   z-index: 300;
+   background-color: transparent;
+}
+.header.sticky{
+   border-bottom: .1rem solid rgba(0, 0, 0, 2);
+}
+
+
+.logo img{
+height: 40px;    
+  }
+.logo:hover{
+   color: var(--main-color);
+   
+}
+
+header i{
+    font-size: 2.6rem;
+    padding-left: 15px;
+}
+
+
+
+/*
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+.navbar a{
+font-size: 1.3rem;
+color: var(--text-color);
+padding: 3px;
+justify-content: center;
+align-items: center;
+transition: 0.5s;
+}
+.navbar a:hover,
+.navbar a.active{
+    border-bottom: 2px solid #000000 ;
+}
+
+#menu-icon{
+     font-size: 3.6rem;
+     color: var(--text-color);
+     display: none;
+}
+*/
+
+
+
+
+.normal_nav{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.search_backround{
+    width: 100%;
+    height: 45px;
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: top 0.5s ease;
+}
+
+.search_backround input{
+    width: 80%;
+    border: 1px solid #5151517f;
+    border-radius: 6px;
+    height: 33px;
+    padding-left:10px ;
+}
+input:focus {
+    outline: none; 
+    box-shadow: 0 0 5px rgba(152, 152, 152, 0.5); 
+  }
+.button_search_confirm{
+    margin-left: 7px;
+    background-color: transparent;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+
+/*---------------------------------------------suggestion_background-----------------*/
+
+.suggestion_background{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: fixed;
+    z-index: 200;
+    background-color: #5f5f5f44;
+    backdrop-filter: blur(3px); /* Applique un flou à l'arrière-plan */
+    background-color: #57575783; /* Couleur de fond avec transparence */
+    -webkit-backdrop-filter: blur(3px); /* Préfixe pour Safari */
+    backdrop-filter: blur(3px); /* Prise en charge non préfixée */
+    padding: 66px 9% 2rem;
+    flex-direction: column;
+
+}
+.suggestion_{
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 .5rem 1rem #0a0a0a23;
+  }
+.cancel_suggestion_{
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+/*---------------------------------------------stor_home-----------------*/
+
+.stor_home{
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  box-shadow: 0 .5rem 1rem #0a0a0a23;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.img_stor_home{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: zoomAndMoveAnimation 10s infinite alternate; /* Animation automatique */
+}
+
+@keyframes zoomAndMoveAnimation {
+    0% {
+        transform: scale(1) translateX(0); /* Taille initiale et position initiale */
+    }
+    50% {
+        transform: scale(1.15) translateX(0); /* Zoom à 150% et déplacement vers la gauche de 20px */
+    }
+    100% {
+        transform: scale(1.15) translateX( -30px); /* Retour à la taille initiale et position initiale */
+    }
+}
+
+.stor_home_content_classList{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  padding: 5vw;
+}
+.logo_mira_white_stor__classList{
+  width: 170px;
+  margin: 20px;
+  transition-delay: calc(.1s *var(--i) );
+
+}
+
+.title_stor_classList{
+  display: flex;
+  color: #ffffff;
+  font-size: 5rem;
+  transition-delay: calc(.1s *var(--i) );
+
+}
+
+
+/* mira */
+.custom-btn {
+ width: 130px;
+  height: 40px;
+  color: white;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  color:white;
+  background:transparent;
+  font-size: 14px;
+  padding: 10px;
+  margin: 20px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: 0.4 ;
+  transition-delay: calc(.1s *var(--i) );
+}
+
+.btn-mira {
+  background: transparent;
+  border: 1px solid rgb(255, 255, 255);
+  z-index: 1;
+}
+.btn-mira:after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 0;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-color: white;
+  background-image: linear-gradient(315deg, white 0%, rgb(232, 232, 232) 74%);
+  box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
+              7px 7px 20px 0px rgba(0,0,0,.1),
+              4px 4px 5px 0px rgba(0,0,0,.1);
+  transition: all 0.3s ease;
+}
+
+.btn-mira:hover {
+  color: #000;
+  font-weight: 460;
+}
+.btn-mira:hover:after {
+  top: auto;
+  bottom: 0;
+  height: 100%;
+}
+.btn-mira:active {
+  top: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width:617px){
+  .stor_home{
+    width: 100vw;
+    height: 40vh;
+    background-color: transparent;
+    box-shadow: 0 .5rem 1rem #0a0a0a23;
+  }
+
+  .logo_mira_white_stor__classList{
+    width: 75px;
+    margin: 7px;
+  }
+  .button_stor_classList{
+    color:white;
+    background:transparent;
+    border: 1px solid white;
+    font-size: 12px;
+    padding: 9px;
+    margin: 10px;
+  
+  }
+  .title_stor_classList{
+    color: #fcfcfc;
+    font-size: 3rem;
+
+  }
+}
+
+
+
+
+
+
+
+
+
+

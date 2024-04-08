@@ -43,6 +43,7 @@
         <div class="bgBtnCreatProject">
             <div class="informationAdmin">
                 <h3 id="nom_prenom_admin">ADMIN MIRA</h3>
+                <a href="#" id="cree_stor_btn"> cree store</a>
             </div>
             <button class="btn" id="creat_project_btnn" style="background:rgb(255, 200, 0) ;color: black;">Créer +</button>
         </div>
@@ -58,8 +59,107 @@
 
 
 
+    <section class="cree_stor_in_mira_bg" id="cree_stor_in_mira_bg" style="display: flex;">
+        <div class="bg_creeStor">
+            <img src="img/mira logoblack.png" style="width: 70px;" alt="">
+            <br>
+            <h1>Espace de la Direction Générale des Stores</h1>
+            <p>Administration de MIRA</p>
+            <br>
+            <br>
+            <div class="ligne_cree_"></div>
+            <br>
+            <br>
+            <h1>Créer un Nouveau Store</h1>
+            <br>
+            <p>Créez un nouveau magasin et partagez de nouveaux produits</p>
+            <br>
+            <p id="p_clicker_ici_modifier"style="color: red; " >Si vous avez déjà un magasin et que vous souhaitez le modifier, <a href="#" id="clicker_ici_modifier">cliquez ici</a></p>
+            <p id="p_clicker_ici_creer" style="display: none;color: red;">Si vous n'avez pas de magasin et que vous souhaitez en créer un, <a href="#" id="clicker_ici_creer">cliquez ici</a></p>
+            <br>   
+            <div id="cree_une_collection_selctor" style="display: none;">
+                <h3>Sélectionner un magasin :</h3>
+                <select name="selectioner_un_sotore_stor" id="selectioner_un_sotore_stor">
+                    <option value="selectioner_un_sotore_stor" selected disabled>Sélectionner un magasin</option>
+                </select>
+                <br> 
+                <br>
+
+            </div>  
+      
+            <p>1/ Veuillez inclure les détails du Nom du Magasin</p>
+            <br>
+            <div class="inpts_produit" style="width: 80%;">
+                <label for="Nom_store">Nom du magasin :</label>
+                <input type="text" id="Nom_store" required>
+            </div>
+            <br>
+            <p>2/ Veuillez inclure la photo de couverture de votre magasin</p>
+            <br>
+            <div class="gallerybg" >
+                <input type="file" id="fileInput1">
+                <div class="gallery_" id="gallery1" style="display: none;">
+                    <div class ="imagge" id ="imagge1"></div>
+                </div>
+            </div>
+            <br>
+            <button class="btn souvgarder" id="button_partager_store">Partager le magasin</button>
+            <button class="btn modifier" id="button_modifier_store" style="display: none;">Modifier le magasin</button>
+            <br>
+            <p id="message_cree_store"></p>
+
+    
 
 
+            <br>
+            <br>
+            <div class="ligne_cree_"></div>
+            <br>
+            <br>
+
+
+
+
+
+            
+            <h1>Créer une Collection dans Votre Magasin</h1>
+            <br>
+            <p id="p_clicker_ici_modifier_collection"style="color: red;display: none;">Si vous avez déjà une collection et que vous souhaitez le modifier, <a href="#" id="clicker_ici_modifier_collection">cliquez ici</a></p>
+            <p id="p_clicker_ici_creer_collection" style="display: none;color: red;">Si vous n'avez pas de collection et que vous souhaitez en créer un, <a href="#" id="clicker_ici_creer_collection">cliquez ici</a></p>
+            <br> 
+            <p>Créez une nouvelle collection et partagez de nouveaux produits</p>
+            <br>
+            <h3>Sélectionner un magasin :</h3>
+            <select name="cree_une_collection_" id="cree_une_collection_">
+                <option value="cree_une_collection_" selected disabled>Sélectionner un magasin</option>
+            </select>
+            <br>
+            <div id="selectorcree_une_collection_selector" style="display: none;">
+                <h3>Sélectionner une collection :</h3>
+                <select name="cree_une_collection_modifier" id="cree_une_collection_modifier">
+                    <option value="cree_une_collection_modifier" selected disabled>Sélectionner une collection</option>
+                </select>
+                <br> 
+                <br>
+
+            </div>  
+            <p>1/ Veuillez inclure les détails du Nom de la Nouvelle Collection</p>
+            <br>
+            <div class="inpts_produit" style="width: 80%;">
+                <label for="Nom_collection">Nom de la collection :</label>
+                <input type="text" id="Nom_collection" required>
+            </div>
+            <br>
+            <button class="btn souvgarder" id="button_partager_store_collection">Partager la collection</button>
+            <button class="btn modifier" id="button_modifier_store_collection" style="display: none;">Modifier la collection</button>
+            <br>
+            <p id="message_cree_collection_store_collection"></p>
+
+
+    
+        </div>
+    </section>
+    
 
 
     <div class="activatoin_compt" id="activatoin_compt" style="display: none;">
