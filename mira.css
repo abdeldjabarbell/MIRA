@@ -354,6 +354,7 @@ input:focus {
  font-size: 12px;
  color: var(--btn-color);
  cursor: pointer;
+ white-space: nowrap;
 }
 .element_stors_dispo i{
   font-size: 12px;
@@ -371,6 +372,7 @@ input:focus {
   padding: 10px;
   justify-content: space-around;
   align-items: start;
+  flex-wrap: wrap;
 
 }
 
@@ -390,7 +392,6 @@ input:focus {
   display: flex;
   width: 220px;
   height: 220px;
-  background-color: #343434;
   overflow: hidden;
 
 }
@@ -428,15 +429,6 @@ input:focus {
 }
 
 
-@media (max-width:368px){
-  .items_dispo{
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
-
-  }
-}
 
 
 @media (max-width:617px){
@@ -486,6 +478,7 @@ input:focus {
     align-items: start;
     padding: 8px 10px ;
     margin-top: 10px;
+
   }
   .items_dispo{
     width: 100vw;
@@ -522,17 +515,18 @@ input:focus {
   .stors_dispo_content{
     display: flex;
     flex-direction: row;
-    width: 100%;
+    min-width: 100%;
     overflow-x: scroll;
   }
 
-
+  
 
 
   
 .bg_item{
   width: 160px;
   height: 210px;
+  overflow: hidden;
 }
 .bg_item_img{
   display: flex;
