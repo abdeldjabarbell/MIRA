@@ -300,8 +300,7 @@ input:focus {
 
 .stor_content_{
   width: 100vw;
-  height: 100vh;
-  background-color: #000;
+  min-height: 100vh;
   display: flex;
   flex-direction: row;
 }
@@ -354,6 +353,7 @@ input:focus {
   font-size: 14px;
   margin-bottom: 5px;
   font-weight: 400;
+  cursor: pointer;
 }
 .p_element_stors_dispo{
  font-size: 14px;
@@ -372,14 +372,13 @@ input:focus {
 /*-------------------------------------stor items content --------------------*/
 .items_dispo{
   width: 80vw;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #fefefe;
   display: flex;
   padding: 10px;
   justify-content: space-around;
   align-items: start;
   flex-wrap: wrap;
-
 }
 
 
@@ -406,6 +405,8 @@ input:focus {
   width: 220px;
   height: 220px;
   object-fit: cover; /* Utiliser object-fit: cover; pour remplacer display: cover; */
+  cursor: pointer;
+
 }
 .new_produit{
   display: flex;
@@ -414,8 +415,13 @@ input:focus {
   border-radius: 4px;
   background-color: #34343499;
   color: var(--bg-color);
-}
+  cursor: pointer;
 
+}
+.new_produit{
+  cursor: pointer;
+
+}
 .promotion_bar{
   display: flex;
   position: absolute;
@@ -424,16 +430,24 @@ input:focus {
   bottom: 0;
   background-color: yellow;
   color: black;
+  cursor: pointer;
+
+}
+.promotion_bar p{
+  cursor: pointer;
 }
 .bg_item_titre{
   width: 220px;
   height: 30px;
   font-size: 12px;
   padding: 4px;
+  cursor: pointer;
+
 
 }
 .p_bg_item_titre{
   font-size: 12px;
+  cursor: pointer;
 
 }
 .bg_item_prix{
@@ -444,15 +458,42 @@ input:focus {
  padding-bottom: 4px;
  padding-left: 4px;
  padding-right: 4px;
+ cursor: pointer;
+
 }
 .p_bg_item_prix_originale{
   font-size: 14px;
   font-weight: 500;
+  cursor: pointer;
+
 }
 .p_bg_item_prix_promotion{
   text-decoration: line-through;
+  cursor: pointer;
+
 }
 
+.bg_item_coleurs{
+  display: flex;
+  flex-direction: row;
+  height: 20px;
+  width: 220px;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-left: 4px;
+}
+.color_dispo{
+  width: 8px;
+  height: 8px;
+  display: block;
+  background-color: #ff6161;
+  border-radius: 5px;
+  margin-right: 3px;
+  border: 0.02px solid rgb(141, 141, 141);
+  cursor: pointer;
+
+}
 
 
 
@@ -494,7 +535,6 @@ input:focus {
     flex-direction: column;
     padding: 4px;
     height: auto;
-
   
   }
   .stors_dispo{
@@ -616,9 +656,9 @@ input:focus {
   width: 8px;
   height: 8px;
   display: block;
-  background-color: #000;
   border-radius: 5px;
   margin-right: 3px;
+  border: 0.05px solid rgba(130, 130, 130, 0.741);
 }
 
 

@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js";
 import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-auth.js";
-import { getFirestore, doc,setDoc, getDoc,query, where , getDocs,updateDoc ,addDoc ,collection ,serverTimestamp} from "https://www.gstatic.com/firebasejs/9.6.5/firebase-firestore.js";
+import { getFirestore, doc,setDoc, getDoc,query, limit,orderBy,startAt,endAt, where , getDocs,updateDoc ,addDoc ,collection ,serverTimestamp} from "https://www.gstatic.com/firebasejs/9.6.5/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.6.5/firebase-storage.js';
 
 // Initialiser Firebase
@@ -102,7 +102,8 @@ async function afficherDetailsMagasin(nomMagasin) {
 
         const title_stor_ = document.createElement("h1");
         title_stor_.classList = "title_stor_classList";
-        title_stor_.innerHTML = nomMagasin;
+        title_stor_.textContent = nomMagasin.toUpperCase();
+        
 
         const button_stor_ = document.createElement("button");
         button_stor_.classList = "custom-btn btn-mira";
@@ -144,13 +145,247 @@ async function afficherDetailsMagasin(nomMagasin) {
             stors_dispo_content_a.appendChild(stors_dispo_content_a_p);
             stors_dispo_content_a.appendChild(stors_dispo_content_a_i);
         });
+
+        // autre -------------------------------------------------
+        
     }
     else {
         console.log("error: Aucune donnée trouvée pour le magasin sélectionné : " + nomMagasin);
     }
+
+//----------------------------------------------------------------------------------
+let allTitresProduits = []; // Stocker les titres de produits localement
+
+async function fetchAllTitresProduits() {
+    const q_s = query(collection(db, 'items', nomMagasin, 'produits'));
+    const querySnapshot_s = await getDocs(q_s);
+    
+    allTitresProduits = [];
+    for (const doc of querySnapshot_s.docs) {
+        const q = query(collection(db, 'items', nomMagasin, 'produits', doc.id, 'produits'), orderBy("Titre"), limit(5));
+        const querySnapshot = await getDocs(q);
+        
+        querySnapshot.forEach((doc) => {
+            allTitresProduits.push({ id: doc.id, titre: doc.data().Titre });
+        });
+    }
+    
+    console.log("Tous les titres de produits ont été récupérés :", allTitresProduits);
+}
+
+async function afficherSuggestions(searchTerm) {
+    const suggestionsDiv = document.getElementById('suggestion_');
+    suggestionsDiv.innerHTML = ''; // Effacer les anciennes suggestions
+
+    if (!searchTerm) {
+        return; // Pas de suggestions si la recherche est vide
+    }
+
+    if (allTitresProduits.length === 0) {
+        await fetchAllTitresProduits();
+    }
+
+    const filteredSuggestions = allTitresProduits.filter(titre =>
+        titre.titre.toLowerCase().startsWith(searchTerm.toLowerCase())
+    ).slice(0, 5); // Limiter à 5 suggestions maximum
+
+    if (filteredSuggestions.length === 0) {
+        suggestionsDiv.innerHTML = '<p style="color: rgba(0, 0, 0, 0.342);">Aucune suggestion trouvée</p>';
+        return;
+    }
+
+    filteredSuggestions.forEach(titre => {
+        const suggestionDiv = document.createElement('div');
+        suggestionDiv.textContent = titre.titre;
+        suggestionDiv.classList.add('suggestion_');
+        suggestionDiv.addEventListener('click', () => {
+            document.getElementById('searchInput').value = titre.titre;
+            effectuerRecherche(titre.titre);
+        });
+        suggestionsDiv.appendChild(suggestionDiv);
+    });
+}
+
+        
+        
+        
+        function effectuerRecherche(recherche) {
+            // Filtrer la liste des achats
+            const articles = document.querySelectorAll('#items_dispo div');
+        
+            articles.forEach((article) => {
+                const titreElement = article.querySelector(".p_bg_item_titre");
+                
+                if (titreElement) {
+                    const nomProduit = titreElement.textContent.toLowerCase();
+                    console.log('textContent TITLE: ' + nomProduit);
+                    
+                    if (nomProduit.includes(recherche.toLowerCase())) {
+                        article.style.display = 'block';
+                    } else {
+                        article.style.display = 'none';
+                    }
+                } else {
+                    console.log("L'élément .p_bg_item_titre n'a pas été trouvé dans l'article :", article);
+                }
+            });
+        }
+        
+
+        
+
+
+        // Fonction pour afficher la liste des achats
+        async function afficherListeAchats() {
+            const searchInput = document.getElementById('searchInput');
+            try {
+
+                 // Référence au document dans Firestore
+                const stor_ref = await getDocs(collection(db, 'items', nomMagasin, 'produits'));
+                for (const doc of stor_ref.docs) {
+                        // Référence au document dans Firestore
+                       const docRef = await getDocs(collection(db, 'items', nomMagasin, 'produits',doc.id , 'produits'));
+                       // Afficher les documents
+                       docRef.forEach((doc) => {
+                        const data = doc.data();
+                    
+                        // Récupération des données
+                        const image_produit = data.imageUrl_produit_1;
+                        const time_produit = data.timestamp; // Conversion en objet Date
+
+                        const titre_de_produit = data.Titre;
+                        const prix_de_produit = data.prix;
+                        const promotion_produit = data.promotion;
+                        const colors_produit = data.colors;
+                        const n_colors_produit = data.colors_number;
+
+                    
+                        const items_dispo = document.querySelector(".items_dispo");
+                        const bg_item = document.createElement("div");
+                        bg_item.className = 'bg_item';
+                    
+                        const bg_item_img = document.createElement("div");
+                        bg_item_img.className = "bg_item_img";
+                        const img_produi = document.createElement("img");
+                        img_produi.src = image_produit;
+
+                        const time_produit_mj = new Date(time_produit.seconds * 1000);
+                        const dateNow = new Date();
+
+                        const differenceInMillis = Math.abs(time_produit_mj - dateNow); // Différence en millisecondes
+                        const differenceInDays = differenceInMillis / (1000 * 60 * 60 * 24); // Conversion en jours
+                          
+
+                        if (differenceInDays < 4) { 
+                            const new_produit = document.createElement("div");
+                            new_produit.className = "new_produit";
+                            const p_new_produit = document.createElement("p");
+                            p_new_produit.innerText = "Nouveau";
+                            new_produit.appendChild(p_new_produit);
+                            bg_item_img.appendChild(new_produit);
+                        }
+                    
+                        bg_item_img.appendChild(img_produi);
+                        bg_item.appendChild(bg_item_img);
+                    
+                        // Titre du produit
+                        const bg_item_titre = document.createElement("div");
+                        bg_item_titre.className = "bg_item_titre";
+                        const p_bg_item_titre = document.createElement("p");
+                        p_bg_item_titre.innerHTML = titre_de_produit;
+                        p_bg_item_titre.className="p_bg_item_titre";
+                        bg_item_titre.appendChild(p_bg_item_titre);
+                        bg_item.appendChild(bg_item_titre);
+                    
+                        // Prix du produit
+                        const bg_item_prix = document.createElement("div");
+                        bg_item_prix.className = "bg_item_prix";
+                    
+                        if (promotion_produit === 0) { // Pas de promotion
+                            const p_bg_item_prix_originale = document.createElement("p");
+                            p_bg_item_prix_originale.innerHTML = prix_de_produit;
+                            p_bg_item_prix_originale.className = "p_bg_item_prix_originale";
+
+                            bg_item_prix.appendChild(p_bg_item_prix_originale);
+                        } else { // Avec promotion
+                            const promotion_bar = document.createElement("div");
+                            promotion_bar.className = "promotion_bar";
+                            const p_promotion = document.createElement("p");
+                            p_promotion.innerHTML = "Promotion";
+                            promotion_bar.appendChild(p_promotion);
+                            bg_item_img.appendChild(promotion_bar);
+                    
+                            const nouveauPrix = prix_de_produit * (1 - promotion_produit / 100);
+                            const p_bg_item_prix_originale = document.createElement("p");
+                            p_bg_item_prix_originale.className = "p_bg_item_prix_originale";
+                            p_bg_item_prix_originale.innerHTML = nouveauPrix+"DA"; // Affichage avec deux décimales
+                            bg_item_prix.appendChild(p_bg_item_prix_originale);
+                            //ancien prix
+                            const p_bg_item_prix_promotion = document.createElement("p");
+                            p_bg_item_prix_promotion.innerHTML = prix_de_produit +"DA";
+                            p_bg_item_prix_promotion.className = "p_bg_item_prix_promotion";
+                            bg_item_prix.appendChild(p_bg_item_prix_promotion);
+
+                        }
+                    
+                        bg_item.appendChild(bg_item_prix);
+                    
+                        // Couleurs du produit
+                        const bg_item_coleurs = document.createElement("div");
+                        bg_item_coleurs.className = "bg_item_coleurs";
+                        for (let i = 0; i < n_colors_produit; i++) {
+                            const color_dispo = document.createElement("div");
+                            color_dispo.className = "color_dispo";
+                            color_dispo.style.backgroundColor = colors_produit[i];
+                            bg_item_coleurs.appendChild(color_dispo);
+                        }
+                        bg_item.appendChild(bg_item_coleurs);
+                        items_dispo.appendChild(bg_item);
+                    
+                        bg_item.addEventListener('click', () => {
+                            window.location.href = `test2.html?id=${doc.id}`; // Redirection vers la page du produit avec l'ID du produit
+                        });
+                    });
+                    
+                
+                }
+
+                // Écouter l'événement de saisie pour la recherche
+                searchInput.addEventListener('input', () => {
+                    const searchTerm = searchInput.value;
+                    afficherSuggestions(searchTerm);
+                    
+                });
+
+
+                button_search_confirm.addEventListener("click", async (e) => {
+                    e.preventDefault();
+                    const searchTerm = searchInput.value;
+                    effectuerRecherche(searchTerm);
+                });
+ 
+                
+                // Effacer les suggestions lorsque l'input est vide
+                searchInput.addEventListener('blur', () => {
+                    if (searchInput.value === '') {
+                        const suggestionsDiv = document.getElementById('suggestion_');
+                        suggestionsDiv.innerHTML = '';
+                    }
+                });
+                
+            } catch (error) {
+                console.error("Erreur lors de la récupération des documents:", error);
+            }
+        }
+        
+
+        // Appel de la fonction pour afficher la liste des achats lors du chargement de la page
+        window.onload = afficherListeAchats;
+
+        afficherListeAchats();
+
 }
 const selected_store = "hahahahahah";
-
 
 
 // Utilisation de la fonction pour afficher les détails du magasin "Femmes"
@@ -190,6 +425,8 @@ function scrollFunction() {
         search_btn.style.color="white";
     }
 }
+
+
 
 
 
