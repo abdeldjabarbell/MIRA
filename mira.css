@@ -327,7 +327,9 @@ input:focus {
 }
 .stors_dispo_content{
   width: 100%;
+  padding: 6px;
 }
+
 .element_stors_dispo{
   width: 100%;
   padding: 10px;
@@ -339,8 +341,10 @@ input:focus {
   align-items: center;
   transition: 0.3s;
   cursor: pointer;
+  margin-right: 5px;
 
 }
+
 .element_stors_dispo:hover{
   border: .3px solid var(--btn-color) ;
 }
@@ -361,6 +365,7 @@ input:focus {
   color: var(--btn-color);
   cursor: pointer;
 }
+
 
 
 /*-------------------------------------stor items content --------------------*/
@@ -486,9 +491,10 @@ input:focus {
     display: flex;
   }
   .h1store_dispo{
-    font-size: 12px;
+    font-size: 13px;
     margin-bottom: 5px;
     font-weight: 400;
+    padding-left: 5px;
   }
   .p_element_stors_dispo{
    font-size: 12px;
