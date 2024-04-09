@@ -29,6 +29,7 @@ const cancel_suggestion_ = document.getElementById('cancel_suggestion_');
 const suggestion_background = document.getElementById('suggestion_background');
 const button_search_confirm = document.getElementById('button_search_confirm');
 
+const menu_navbar = document.getElementById('menu_navbar');
 const nav_btn_ser = document.getElementById('nav_btn_ser');
 const user_nav = document.getElementById('user_nav');
 const logo_image = document.getElementById('logo_image');
@@ -126,22 +127,33 @@ async function afficherDetailsMagasin(nomMagasin) {
         stor_home_content.appendChild(title_stor_);
         stor_home_content.appendChild(button_stor_);
         //---------------------------------------------------------
+        const stors_dispo_content = document.querySelector(".stors_dispo_content");
+        const querySnapshot = await getDocs(collection(db, 'items', nomMagasin, 'produits'));
         
-        const nn = document.querySelector(".stor_content_");
-
-
-
-
-
-
+        querySnapshot.forEach((doc) => {
+            const Nom_store_ = doc.id; // Accès à l'ID du document
+            const stors_dispo_content_a = document.createElement('a');
+            stors_dispo_content_a.classList.add("element_stors_dispo");
+            const stors_dispo_content_a_p = document.createElement('p');
+            stors_dispo_content_a_p.classList.add("p_element_stors_dispo");
+            stors_dispo_content_a_p.textContent = Nom_store_; // Utilisation de textContent au lieu de innerHTML pour la sécurité
+            const stors_dispo_content_a_i = document.createElement('i');
+            stors_dispo_content_a_i.classList.add("bx", "bx-right-arrow-alt");
+        
+            stors_dispo_content.appendChild(stors_dispo_content_a);
+            stors_dispo_content_a.appendChild(stors_dispo_content_a_p);
+            stors_dispo_content_a.appendChild(stors_dispo_content_a_i);
+        });
     }
     else {
         console.log("error: Aucune donnée trouvée pour le magasin sélectionné : " + nomMagasin);
     }
 }
+const selected_store = "hahahahahah";
+
+
 
 // Utilisation de la fonction pour afficher les détails du magasin "Femmes"
-const selected_store = "hahahahahah";
 afficherDetailsMagasin(selected_store);
 
 
@@ -164,6 +176,7 @@ function scrollFunction() {
         header.style.boxShadow="0 .5rem 1rem #0a0a0a23";
         logo_image.style.opacity="1";
         user_nav.style.color="black";
+        menu_navbar.style.color="black";
         nav_btn_ser.style.color="black";
         search_btn.style.color="black";
     } else {
@@ -172,6 +185,7 @@ function scrollFunction() {
         header.style.transition=" 0.3s ease";
         logo_image.style.opacity="0";
         user_nav.style.color="white";
+        menu_navbar.style.color="white";
         nav_btn_ser.style.color="white";
         search_btn.style.color="white";
     }
