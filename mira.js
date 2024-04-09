@@ -173,7 +173,7 @@ function scrollFunction() {
     if (document.body.scrollTop > storhomeImgscroll || document.documentElement.scrollTop > storhomeImgscroll) {
         header.style.backgroundColor = "#fcfcfc";
         header.style.transition=" 0.3s ease";
-        header.style.boxShadow="0 .5rem 1rem #0a0a0a23";
+        header.style.boxShadow="0 .5rem 1rem #00000000";
         logo_image.style.opacity="1";
         user_nav.style.color="black";
         menu_navbar.style.color="black";
@@ -181,7 +181,7 @@ function scrollFunction() {
         search_btn.style.color="black";
     } else {
         header.style.backgroundColor = "transparent";
-        header.style.boxShadow="0 .5rem 1rem #0a0a0a00"
+        header.style.boxShadow="0 .5rem 1rem #00000000";
         header.style.transition=" 0.3s ease";
         logo_image.style.opacity="0";
         user_nav.style.color="white";
