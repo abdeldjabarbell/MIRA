@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transition de liste verticale lors du défilement</title>
+<style>
+  /* Styles pour la liste */
+  #ma-liste {
+    width: 200px;
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+</style>
+</head>
+<body>
+
+<div id="ma-liste">
+  <ul>
+    <li>Élément 1</li>
+    <li>Élément 2</li>
+    <li>Élément 3</li>
+    <li>Élément 4</li>
+    <li>Élément 5</li>
+    <li>Élément 6</li>
+    <li>Élément 7</li>
+    <li>Élément 8</li>
+    <li>Élément 9</li>
+    <li>Élément 10</li>
+  </ul>
+</div>
+
+<script>
+function transitionListOnScroll() {
+    const list = document.getElementById('ma-liste');
+
+    window.addEventListener('scroll', () => {
+        const listRect = list.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (listRect.top < windowHeight && listRect.bottom > 0) {
+            list.style.transition = 'transform 0.3s ease-in-out';
+            list.style.transform = `translateY(10px)`;
+
+            setTimeout(() => {
+                list.style.transform = 'translateY(0)';
+            }, 300);
+        }
+    });
+}
+
+transitionListOnScroll();
+</script>
+
+</body>
+</html>
