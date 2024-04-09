@@ -387,7 +387,7 @@ input:focus {
   display: flex;
   width: 220px;
   height: 280px;
-  background-color: #f6f6f6;
+  background-color: var(--bg-color);
   cursor: pointer;
   justify-content: center;
   align-items: center;
@@ -396,6 +396,7 @@ input:focus {
 }
 .bg_item_img{
   display: flex;
+  position: relative;
   width: 220px;
   height: 220px;
   overflow: hidden;
@@ -405,6 +406,24 @@ input:focus {
   width: 220px;
   height: 220px;
   object-fit: cover; /* Utiliser object-fit: cover; pour remplacer display: cover; */
+}
+.new_produit{
+  display: flex;
+  position: absolute;
+  padding: 4px;
+  border-radius: 4px;
+  background-color: #34343499;
+  color: var(--bg-color);
+}
+
+.promotion_bar{
+  display: flex;
+  position: absolute;
+  padding: 4px;
+  right: 0;
+  bottom: 0;
+  background-color: yellow;
+  color: black;
 }
 .bg_item_titre{
   width: 220px;
@@ -437,7 +456,8 @@ input:focus {
 
 
 
-@media (max-width:617px){
+
+@media screen and (max-width:600px){
   .stor_home{
     width: 100vw;
     height: 40vh;
@@ -463,7 +483,7 @@ input:focus {
     font-size: 3rem;
 
   }
-
+  
   .stor_content_{
     display: flex;
     flex-direction: column;
@@ -473,6 +493,8 @@ input:focus {
     display: flex;
     flex-direction: column;
     padding: 4px;
+    height: auto;
+
   
   }
   .stors_dispo{
@@ -572,11 +594,13 @@ input:focus {
  padding-bottom: 0px;
 }
 .p_bg_item_prix_originale{
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
 }
 .p_bg_item_prix_promotion{
   text-decoration: line-through;
+  font-size: 11px;
+  padding-left: 5px;
 }
 .bg_item_coleurs{
   display: flex;
@@ -589,12 +613,15 @@ input:focus {
   padding-left: 4px;
 }
 .color_dispo{
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   display: block;
   background-color: #000;
   border-radius: 5px;
+  margin-right: 3px;
 }
+
+
 
 
 }
