@@ -477,6 +477,7 @@ input:focus {
   }
   .stors_dispo{
     width: 100%;
+    height: auto;
     padding: 4px;
     display: flex;
     flex-direction: column;
@@ -531,8 +532,9 @@ input:focus {
   
 .bg_item{
   width: 175px;
-  height: 240px;
+  height: 260px;
   overflow: hidden;
+  margin-bottom: 2px;
 }
 .bg_item_img{
   display: flex;
@@ -541,8 +543,6 @@ input:focus {
   background-color: #343434;
   overflow: hidden;
   object-fit: cover; /* Utiliser object-fit: cover; pour remplacer display: cover; */
-
-
 }
 .bg_item_img img{
   width: 175px;
@@ -552,21 +552,24 @@ input:focus {
   width: 175px;
   height: 20px;
   font-size: 13px;
-  padding: 4px;
-
+  padding: 0;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding-left: 4px;
 }
 .p_bg_item_titre{
   font-size: 13px;
-
 }
 .bg_item_prix{
  display: flex;
  width: 175px;
+ height: 20px;
  flex-direction: row;
  justify-content: start;
- padding-bottom: 4px;
+ align-items: center;
  padding-left: 4px;
- padding-right: 4px;
+ padding-bottom: 0px;
 }
 .p_bg_item_prix_originale{
   font-size: 14px;
@@ -575,6 +578,24 @@ input:focus {
 .p_bg_item_prix_promotion{
   text-decoration: line-through;
 }
+.bg_item_coleurs{
+  display: flex;
+  flex-direction: row;
+  height: 20px;
+  width: 175px;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-left: 4px;
+}
+.color_dispo{
+  width: 10px;
+  height: 10px;
+  display: block;
+  background-color: #000;
+  border-radius: 5px;
+}
+
 
 }
 
