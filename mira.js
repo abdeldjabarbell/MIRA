@@ -127,6 +127,7 @@ async function afficherDetailsMagasin(nomMagasin) {
         stor_home_content.appendChild(logo_mira_white_stor_);
         stor_home_content.appendChild(title_stor_);
         stor_home_content.appendChild(button_stor_);
+
         //---------------------------------------------------------
         const stors_dispo_content = document.querySelector(".stors_dispo_content");
         const querySnapshot = await getDocs(collection(db, 'items', nomMagasin, 'produits'));
@@ -145,6 +146,10 @@ async function afficherDetailsMagasin(nomMagasin) {
             stors_dispo_content_a.appendChild(stors_dispo_content_a_p);
             stors_dispo_content_a.appendChild(stors_dispo_content_a_i);
         });
+
+        const h1store_dispo = document.getElementById("h1store_dispo");
+        h1store_dispo.innerHTML="Les collection disponible dans cette store : ";
+        
 
         // autre -------------------------------------------------
         
@@ -199,8 +204,11 @@ async function afficherSuggestions(searchTerm) {
         suggestionDiv.textContent = titre.titre;
         suggestionDiv.classList.add('suggestion_');
         suggestionDiv.addEventListener('click', () => {
+            
             document.getElementById('searchInput').value = titre.titre;
             effectuerRecherche(titre.titre);
+
+
         });
         suggestionsDiv.appendChild(suggestionDiv);
     });
@@ -245,6 +253,7 @@ async function afficherSuggestions(searchTerm) {
                 for (const doc of stor_ref.docs) {
                         // Référence au document dans Firestore
                        const docRef = await getDocs(collection(db, 'items', nomMagasin, 'produits',doc.id , 'produits'));
+                       const collection_produit = doc.id;
                        // Afficher les documents
                        docRef.forEach((doc) => {
                         const data = doc.data();
@@ -276,6 +285,7 @@ async function afficherSuggestions(searchTerm) {
                         const differenceInDays = differenceInMillis / (1000 * 60 * 60 * 24); // Conversion en jours
                           
 
+
                         if (differenceInDays < 4) { 
                             const new_produit = document.createElement("div");
                             new_produit.className = "new_produit";
@@ -287,6 +297,13 @@ async function afficherSuggestions(searchTerm) {
                     
                         bg_item_img.appendChild(img_produi);
                         bg_item.appendChild(bg_item_img);
+
+                        const colleection_name = document.createElement("div");
+                        colleection_name.className = "colleection_name";
+                        const p_colleection_name = document.createElement("p");
+                        p_colleection_name.innerText = collection_produit ;
+                        colleection_name.appendChild(p_colleection_name);
+                        bg_item_img.appendChild(colleection_name);
                     
                         // Titre du produit
                         const bg_item_titre = document.createElement("div");
@@ -343,8 +360,8 @@ async function afficherSuggestions(searchTerm) {
                         items_dispo.appendChild(bg_item);
                     
                         bg_item.addEventListener('click', () => {
-                            window.location.href = `test2.html?id=${doc.id}`; // Redirection vers la page du produit avec l'ID du produit
-                        });
+                            window.location.href = `test2.html?store=${nomMagasin}&collection_pr=${collection_produit}&id=${doc.id}`; // Redirection vers la page du produit avec l'ID du produit
+                        });                        
                     });
                     
                 
@@ -354,15 +371,11 @@ async function afficherSuggestions(searchTerm) {
                 searchInput.addEventListener('input', () => {
                     const searchTerm = searchInput.value;
                     afficherSuggestions(searchTerm);
+                    effectuerRecherche(searchTerm);
+
                     
                 });
 
-
-                button_search_confirm.addEventListener("click", async (e) => {
-                    e.preventDefault();
-                    const searchTerm = searchInput.value;
-                    effectuerRecherche(searchTerm);
-                });
  
                 
                 // Effacer les suggestions lorsque l'input est vide

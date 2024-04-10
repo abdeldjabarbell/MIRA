@@ -436,6 +436,22 @@ input:focus {
 .promotion_bar p{
   cursor: pointer;
 }
+
+.colleection_name{
+  display: flex;
+  position: absolute;
+  padding: 4px;
+  left: 0;
+  bottom: 0;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+}
+.colleection_name p{
+  cursor: pointer;
+  font-size: 9px;
+
+}
 .bg_item_titre{
   width: 220px;
   height: 30px;
@@ -581,6 +597,9 @@ input:focus {
     align-items: center;
     transition: 0.3s;
   }
+  .element_stors_dispo:hover{
+    border: .3px solid var(--btn-color) ;
+  }
   .stors_dispo_content{
     display: flex;
     flex-direction: row;
@@ -589,7 +608,7 @@ input:focus {
   }
 
   
-
+  
 
   
 .bg_item{
