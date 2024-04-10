@@ -320,7 +320,7 @@ async function afficherSuggestions(searchTerm) {
                     
                         if (promotion_produit === 0) { // Pas de promotion
                             const p_bg_item_prix_originale = document.createElement("p");
-                            p_bg_item_prix_originale.innerHTML = prix_de_produit;
+                            p_bg_item_prix_originale.innerHTML = prix_de_produit+"DA";
                             p_bg_item_prix_originale.className = "p_bg_item_prix_originale";
 
                             bg_item_prix.appendChild(p_bg_item_prix_originale);
