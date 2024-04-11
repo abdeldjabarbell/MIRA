@@ -128,6 +128,18 @@ async function afficherDetailsMagasin(nomMagasin) {
         stor_home_content.appendChild(title_stor_);
         stor_home_content.appendChild(button_stor_);
 
+        ScrollReveal({ 
+            reset: true ,
+            distance: '40px',
+            duration:1500,
+            delay:200,
+            interval: 200 // Pour animer les éléments l'un après l'autre
+        
+        });
+        
+        ScrollReveal().reveal('.logo_mira_white_stor__classList', { origin: 'top'});
+        ScrollReveal().reveal('.title_stor_classList', { origin: 'right'});
+        ScrollReveal().reveal('.custom-btn', { origin: 'bottom'});
         //---------------------------------------------------------
         const stors_dispo_content = document.querySelector(".stors_dispo_content");
         const querySnapshot = await getDocs(collection(db, 'items', nomMagasin, 'produits'));
@@ -415,6 +427,17 @@ async function afficherSuggestions(searchTerm) {
                         suggestionsDiv.innerHTML = '';
                     }
                 });
+
+                ScrollReveal({ 
+                    reset: true ,
+                    distance: '40px',
+                    duration:1500,
+                    delay:200,
+                    interval: 200 // Pour animer les éléments l'un après l'autre
+                
+                });
+                
+                ScrollReveal().reveal('.bg_item', { origin: 'top'});
                 
             } catch (error) {
                 console.error("Erreur lors de la récupération des documents:", error);
@@ -426,6 +449,9 @@ async function afficherSuggestions(searchTerm) {
         window.onload = afficherListeAchats;
 
         afficherListeAchats();
+        
+
+        
 
 }
 
@@ -488,18 +514,6 @@ function scrollFunction() {
 
 
 
-
-ScrollReveal({ 
-    reset: true ,
-    distance: '80px',
-    duration:2000,
-    delay:200
-});
-
-ScrollReveal().reveal('.logo_mira_white_stor__classList, .custom-btn btn-mira ', { origin: 'top'});
-ScrollReveal().reveal('.custom-btn ', { origin: 'bottom'});
-ScrollReveal().reveal('.title_stor_classList', { origin: 'left'});
-ScrollReveal().reveal('', { origin: 'right'});
 
 
 

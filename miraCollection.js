@@ -139,6 +139,20 @@ async function afficherDetailsMagasin(nomMagasin, nomColl) {
         stor_home_content.appendChild(title_stor_content);
         stor_home_content.appendChild(button_stor_);
 
+
+        ScrollReveal({ 
+            reset: true ,
+            distance: '40px',
+            duration:1500,
+            delay:200,
+            interval: 200 // Pour animer les éléments l'un après l'autre
+        
+        });
+        
+        ScrollReveal().reveal('.logo_mira_white_stor__classList', { origin: 'top'});
+        ScrollReveal().reveal('.title_stor_content', { origin: 'right'});
+        ScrollReveal().reveal('.custom-btn', { origin: 'bottom'});
+
         //---------------------------------------------------------
         const stors_dispo_content = document.querySelector(".stors_dispo_content");
         const querySnapshot = await getDocs(collection(db, 'items', nomMagasin, 'produits'));
@@ -446,6 +460,18 @@ async function afficherSuggestions(searchTerm) {
                         suggestionsDiv.innerHTML = '';
                     }
                 });
+
+
+                ScrollReveal({ 
+                    reset: true ,
+                    distance: '40px',
+                    duration:1500,
+                    delay:200,
+                    interval: 200 // Pour animer les éléments l'un après l'autre
+                
+                });
+                
+                ScrollReveal().reveal('.bg_item', { origin: 'top'});
                 
             } catch (error) {
                 console.error("Erreur lors de la récupération des documents:", error);
