@@ -218,6 +218,10 @@ input:focus {
   padding-bottom: 10px;
 
 }
+.title_stor_content{
+  display: flex;
+  flex-direction: row;
+}
 
 .title_stor_classList{
   display: flex;
@@ -226,7 +230,13 @@ input:focus {
   transition-delay: calc(.1s *var(--i) );
 
 }
+.P_title_stor_classList{
+  display: flex;
+  color: #ffffff;
+  font-size: 2rem;
+  transition-delay: calc(.1s *var(--i) );
 
+}
 
 /* mira */
 .custom-btn {
@@ -385,13 +395,18 @@ input:focus {
 .bg_item{
   display: flex;
   width: 220px;
-  height: 280px;
+  height: 290px;
   background-color: var(--bg-color);
   cursor: pointer;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   overflow: hidden;
+  border: 0.3px solid var(--bg-color);
+  transition: 0.5s;
+}
+.bg_item:hover{
+  border: 0.3px solid #343434a3;
 }
 .bg_item_img{
   display: flex;
@@ -418,7 +433,7 @@ input:focus {
   cursor: pointer;
 
 }
-.new_produit{
+.new_produit p{
   cursor: pointer;
 
 }
@@ -452,6 +467,23 @@ input:focus {
   font-size: 9px;
 
 }
+
+.limited_edition{
+  display: flex;
+  position: absolute;
+  padding: 4px;
+  right: 0;
+  top: 0;
+  border-radius: 4px;
+  background-color: rgb(255, 242, 242);
+  color: rgb(255, 0, 0);
+  cursor: pointer;
+
+}
+.limited_edition p{
+  cursor: pointer;
+}
+
 .bg_item_titre{
   width: 220px;
   height: 30px;
@@ -510,7 +542,17 @@ input:focus {
   cursor: pointer;
 
 }
-
+.suggestion_option{
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 .5rem 1rem #0a0a0a23;
+  transition: 0.3s;
+}
+.suggestion_option:hover{
+  background-color: #f3f3f3;
+  color: rgb(62, 62, 62);
+}
 
 
 
@@ -544,6 +586,7 @@ input:focus {
   .stor_content_{
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
   }
   .swotre_menus{
     width: 100%;

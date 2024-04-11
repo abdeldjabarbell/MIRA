@@ -76,7 +76,8 @@ function closesuggedtionTab(){
 
 
 
-async function afficherDetailsMagasin(nomMagasin) {
+async function afficherDetailsMagasin(nomMagasin, nomColl) {
+    console.log(nomMagasin+'/'+nomColl);
     const docRef = doc(db, 'items', nomMagasin);
     const docSnap = await getDoc(docRef);
     console.log("docSnap :", docSnap);
@@ -100,10 +101,20 @@ async function afficherDetailsMagasin(nomMagasin) {
         logo_mira_white_stor_.classList = "logo_mira_white_stor__classList";
         logo_mira_white_stor_.src = 'img/MIRA white.png';
 
+        const title_stor_content = document.createElement("div");
+        title_stor_content.classList = "title_stor_content";
+
         const title_stor_ = document.createElement("h1");
         title_stor_.classList = "title_stor_classList";
         title_stor_.textContent = nomMagasin.toUpperCase();
-        
+
+        const Ptitle_stor_ = document.createElement("p");
+        Ptitle_stor_.classList = "P_title_stor_classList";
+        Ptitle_stor_.textContent = "."+nomColl;
+
+        title_stor_content.appendChild(title_stor_);
+        title_stor_content.appendChild(Ptitle_stor_);
+
 
         const button_stor_ = document.createElement("button");
         button_stor_.classList = "custom-btn btn-mira";
@@ -125,30 +136,48 @@ async function afficherDetailsMagasin(nomMagasin) {
         button_stor_.appendChild(button_stor_hover);
 
         stor_home_content.appendChild(logo_mira_white_stor_);
-        stor_home_content.appendChild(title_stor_);
+        stor_home_content.appendChild(title_stor_content);
         stor_home_content.appendChild(button_stor_);
 
         //---------------------------------------------------------
         const stors_dispo_content = document.querySelector(".stors_dispo_content");
         const querySnapshot = await getDocs(collection(db, 'items', nomMagasin, 'produits'));
         
+        const stors_dispo_content_a = document.createElement('a');
+        stors_dispo_content_a.classList.add("element_stors_dispo");
+        const stors_dispo_content_a_p = document.createElement('p');
+        stors_dispo_content_a_p.classList.add("p_element_stors_dispo");
+        stors_dispo_content_a_p.textContent = "Tout" ; // Utilisation de textContent au lieu de innerHTML pour la sécurité
+        const stors_dispo_content_a_i = document.createElement('i');
+        stors_dispo_content_a_i.classList.add("bx", "bx-right-arrow-alt");
+
+        stors_dispo_content.appendChild(stors_dispo_content_a);
+        stors_dispo_content_a.appendChild(stors_dispo_content_a_p);
+        stors_dispo_content_a.appendChild(stors_dispo_content_a_i);
+
+        stors_dispo_content_a.addEventListener('click', () => {
+            window.location.href = `mira.html?store=${nomMagasin}`; // Redirection vers la page du produit avec l'ID du produit
+        }); 
+
+
         querySnapshot.forEach((doc) => {
             const Nom_store_ = doc.id; // Accès à l'ID du document
             const stors_dispo_content_a = document.createElement('a');
             stors_dispo_content_a.classList.add("element_stors_dispo");
             const stors_dispo_content_a_p = document.createElement('p');
             stors_dispo_content_a_p.classList.add("p_element_stors_dispo");
-            stors_dispo_content_a_p.textContent = Nom_store_; // Utilisation de textContent au lieu de innerHTML pour la sécurité
+            stors_dispo_content_a_p.textContent = Nom_store_ ; // Utilisation de textContent au lieu de innerHTML pour la sécurité
             const stors_dispo_content_a_i = document.createElement('i');
             stors_dispo_content_a_i.classList.add("bx", "bx-right-arrow-alt");
-        
+    
             stors_dispo_content.appendChild(stors_dispo_content_a);
             stors_dispo_content_a.appendChild(stors_dispo_content_a_p);
             stors_dispo_content_a.appendChild(stors_dispo_content_a_i);
 
             stors_dispo_content_a.addEventListener('click', () => {
                 window.location.href = `miraCollection.html?store=${nomMagasin}&collection_pr=${Nom_store_}`; // Redirection vers la page du produit avec l'ID du produit
-            }); 
+            });
+
         });
 
         const h1store_dispo = document.getElementById("h1store_dispo");
@@ -166,20 +195,13 @@ async function afficherDetailsMagasin(nomMagasin) {
 let allTitresProduits = []; // Stocker les titres de produits localement
 
 async function fetchAllTitresProduits() {
-    const q_s = query(collection(db, 'items', nomMagasin, 'produits'));
-    const querySnapshot_s = await getDocs(q_s);
-    
-    allTitresProduits = [];
-    for (const doc of querySnapshot_s.docs) {
-        const q = query(collection(db, 'items', nomMagasin, 'produits', doc.id, 'produits'), orderBy("Titre"), limit(5));
+
+        const q = query(collection(db, 'items', nomMagasin, 'produits', nomColl, 'produits'), orderBy("Titre"), limit(5));
         const querySnapshot = await getDocs(q);
         
         querySnapshot.forEach((doc) => {
             allTitresProduits.push({ id: doc.id, titre: doc.data().Titre });
         });
-    }
-    
-    console.log("Tous les titres de produits ont été récupérés :", allTitresProduits);
 }
 
 async function afficherSuggestions(searchTerm) {
@@ -254,148 +276,157 @@ async function afficherSuggestions(searchTerm) {
             try {
 
                  // Référence au document dans Firestore
-                const stor_ref = await getDocs(collection(db, 'items', nomMagasin, 'produits'));
-                for (const doc of stor_ref.docs) {
 
                         // Référence au document dans Firestore
-                       const docRef = await getDocs(collection(db, 'items', nomMagasin, 'produits',doc.id , 'produits'));
-                       const collection_produit = doc.id;
-
-                       // Afficher les documents
-                       docRef.forEach((doc) => {
-                        const data = doc.data();
-                    
-                        // Récupération des données
-                        const image_produit = data.imageUrl_produit_1;
-                        const time_produit = data.timestamp; // Conversion en objet Date
-
-                        const titre_de_produit = data.Titre;
-                        const prix_de_produit = data.prix;
-                        const promotion_produit = data.promotion;
-                        const colors_produit = data.colors;
-                        const n_colors_produit = data.colors_number;
-                        const quantiteproduit = data.quantiteproduit;
-
-
+                        const docRef = await getDocs(collection(db, 'items', nomMagasin, 'produits',nomColl, 'produits'));
+                        const collection_produit = nomColl;
+                        let resultat_n =0;
+                        // Afficher les documents
+                        docRef.forEach((doc) => {
+                         const data = doc.data();
+                     
+                         // Récupération des données
+                         const image_produit = data.imageUrl_produit_1;
+                         const time_produit = data.timestamp; // Conversion en objet Date
+ 
+                         const titre_de_produit = data.Titre;
+                         const prix_de_produit = data.prix;
+                         const promotion_produit = data.promotion;
+                         const colors_produit = data.colors;
+                         const n_colors_produit = data.colors_number;
+                         const quantiteproduit = data.quantiteproduit;
+ 
+ 
+                         const items_dispo = document.querySelector(".items_dispo");
+                         const bg_item = document.createElement("div");
+                         bg_item.className = 'bg_item';
+                     
+                         const bg_item_img = document.createElement("div");
+                         bg_item_img.className = "bg_item_img";
+                         const img_produi = document.createElement("img");
+                         img_produi.src = image_produit;
+ 
+                         const time_produit_mj = new Date(time_produit.seconds * 1000);
+                         const dateNow = new Date();
+ 
+                         const differenceInMillis = Math.abs(time_produit_mj - dateNow); // Différence en millisecondes
+                         const differenceInDays = differenceInMillis / (1000 * 60 * 60 * 24); // Conversion en jours
+                           
+ 
+ 
+                         if (differenceInDays < 4) { 
+                             const new_produit = document.createElement("div");
+                             new_produit.className = "new_produit";
+                             const p_new_produit = document.createElement("p");
+                             p_new_produit.innerText = "Nouveau";
+                             new_produit.appendChild(p_new_produit);
+                             bg_item_img.appendChild(new_produit);
+                         }
+                         if (quantiteproduit > 0 && quantiteproduit < 10) { 
+                             const limited_edition = document.createElement("div");
+                             limited_edition.className = "limited_edition";
+                             const p_limited_edition = document.createElement("p");
+                             p_limited_edition.innerText = "Édition limitée : " + quantiteproduit;
+                             limited_edition.appendChild(p_limited_edition);
+                             bg_item_img.appendChild(limited_edition);
+ 
+                         } else if (quantiteproduit === 0) { 
+                             const limited_edition = document.createElement("div");
+                             limited_edition.className = "limited_edition";
+                             const p_limited_edition = document.createElement("p");
+                             p_limited_edition.innerText = "non disponible";
+                             limited_edition.appendChild(p_limited_edition);
+                             bg_item_img.appendChild(limited_edition);
+                         }
+                         
+ 
+ 
+                         
+                     
+                         bg_item_img.appendChild(img_produi);
+                         bg_item.appendChild(bg_item_img);
+ 
+                         const colleection_name = document.createElement("div");
+                         colleection_name.className = "colleection_name";
+                         const p_colleection_name = document.createElement("p");
+                         p_colleection_name.innerText = collection_produit ;
+                         colleection_name.appendChild(p_colleection_name);
+                         bg_item_img.appendChild(colleection_name);
+                     
+                         // Titre du produit
+                         const bg_item_titre = document.createElement("div");
+                         bg_item_titre.className = "bg_item_titre";
+                         const p_bg_item_titre = document.createElement("p");
+                         p_bg_item_titre.innerHTML = titre_de_produit;
+                         p_bg_item_titre.className="p_bg_item_titre";
+                         bg_item_titre.appendChild(p_bg_item_titre);
+                         bg_item.appendChild(bg_item_titre);
+                     
+                         // Prix du produit
+                         const bg_item_prix = document.createElement("div");
+                         bg_item_prix.className = "bg_item_prix";
+                     
+                         if (promotion_produit === 0) { // Pas de promotion
+                             const p_bg_item_prix_originale = document.createElement("p");
+                             p_bg_item_prix_originale.innerHTML = prix_de_produit+"DA";
+                             p_bg_item_prix_originale.className = "p_bg_item_prix_originale";
+ 
+                             bg_item_prix.appendChild(p_bg_item_prix_originale);
+                         } else { // Avec promotion
+                             const promotion_bar = document.createElement("div");
+                             promotion_bar.className = "promotion_bar";
+                             const p_promotion = document.createElement("p");
+                             p_promotion.innerHTML = "Promotion";
+                             promotion_bar.appendChild(p_promotion);
+                             bg_item_img.appendChild(promotion_bar);
+                     
+                             const nouveauPrix = prix_de_produit * (1 - promotion_produit / 100);
+                             const p_bg_item_prix_originale = document.createElement("p");
+                             p_bg_item_prix_originale.className = "p_bg_item_prix_originale";
+                             p_bg_item_prix_originale.innerHTML = nouveauPrix+"DA"; // Affichage avec deux décimales
+                             bg_item_prix.appendChild(p_bg_item_prix_originale);
+                             //ancien prix
+                             const p_bg_item_prix_promotion = document.createElement("p");
+                             p_bg_item_prix_promotion.innerHTML = prix_de_produit +"DA";
+                             p_bg_item_prix_promotion.className = "p_bg_item_prix_promotion";
+                             bg_item_prix.appendChild(p_bg_item_prix_promotion);
+ 
+                         }
+                     
+                         bg_item.appendChild(bg_item_prix);
+                     
+                         // Couleurs du produit
+                         const bg_item_coleurs = document.createElement("div");
+                         bg_item_coleurs.className = "bg_item_coleurs";
+                         for (let i = 0; i < n_colors_produit; i++) {
+                             const color_dispo = document.createElement("div");
+                             color_dispo.className = "color_dispo";
+                             color_dispo.style.backgroundColor = colors_produit[i];
+                             bg_item_coleurs.appendChild(color_dispo);
+                         }
+                         bg_item.appendChild(bg_item_coleurs);
+                         items_dispo.appendChild(bg_item);
+                     
+                         bg_item.addEventListener('click', () => {
+                             window.location.href = `test2.html?store=${nomMagasin}&collection_pr=${collection_produit}&id=${doc.id}`; // Redirection vers la page du produit avec l'ID du produit
+                         });    
+                         resultat_n++;
+                         return  resultat_n;                    
+                     });
+                     
+                 
+                 
+                     console.log("resultat_n"+resultat_n);
+                     if(resultat_n===0){
                         const items_dispo = document.querySelector(".items_dispo");
-                        const bg_item = document.createElement("div");
-                        bg_item.className = 'bg_item';
-                    
-                        const bg_item_img = document.createElement("div");
-                        bg_item_img.className = "bg_item_img";
-                        const img_produi = document.createElement("img");
-                        img_produi.src = image_produit;
 
-                        const time_produit_mj = new Date(time_produit.seconds * 1000);
-                        const dateNow = new Date();
-
-                        const differenceInMillis = Math.abs(time_produit_mj - dateNow); // Différence en millisecondes
-                        const differenceInDays = differenceInMillis / (1000 * 60 * 60 * 24); // Conversion en jours
-                          
-
-
-                        if (differenceInDays < 4) { 
-                            const new_produit = document.createElement("div");
-                            new_produit.className = "new_produit";
-                            const p_new_produit = document.createElement("p");
-                            p_new_produit.innerText = "Nouveau";
-                            new_produit.appendChild(p_new_produit);
-                            bg_item_img.appendChild(new_produit);
-                        }
-                        if (quantiteproduit > 0 && quantiteproduit < 10) { 
-                            const limited_edition = document.createElement("div");
-                            limited_edition.className = "limited_edition";
-                            const p_limited_edition = document.createElement("p");
-                            p_limited_edition.innerText = "Édition limitée : " + quantiteproduit;
-                            limited_edition.appendChild(p_limited_edition);
-                            bg_item_img.appendChild(limited_edition);
-
-                        } else if (quantiteproduit === 0) { 
-                            const limited_edition = document.createElement("div");
-                            limited_edition.className = "limited_edition";
-                            const p_limited_edition = document.createElement("p");
-                            p_limited_edition.innerText = "non disponible";
-                            limited_edition.appendChild(p_limited_edition);
-                            bg_item_img.appendChild(limited_edition);
-                        }
+                        const noneResulte = document.createElement("p");
+                        noneResulte.innerText = "non resultat disponible :/";
+                        noneResulte.style.color="red";
+                        items_dispo.appendChild(noneResulte);
                         
-
-
-                        
-                    
-                        bg_item_img.appendChild(img_produi);
-                        bg_item.appendChild(bg_item_img);
-
-                        const colleection_name = document.createElement("div");
-                        colleection_name.className = "colleection_name";
-                        const p_colleection_name = document.createElement("p");
-                        p_colleection_name.innerText = collection_produit ;
-                        colleection_name.appendChild(p_colleection_name);
-                        bg_item_img.appendChild(colleection_name);
-                    
-                        // Titre du produit
-                        const bg_item_titre = document.createElement("div");
-                        bg_item_titre.className = "bg_item_titre";
-                        const p_bg_item_titre = document.createElement("p");
-                        p_bg_item_titre.innerHTML = titre_de_produit;
-                        p_bg_item_titre.className="p_bg_item_titre";
-                        bg_item_titre.appendChild(p_bg_item_titre);
-                        bg_item.appendChild(bg_item_titre);
-                    
-                        // Prix du produit
-                        const bg_item_prix = document.createElement("div");
-                        bg_item_prix.className = "bg_item_prix";
-                    
-                        if (promotion_produit === 0) { // Pas de promotion
-                            const p_bg_item_prix_originale = document.createElement("p");
-                            p_bg_item_prix_originale.innerHTML = prix_de_produit+"DA";
-                            p_bg_item_prix_originale.className = "p_bg_item_prix_originale";
-
-                            bg_item_prix.appendChild(p_bg_item_prix_originale);
-                        } else { // Avec promotion
-                            const promotion_bar = document.createElement("div");
-                            promotion_bar.className = "promotion_bar";
-                            const p_promotion = document.createElement("p");
-                            p_promotion.innerHTML = "Promotion";
-                            promotion_bar.appendChild(p_promotion);
-                            bg_item_img.appendChild(promotion_bar);
-                    
-                            const nouveauPrix = prix_de_produit * (1 - promotion_produit / 100);
-                            const p_bg_item_prix_originale = document.createElement("p");
-                            p_bg_item_prix_originale.className = "p_bg_item_prix_originale";
-                            p_bg_item_prix_originale.innerHTML = nouveauPrix+"DA"; // Affichage avec deux décimales
-                            bg_item_prix.appendChild(p_bg_item_prix_originale);
-                            //ancien prix
-                            const p_bg_item_prix_promotion = document.createElement("p");
-                            p_bg_item_prix_promotion.innerHTML = prix_de_produit +"DA";
-                            p_bg_item_prix_promotion.className = "p_bg_item_prix_promotion";
-                            bg_item_prix.appendChild(p_bg_item_prix_promotion);
-
-                        }
-                    
-                        bg_item.appendChild(bg_item_prix);
-                    
-                        // Couleurs du produit
-                        const bg_item_coleurs = document.createElement("div");
-                        bg_item_coleurs.className = "bg_item_coleurs";
-                        for (let i = 0; i < n_colors_produit; i++) {
-                            const color_dispo = document.createElement("div");
-                            color_dispo.className = "color_dispo";
-                            color_dispo.style.backgroundColor = colors_produit[i];
-                            bg_item_coleurs.appendChild(color_dispo);
-                        }
-                        bg_item.appendChild(bg_item_coleurs);
-                        items_dispo.appendChild(bg_item);
-                    
-                        bg_item.addEventListener('click', () => {
-                            window.location.href = `test2.html?store=${nomMagasin}&collection_pr=${collection_produit}&id=${doc.id}`; // Redirection vers la page du produit avec l'ID du produit
-                        });                        
-                  
-                    });
-                    
-
-                }
-
+                     }
+ 
 
                 // Écouter l'événement de saisie pour la recherche
                 searchInput.addEventListener('input', () => {
@@ -431,8 +462,9 @@ async function afficherSuggestions(searchTerm) {
 
 const urlParams = new URLSearchParams(window.location.search);
 const selected_store = urlParams.get('store');
+const selected_coll = urlParams.get('collection_pr');
 // Utilisation de la fonction pour afficher les détails du magasin "Femmes"
-afficherDetailsMagasin(selected_store);
+afficherDetailsMagasin(selected_store,selected_coll);
 
 
 

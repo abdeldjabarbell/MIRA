@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIRA</title>
+    <link rel="stylesheet" href="mira.css">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<body>
+    <header class="header" id="header">
+        <form class="search_backround" id="search_backround">
+            <input type="text" placeholder="Rechercher..." id="searchInput">
+            <button class="button_search_confirm" id="button_search_confirm" type="submit"><i class='bx bx-search-alt-2' id="nav_btn_ser"  style=" transition: all 0.2s ease 0s;color: white;" ></i></button>
+        </form>
+        <div class="normal_nav" id="normal_nav">
+            <a href="#" class="logo"><img src="img/mira logoblack.png" alt="" id="logo_image" style="opacity: 0; transition: all 0.2s ease 0s;"></a>
+            <div class="btns_nav_bar">
+                <i class='bx bx-search-alt-2' id="search_btn" style=" transition: all 0.2s ease 0s;color: white;"></i>
+                <i class='bx bxs-user-plus' id="user_nav" style=" transition: all 0.2s ease 0s;color: white;"></i>
+                <i class='bx bx-menu-alt-right'id="menu_navbar" style=" transition: all 0.2s ease 0s;color: white;"></i>
+            </div>
+        </div>
+    </header>
+    <div class="suggestion_background" id="suggestion_background" style="display: none;opacity: 0;">
+        <div class="suggestion_" id="suggestion_">
+            <p style="color: rgba(0, 0, 0, 0.342);">// Entrez des termes de recherche pour voir les suggestions de produits</p>
+        </div>
+        <div class="cancel_suggestion_" id="cancel_suggestion_"></div>
+    </div>
+
+    <div class="stor_home" id="stor_home"></div>
+
+    <div class="stor_content_">
+        <div class="swotre_menus">  
+            <div class="stors_dispo">
+                <h1 class="h1store_dispo" id="h1store_dispo"></h1>
+                <div class="stors_dispo_content">
+                </div>
+            </div>
+        </div>
+        <div class="items_dispo" id="items_dispo"></div>
+    </div>
+
+
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    
+    <script type="module" src="miraCollection.js"></script>
+</body>
+</html>
