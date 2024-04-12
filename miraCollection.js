@@ -142,7 +142,7 @@ async function afficherDetailsMagasin(nomMagasin, nomColl) {
 
         ScrollReveal({ 
             reset: true ,
-            distance: '40px',
+            distance: '20px',
             duration:1500,
             delay:200,
             interval: 200 // Pour animer les éléments l'un après l'autre
@@ -164,6 +164,9 @@ async function afficherDetailsMagasin(nomMagasin, nomColl) {
         stors_dispo_content_a_p.textContent = "Tout" ; // Utilisation de textContent au lieu de innerHTML pour la sécurité
         const stors_dispo_content_a_i = document.createElement('i');
         stors_dispo_content_a_i.classList.add("bx", "bx-right-arrow-alt");
+        const opt = document.getElementById('opt');
+        opt.innerHTML=nomMagasin;
+
 
         stors_dispo_content.appendChild(stors_dispo_content_a);
         stors_dispo_content_a.appendChild(stors_dispo_content_a_p);
@@ -172,7 +175,7 @@ async function afficherDetailsMagasin(nomMagasin, nomColl) {
         stors_dispo_content_a.addEventListener('click', () => {
             window.location.href = `mira.html?store=${nomMagasin}`; // Redirection vers la page du produit avec l'ID du produit
         }); 
-
+        
 
         querySnapshot.forEach((doc) => {
             const Nom_store_ = doc.id; // Accès à l'ID du document
@@ -422,7 +425,7 @@ async function afficherSuggestions(searchTerm) {
                          items_dispo.appendChild(bg_item);
                      
                          bg_item.addEventListener('click', () => {
-                             window.location.href = `test2.html?store=${nomMagasin}&collection_pr=${collection_produit}&id=${doc.id}`; // Redirection vers la page du produit avec l'ID du produit
+                             window.location.href = `miraProduct.html?store=${nomMagasin}&collection_pr=${collection_produit}&id=${doc.id}`; // Redirection vers la page du produit avec l'ID du produit
                          });    
                          resultat_n++;
                          return  resultat_n;                    
@@ -464,7 +467,7 @@ async function afficherSuggestions(searchTerm) {
 
                 ScrollReveal({ 
                     reset: true ,
-                    distance: '40px',
+                    distance: '20px',
                     duration:1500,
                     delay:200,
                     interval: 200 // Pour animer les éléments l'un après l'autre
@@ -530,6 +533,13 @@ function scrollFunction() {
 
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    const returnButton = document.getElementById('retour');
+    returnButton.addEventListener('click', function() {
+        window.location.href = `mira.html?store=${nomMagasin}`; // Redirection vers la page du produit avec l'ID du produit
+    });
+});
+
 
 
 
@@ -558,7 +568,6 @@ ScrollReveal().reveal('.logo_mira_white_stor__classList, .custom-btn btn-mira ',
 ScrollReveal().reveal('.custom-btn ', { origin: 'bottom'});
 ScrollReveal().reveal('.title_stor_classList', { origin: 'left'});
 ScrollReveal().reveal('', { origin: 'right'});
-
 
 
 

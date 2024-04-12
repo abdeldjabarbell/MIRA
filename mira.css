@@ -391,7 +391,35 @@ input:focus {
   flex-wrap: wrap;
 }
 
-
+.btns_opt{
+  width: 100%;
+  padding: 0px 10px 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.btns_opt i{
+  font-size: 14px;
+  color: rgb(67, 67, 67);
+}
+.btns_opt a{
+  font-size: 14px;
+  color: rgb(67, 67, 67);
+  }  
+  .opt{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .retour{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
 .bg_item{
   display: flex;
   width: 220px;
@@ -553,6 +581,250 @@ input:focus {
   background-color: #f3f3f3;
   color: rgb(62, 62, 62);
 }
+/*-------------------------------------------------------------------------------*/
+.title_mira_home{
+  width: 100px;
+}
+.title_mira_home img{
+  width: 100px;
+  margin-bottom: 10px;
+}
+.homeMIRA{
+min-height: 100vh;
+ padding: 3rem 5% 3rem;
+ width: 100vw;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+flex-direction: column;
+}
+.stors_list{
+ width: 100%;
+ height: 100%;
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: space-around;
+
+}
+
+.br_store_element {
+  width: 350px;
+  height: 400px;
+  margin: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.br_store_element img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  position: relative;
+}
+
+.filter_store {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: #0000006f;
+}
+
+.title_store_home{
+  position: absolute;
+  color: white;
+  padding-bottom: 20px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+/*------------------------------------produit page ------------------*/
+
+.header_{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 9%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 300;
+  background-color: var(--bg-color);
+}
+.backgroundProdect_page{
+width: 100vw;
+min-height: 100vh;
+background-color: var(--bg-color);
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+}
+
+.produit_detailes{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: row;
+}
+
+.produitImage_bg{
+  width: 50vw;
+  height: 100%;
+  padding:3rem 3rem 3rem  ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.images_bgr{
+  width: 600px;
+  height: 500px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+}
+
+.image_collections{
+  width: 110px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.image_prinsipale img{
+  overflow: hidden;
+  height: 450px;
+  width: 450px;
+  object-fit: cover;
+  border-radius: 15px;
+
+}
+
+.imgPrdt{
+  width: 100px;
+  height: 100px;
+  display: flex;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: .4s;
+}
+.imgPrdt:hover{
+  border: 2px solid rgb(0, 0, 0);
+}
+.imgPrdt.acive{
+  width: 100px;
+  height: 100px;
+  display: flex;
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: .4s;
+}
+
+.imgPrdt img{
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}
+
+.produitDetailles_bg{
+  width: 50%;
+  background-color: var(--bg-color);
+  height: 100%;
+  padding:9% 3rem 3rem  ;
+}
+
+.produit_rat_sim{
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+}
+.title_all{
+  display: flex;
+  flex-direction: row;
+}
+.title_all h1{
+  font-size: 2rem;
+}
+span{
+  font-size: 2rem;
+  font-weight: 300;
+}
+.titre_of_page{
+  font-size: 14px;
+  padding: 5px 0;
+
+}
+.prixstyel{
+  font-size: 2rem;
+}
+.prixstyel_promo{
+  font-size: 1.3rem;
+  text-decoration: line-through;
+  color: red;
+}
+.stars_{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+.stars_ i{
+  font-size: 2.5rem;
+  color: gold;
+}
+.stars_ p{
+  font-size: 1.3rem;
+
+}
+.dicreptionstyel{
+  font-size: 12px;
+}
+.prix_prixpromo{
+  display: flex;
+  flex-direction: row;
+}
+
+
+.coulers_disponible_in_stoc_bg{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.color_d_i_s{
+  width: 20px;
+  height: 20px;
+  background-color: #000;
+  border: 2px solid rgb(106, 106, 106);
+  border-radius: 10px;
+  padding-left: 5px;
+}
+
+
 
 
 
@@ -724,8 +996,85 @@ input:focus {
 }
 
 
+  .stors_list{
+   width: 100%;
+   height: 100%;
+   display: flex;
+  }
+  
+  .br_store_element {
+    width: 300px;
+    height: 200px;
+    margin: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+  }
+  .produit_detailes{
+    flex-direction: column;
+    height: 100%;
+    width: 100vw;
+    padding-top: 13%;
 
+  }
+  .produitImage_bg{
+    display: flex;
+    height: 500px;
+    width: 100%;
+    padding: 0;
+  }
+  .produitDetailles_bg{
+    justify-content: start;
+    align-items: start;
+    padding: 0 3rem;
+    width: 100%;
+    height: 100%;
+  }
+  .images_bgr{
+    width: 100vw;
+    height: 100%;
+    padding: 9% 3rem;
+    flex-direction: column;
+  }
+  .image_prinsipale{
+    width: 350px;
+    height: 350px;
+  }
+  .image_prinsipale img{
+    width: 350px;
+    height: 350px;
+  }
+  
+  .backgroundProdect_page{
+    min-height: 100vh;
+  }
+  .image_collections{
+    flex-direction: row;
+    height: 100%;
+    width: 90vw;
+  }
+  .title_all h1{
+    font-size: 16px;
+  }
+  span{
+    font-size: 16px;
 
+  }
+  .imgPrdt{
+    width: 80px;
+    height: 80px;
+  }
+  .imgPrdt img{
+    width: 80px;
+    height: 80px;
+  }
+  .stars_ i{
+    font-size: 20px;
+  }
+  
 }
 
 

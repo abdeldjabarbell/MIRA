@@ -130,7 +130,7 @@ async function afficherDetailsMagasin(nomMagasin) {
 
         ScrollReveal({ 
             reset: true ,
-            distance: '40px',
+            distance: '20px',
             duration:1500,
             delay:200,
             interval: 200 // Pour animer les éléments l'un après l'autre
@@ -257,11 +257,11 @@ async function afficherSuggestions(searchTerm) {
         }
         
 
-        
-
 
         // Fonction pour afficher la liste des achats
         async function afficherListeAchats() {
+
+
             const searchInput = document.getElementById('searchInput');
             try {
 
@@ -400,8 +400,23 @@ async function afficherSuggestions(searchTerm) {
                         items_dispo.appendChild(bg_item);
                     
                         bg_item.addEventListener('click', () => {
-                            window.location.href = `test2.html?store=${nomMagasin}&collection_pr=${collection_produit}&id=${doc.id}`; // Redirection vers la page du produit avec l'ID du produit
-                        });                        
+                            window.location.href = `miraProduct.html?store=${nomMagasin}&collection_pr=${collection_produit}&id=${doc.id}`; // Redirection vers la page du produit avec l'ID du produit
+                        });  
+                        
+                        
+
+                        ScrollReveal({ 
+                            reset: true ,
+                            distance: '40px',
+                            duration:1500,
+                            delay:200,
+                            interval: 200 // Pour animer les éléments l'un après l'autre
+                        
+                        });
+                        
+                        ScrollReveal().reveal('.bg_item', { origin: 'top'});
+                        
+                
                   
                     });
                     
@@ -428,22 +443,11 @@ async function afficherSuggestions(searchTerm) {
                     }
                 });
 
-                ScrollReveal({ 
-                    reset: true ,
-                    distance: '40px',
-                    duration:1500,
-                    delay:200,
-                    interval: 200 // Pour animer les éléments l'un après l'autre
-                
-                });
-                
-                ScrollReveal().reveal('.bg_item', { origin: 'top'});
                 
             } catch (error) {
                 console.error("Erreur lors de la récupération des documents:", error);
             }
         }
-        
 
         // Appel de la fonction pour afficher la liste des achats lors du chargement de la page
         window.onload = afficherListeAchats;
@@ -457,6 +461,7 @@ async function afficherSuggestions(searchTerm) {
 
 const urlParams = new URLSearchParams(window.location.search);
 const selected_store = urlParams.get('store');
+
 // Utilisation de la fonction pour afficher les détails du magasin "Femmes"
 afficherDetailsMagasin(selected_store);
 
@@ -497,7 +502,13 @@ function scrollFunction() {
 
 
 
-
+document.addEventListener('DOMContentLoaded', function() {
+    const returnButton = document.getElementById('retour');
+    returnButton.addEventListener('click', function() {
+        window.location.href = `mira_stors.html?`; // Redirection vers la page du produit avec l'ID du produit
+        //window.history.back();
+    });
+});
 
 
 
