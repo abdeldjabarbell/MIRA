@@ -21,69 +21,64 @@ const firebaseConfig = {
 
 
 
+  document.addEventListener('DOMContentLoaded', async function() {
+    const storsList = document.querySelector('.stors_list');
 
-    document.addEventListener('DOMContentLoaded', async function() {
-        const storsList = document.querySelector('.stors_list');
-    
-        // Récupérer les données de Firebase
-        const querySnapshot = await getDocs(collection(db, 'items'));
-    
-        // Parcourir les données et créer des éléments HTML pour chaque élément
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            const NomStore = doc.id.toLowerCase();;
-            const NomStoreMAJ = NomStore.toUpperCase();
+    // Récupérer les données de Firebase
+    const querySnapshot = await getDocs(collection(db, 'items'));
 
-            const storeCouverture = data.image_couverture;
-    
-            const brStoreElement = document.createElement("div");
-            brStoreElement.className = "br_store_element";
-    
-            const storeElementImage = document.createElement("img");
-            storeElementImage.src = storeCouverture;
-    
-            const filterStore = document.createElement("div");
-            filterStore.className = "filter_store";
-    
-            const titleStoreHome = document.createElement("h1");
-            titleStoreHome.className = "title_store_home";
-            titleStoreHome.innerHTML = NomStoreMAJ;
-    
-            brStoreElement.appendChild(storeElementImage);
-            brStoreElement.appendChild(filterStore);
-            brStoreElement.appendChild(titleStoreHome);
-    
-            brStoreElement.addEventListener('click', () => {
-                window.location.href = `mira.html?store=${NomStore}`;
-            });
+    // Parcourir les données et créer des éléments HTML pour chaque élément
+    querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const NomStore = doc.id.toLowerCase();
+        const NomStoreMAJ = NomStore.toUpperCase();
 
-            const filterStores = document.querySelectorAll('.filter_store');
+        const storeCouverture = data.image_couverture;
 
-            filterStores.forEach(function(filterStore) {
-              const brStoreElementImg = filterStore.previousElementSibling; // Sélectionne l'image précédant l'élément .filter_store
-          
-              filterStore.addEventListener('mouseover', function() {
-                brStoreElementImg.style.transform = 'scale(1.2)';
-              });
-          
-              filterStore.addEventListener('mouseout', function() {
-                brStoreElementImg.style.transform = 'scale(1)';
-              });
-            });
-    
-            storsList.appendChild(brStoreElement);
+        const brStoreElement = document.createElement("div");
+        brStoreElement.className = "br_store_element";
+
+        const storeElementImage = document.createElement("img");
+        storeElementImage.src = storeCouverture;
+
+        const filterStore = document.createElement("div");
+        filterStore.className = "filter_store";
+
+        const titleStoreHome = document.createElement("h1");
+        titleStoreHome.className = "title_store_home";
+        titleStoreHome.innerHTML = NomStoreMAJ;
+
+        // Ajouter des événements de survol pour l'effet de zoom
+        brStoreElement.addEventListener('mouseover', function() {
+            storeElementImage.style.transform = 'scale(1.2)';
         });
-    
-        // Appliquer ScrollReveal après que les éléments de Firebase ont été ajoutés au DOM
-        ScrollReveal().reveal('.br_store_element', {
-            origin: 'top',
-            reset: true,
-            distance: '40px',
-            duration: 1500,
-            delay: 200,
-            interval: 200 // Pour animer les éléments l'un après l'autre
+
+        brStoreElement.addEventListener('mouseout', function() {
+            storeElementImage.style.transform = 'scale(1)';
         });
+
+        brStoreElement.appendChild(storeElementImage);
+        brStoreElement.appendChild(filterStore);
+        brStoreElement.appendChild(titleStoreHome);
+
+        brStoreElement.addEventListener('click', () => {
+            window.location.href = `mira.html?store=${NomStore}`;
+        });
+
+        // Ajout de l'élément brStoreElement à la liste des magasins
+        storsList.appendChild(brStoreElement);
     });
+
+    // Appliquer ScrollReveal après que les éléments de Firebase ont été ajoutés au DOM
+    ScrollReveal().reveal('.br_store_element', {
+        origin: 'top',
+        reset: true,
+        distance: '40px',
+        duration: 1500,
+        delay: 200,
+        interval: 200 // Pour animer les éléments l'un après l'autre
+    });
+});
 
 
 

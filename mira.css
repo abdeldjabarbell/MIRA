@@ -719,7 +719,15 @@ flex-direction: column;
   border-radius: 15px;
 
 }
-
+.retour{
+  cursor: pointer;
+}
+.retour i{
+  cursor: pointer;
+}
+.retour p{
+  cursor: pointer;
+}
 .imgPrdt{
   width: 100px;
   height: 100px;

@@ -502,13 +502,11 @@ function scrollFunction() {
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
     const returnButton = document.getElementById('retour');
     returnButton.addEventListener('click', function() {
         window.location.href = `mira_stors.html?`; // Redirection vers la page du produit avec l'ID du produit
         //window.history.back();
     });
-});
 
 
 

@@ -297,7 +297,6 @@ async function afficherSuggestions(searchTerm) {
                         // Référence au document dans Firestore
                         const docRef = await getDocs(collection(db, 'items', nomMagasin, 'produits',nomColl, 'produits'));
                         const collection_produit = nomColl;
-                        let resultat_n =0;
                         // Afficher les documents
                         docRef.forEach((doc) => {
                          const data = doc.data();
@@ -427,23 +426,9 @@ async function afficherSuggestions(searchTerm) {
                          bg_item.addEventListener('click', () => {
                              window.location.href = `miraProduct.html?store=${nomMagasin}&collection_pr=${collection_produit}&id=${doc.id}`; // Redirection vers la page du produit avec l'ID du produit
                          });    
-                         resultat_n++;
-                         return  resultat_n;                    
+                  
                      });
                      
-                 
-                 
-                     console.log("resultat_n"+resultat_n);
-                     if(resultat_n===0){
-                        const items_dispo = document.querySelector(".items_dispo");
-
-                        const noneResulte = document.createElement("p");
-                        noneResulte.innerText = "non resultat disponible :/";
-                        noneResulte.style.color="red";
-                        items_dispo.appendChild(noneResulte);
-                        
-                     }
- 
 
                 // Écouter l'événement de saisie pour la recherche
                 searchInput.addEventListener('input', () => {
@@ -467,7 +452,7 @@ async function afficherSuggestions(searchTerm) {
 
                 ScrollReveal({ 
                     reset: true ,
-                    distance: '20px',
+                    distance: '10px',
                     duration:1500,
                     delay:200,
                     interval: 200 // Pour animer les éléments l'un après l'autre
