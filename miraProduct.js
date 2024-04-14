@@ -56,6 +56,8 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
         const id1 = detailsProduit.idproduit_Similaire1;
         const id2 = detailsProduit.idproduit_Similaire2;
         const id3 = detailsProduit.idproduit_Similaire3;
+        const id4 = detailsProduit.idproduit_Similaire4;
+
 
         const images = [image1, image2, image3, image4];
 
@@ -170,6 +172,7 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
         const priceOriginale = price;
         const pricePromoMoins = parseFloat((priceOriginale * (promotion / 100)).toFixed(2));
         const pricePromo = parseFloat((priceOriginale - pricePromoMoins).toFixed(2));
+
         const acheter_btn1 = document.getElementById('acheter_btn1');
         if(promotion>0){
             const prixstyel = document.createElement('p');
@@ -181,7 +184,7 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
             prixstyel_promo.className="prixstyel_promo";
             prixstyel_promo.innerHTML= priceOriginale+"DA";
             prix_prixpromo.appendChild(prixstyel_promo);
-            acheter_btn1.innerHTML=pricePromo+ " DA";
+            acheter_btn1.innerHTML= "Acheter: "+pricePromo+ "DA";
         }
         if(promotion===0){
             const prixstyel = document.createElement('p');
@@ -191,7 +194,7 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
             acheter_btn1.innerHTML=priceOriginale+ " DA";
 
         }
-
+        
         
         produitDetailles_bg.appendChild(prix_prixpromo);
 
@@ -216,7 +219,33 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
         
         produitDetailles_bg.appendChild(coulers_disponible_in_stoc_bg);
 
+        const titre_of_page4 = document.createElement('h1');
+        titre_of_page4.className="titre_of_page";
+        titre_of_page4.innerHTML="La disponibilité : ";
+        produitDetailles_bg.appendChild(titre_of_page4);
+
+        const disponibilite_ = document.createElement('p');
+        disponibilite_.className = "dicreptionstyel";
+
         
+        if (quantiteproduit === 0) {
+            disponibilite_.innerHTML = "Non disponible";
+            disponibilite_.style.color = "red";
+
+            acheter_btn1.style.color=" rgba(115, 115, 114, 0.709)";  
+            acheter_btn1.style.border="1px solid  rgba(115, 115, 114, 0.709)";
+            acheter_btn1.disabled = false;
+
+        } else if (quantiteproduit < 10 && quantiteproduit > 0) {
+            disponibilite_.innerHTML = "Limité : " + quantiteproduit;
+            disponibilite_.style.color = "red";
+        } else {
+            disponibilite_.innerHTML = "Disponible";
+            disponibilite_.style.color = "green";
+        }
+        
+        produitDetailles_bg.appendChild(disponibilite_);
+
 
         const titre_of_page3 = document.createElement('h1');
         titre_of_page3.className="titre_of_page";
@@ -258,9 +287,9 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
             const pElement = document.querySelector('.dicreptionstyel');
             const text = pElement.textContent;
 
-            if (text.length > 70) {
-                const shortenedText = text.substring(0, 70);
-                const remainingText = text.substring(70);
+            if (text.length > 300) {
+                const shortenedText = text.substring(0, 300);
+                const remainingText = text.substring(300);
 
                 pElement.innerHTML = shortenedText + '<span id="remainingText" style="display: none;">' + remainingText + '</span>';
 
@@ -282,32 +311,6 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
         }
         showMore();
 
-        const titre_of_page4 = document.createElement('h1');
-        titre_of_page4.className="titre_of_page";
-        titre_of_page4.innerHTML="La disponibilité : ";
-        produitDetailles_bg.appendChild(titre_of_page4);
-
-        const disponibilite_ = document.createElement('p');
-        disponibilite_.className = "dicreptionstyel";
-
-        
-        if (quantiteproduit === 0) {
-            disponibilite_.innerHTML = "Non disponible";
-            disponibilite_.style.color = "red";
-
-            acheter_btn1.style.color=" rgba(115, 115, 114, 0.709)";  
-            acheter_btn1.style.border="1px solid  rgba(115, 115, 114, 0.709)";
-            acheter_btn1.disabled = false;
-
-        } else if (quantiteproduit < 10 && quantiteproduit > 0) {
-            disponibilite_.innerHTML = "Limité : " + quantiteproduit;
-            disponibilite_.style.color = "red";
-        } else {
-            disponibilite_.innerHTML = "Disponible";
-            disponibilite_.style.color = "green";
-        }
-        
-        produitDetailles_bg.appendChild(disponibilite_);
 
         const titre_of_page5 = document.createElement('h1');
         titre_of_page5.className="titre_of_page";
@@ -315,12 +318,12 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
         produitDetailles_bg.appendChild(titre_of_page5);
 
 
-        const prdct_simlr = [id1,id2,id3];
+        const prdct_simlr = [id1,id2,id3,id4];
 
-        for(let p=0 ; p<3;p++){
+        for(let p=0 ; p<4;p++){
             const docRef = doc(db, 'items', storeName, 'produits', collect_p, 'produits', prdct_simlr[p]);
             const collection_produit = collect_p;
-
+            
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 
@@ -451,17 +454,200 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
                 bg_item.addEventListener('click', () => {
                     // Redirection vers la page du produit avec les paramètres nécessaires
                     window.location.href = `miraProduct.html?store=${storeName}&collection_pr=${collection_produit}&id=${prdct_simlr[p]}`;
-                });  
-         
-            
+                }); 
+
+
+
+
+
+
+
+                
             } else {
-                console.log("Aucun document trouvé avec cet ID de produit.");
+ 
+                const items_dispo = document.querySelector(".items_dispo");
+                 const message_prod_smilair = document.createElement("p");
+                 message_prod_smilair.style.color="red";
+                 message_prod_smilair.innerHTML="";
+                 message_prod_smilair.innerHTML="cest pas possible de telecharger d'autre produits similaires"
+                 items_dispo.appendChild(message_prod_smilair);
+
+                console.log("cest pas possible de telecharger d'autre produits similaires");
                 return null;
             }
         }
 
+         //facture ----------------------------------------------------------
+
+         const coleur_fa = document.getElementById("coleur_fa");
+         const nomeetprenom= document.getElementById("nomeetprenom");
+         const phone_n= document.getElementById("phone_n");
+         const Adresse_= document.getElementById("Adresse_");
+         const Total_facture= document.getElementById("Total_facture");
+         const QuantitéFac = document.getElementById("QuantitéFac");
+         const nomDeProduitFac= document.getElementById("nomDeProduitFac");
+         const produit_image_facture= document.getElementById("produit_image_facture");
+        
+        
+        const img_fa_ =document.createElement("img");
+        img_fa_.src= image1;
+        produit_image_facture.appendChild(img_fa_);
+        nomDeProduitFac.innerHTML=titre;
 
 
+         const select_your_color= document.getElementById("select_your_color");
+         const Nom_prenome = document.getElementById("Nom_prenome");
+         const numerotelephone= document.getElementById("numerotelephone");
+         const adressPersonelle= document.getElementById("adressPersonelle");
+         const EmailFacture= document.getElementById("EmailFacture");
+
+         const Quantite_de_produit_in = document.getElementById("Quantite_de_produit_in");
+         const moinsbutton_fa = document.getElementById("moinsbutton_fa");
+         const plusbutton_fa = document.getElementById("plusbutton_fa");
+
+         Total_facture.innerHTML="";
+         const n_p_demande = Quantite_de_produit_in.value         
+         if(promotion>0){
+             Total_facture.innerHTML= n_p_demande*pricePromo+"DA";
+ 
+         }
+         if(promotion===0){
+             Total_facture.innerHTML= n_p_demande*priceOriginale+"DA";
+ 
+         }
+         
+         moinsbutton_fa.addEventListener('click', function() {
+             let Quantite_de_produit_inval = parseInt(Quantite_de_produit_in.value);
+             if (Quantite_de_produit_inval > 1) {
+                 Quantite_de_produit_inval--;
+                 Quantite_de_produit_in.value = Quantite_de_produit_inval;
+                 QuantitéFac.innerHTML = Quantite_de_produit_in.value;
+
+                 Total_facture.innerHTML="";
+                 const n_p_demande = Quantite_de_produit_in.value         
+                 if(promotion>0){
+                     Total_facture.innerHTML= n_p_demande*pricePromo+"DA";
+         
+                 }
+                 if(promotion===0){
+                     Total_facture.innerHTML= n_p_demande*priceOriginale+"DA";
+         
+                 }
+
+             }
+         });
+         
+         plusbutton_fa.addEventListener('click', function() {
+             let Quantite_de_produit_inval = parseInt(Quantite_de_produit_in.value);
+             Quantite_de_produit_inval++;
+             Quantite_de_produit_in.value = Quantite_de_produit_inval;
+             QuantitéFac.innerHTML = Quantite_de_produit_in.value;
+
+             Total_facture.innerHTML="";
+             const n_p_demande = Quantite_de_produit_in.value         
+             if(promotion>0){
+                 Total_facture.innerHTML= n_p_demande*pricePromo+"DA";
+     
+             }
+             if(promotion===0){
+                 Total_facture.innerHTML= n_p_demande*priceOriginale+"DA";
+     
+             }
+
+         });
+         Quantite_de_produit_in.addEventListener('input', function() {
+            QuantitéFac.innerHTML = Quantite_de_produit_in.value;
+
+            Total_facture.innerHTML="";
+            const n_p_demande = Quantite_de_produit_in.value         
+            if(promotion>0){
+                Total_facture.innerHTML= n_p_demande*pricePromo+"DA";
+    
+            }
+            if(promotion===0){
+                Total_facture.innerHTML= n_p_demande*priceOriginale+"DA";
+    
+            }
+        });
+        let colorselected ="";
+
+        for (let c = 0; c < N__color; c++) {
+            const color_input = document.createElement("div");
+            color_input.className = "color_input";
+            color_input.style.backgroundColor = colors[c];
+            select_your_color.appendChild(color_input);
+        
+            color_input.addEventListener('click', function() {
+                coleur_fa.style.backgroundColor = colors[c];
+                colorselected = colors[c];
+                const allColorInputs = document.querySelectorAll(".color_input");
+                allColorInputs.forEach(input => input.classList.remove("active"));
+                color_input.classList.add("active");
+                console.log('color=' + colorselected);
+                return colorselected;
+            });
+        }
+
+        
+        
+        Nom_prenome.addEventListener('input', function() {
+            nomeetprenom.innerHTML = "";
+            nomeetprenom.innerHTML = Nom_prenome.value;
+        });
+        numerotelephone.addEventListener('input', function() {
+            phone_n.innerHTML = "";
+            phone_n.innerHTML = numerotelephone.value;
+        });
+
+        adressPersonelle.addEventListener('input', function() {
+            Adresse_.innerHTML = "";
+            Adresse_.innerHTML = adressPersonelle.value;
+        });
+
+
+        function checkInputs() {
+            const nomPrenomValue = nomeetprenom.value.trim();
+            const telephoneValue = numerotelephone.value.trim();
+            const adresseValue = adressPersonelle.value.trim();
+            const affichefacture_ = document.getElementById("affichefacture_");
+
+            if (nomPrenomValue !== "" && telephoneValue !== "" && adresseValue !== "" ) {
+                
+                affichefacture_.style.display = "block";
+            } else {
+                affichefacture_.style.display = "none";
+            }
+        }
+        Quantite_de_produit_in.addEventListener("input", checkInputs);
+        nomeetprenom.addEventListener("input", checkInputs);
+        numerotelephone.addEventListener("input", checkInputs);
+        adressPersonelle.addEventListener("input", checkInputs);
+    //<div class="inpts_produit" style="width: 100%;">
+    //    <label for="EmailFacture">Email</label>
+    //    <input type="email" id="EmailFacture" required>
+    //</div>
+    
+
+    const cree_stor_in_mira_bg = document.getElementById("cree_stor_in_mira_bg");
+    const anullerfacture_= document.getElementById("anullerfacture_");
+    const formulaire_d_achat= document.getElementById("formulaire_d_achat");
+
+    acheter_btn1.addEventListener('click', function() {
+        formulaire_d_achat.style.display = "flex";
+    });
+    
+    anullerfacture_.addEventListener('click', function() {
+        formulaire_d_achat.style.display = "none";
+    });
+    
+    
+
+
+
+
+
+        
+        
 
 
 

@@ -21,7 +21,7 @@
 <body>
     <header class="header_">
             <a href="#" class="logo"><img src="img/mira logoblack.png" alt="" id="logo_image"></a>      
-             <button class="custom-btn_ach acheter" id="acheter_btn1" style="width: 150px;">Acheter:3999.95DA
+             <button class="custom-btn_ach acheter" id="acheter_btn1" style="width: 150px;">Acheter:0DA
              </button>
     </header>
     <div class="backgroundProdect_page">
@@ -33,11 +33,104 @@
         </div>
 
         <div class="stor_content_">
-            <div class="items_dispo"></div>
+            <div class="items_dispo">
+                <p></p>
+            </div>
 
             <div class="commentaires_of_produit"></div>
         </div>
 
+    </div>
+
+
+    <div class="formulaire_d_achat" id="formulaire_d_achat">
+        <div class="formulaire_d_achat_remplir">
+
+            <div class="content_formulaire_d_achat">
+
+                <div class="la_facture_de_commend"> 
+                    <div class="titregenerage">
+                        <h1>FACTURE D'ACHAT</h1>
+                        <p>.mira</p>
+                    </div>
+                    <div class="imagesFacture">
+                        <div class="logofacture"><img src="img/mira logoblack.png" alt=""></div>
+                        <div class="produit_image_facture" id="produit_image_facture"></div>
+                    </div>
+                    <div class="info_produit_all">
+                        <div class="infoparticul">
+                            <h1 class="h1facture">Produit :</h1>
+                            <p class="h1facture" id="nomDeProduitFac">Nom du produit :</p>
+                        </div>
+                        <div class="infoparticul">
+                            <h1 class="h1facture" >Quantité :</h1>
+                            <p class="h1facture"id="QuantitéFac">1</p>
+                        </div>
+                        <div class="infoparticul" >
+                            <h1 class="h1facture" >Couleur :</h1>
+                            <div class="couleurFacteur" id="coleur_fa"></div>
+                        </div>
+                        <div class="infoparticul">
+                            <h1 class="h1facture" >Nom et Prénom :</h1>
+                            <p class="h1facture"id="nomeetprenom">Nom et Prénom de l'acheteur</p>
+                        </div>
+                        <div class="infoparticul">
+                            <h1 class="h1facture" >Téléphone :</h1>
+                            <p class="h1facture" id="phone_n">(+213)_0_00_00_00_00</p>
+                        </div>
+                        <div class="infoparticul">
+                            <h1 class="h1facture" >Adresse :</h1>
+                            <p class="h1facture" id="Adresse_">Adresse de livraison</p>
+                        </div>
+                    </div>
+                    
+                    <div class="totaleprix">
+                        <h1 class="h1facture">TOTAL :</h1>
+                        <p class="h1facture" id="Total_facture">0 DA</p>
+                    </div>
+
+
+                </div>
+                <div class="_formulairela_facture_de_commend">
+                    <form action="">
+                        <div class="inpts_produit" style="width: 100%;">
+                            <label for="Quantite_de_produit_in">Quantité*</label>
+                            <div class="plusmoinscolor">
+                                <div class="plusbutton_fa" id="plusbutton_fa">+</div>
+                                <input type="number" id="Quantite_de_produit_in"  min="1" value="1">                            
+                                <div class="moinsbutton_fa" id="moinsbutton_fa">-</div>
+                            </div>
+                        </div>
+                        <div class="inpts_produit" style="width: 100%;">
+                            <label>Couleur*</label>
+                            <div class="select_your_color" id="select_your_color"> 
+                            </div>
+                        </div>
+                        <div class="inpts_produit" style="width: 100%;">
+                            <label for="Nom_prenome">Votre nom et prénom*</label>
+                            <input type="text" id="Nom_prenome" required>
+                        </div>
+                        <div class="inpts_produit" style="width: 100%;">
+                            <label for="numerotelephone">Numéro de téléphone*</label>
+                            <input type="number" id="numerotelephone" required>
+                        </div>
+                        <div class="inpts_produit" style="width: 100%;">
+                            <label for="adressPersonelle">Adresse personnelle*</label>
+                            <input type="text" id="adressPersonelle" required>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="Confirm_formulaire_d_achat">
+
+                <button class="custom-btn_ach acheter" id="affichefacture_"> CONFIRMER</button>
+                <button class="Anullerbtn_" id="anullerfacture_"> Anuller</button>
+
+            </div>
+
+        </div>
     </div>
     <script type="module" src="miraProduct.js"></script>
 </body>
