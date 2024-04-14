@@ -168,8 +168,8 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
         prix_prixpromo.className="prix_prixpromo";
 
         const priceOriginale = price;
-        const pricePromo = parseFloat((priceOriginale * (promotion / 100)).toFixed(2));
-
+        const pricePromoMoins = parseFloat((priceOriginale * (promotion / 100)).toFixed(2));
+        const pricePromo = parseFloat((priceOriginale - pricePromoMoins).toFixed(2));
         const acheter_btn1 = document.getElementById('acheter_btn1');
         if(promotion>0){
             const prixstyel = document.createElement('p');
