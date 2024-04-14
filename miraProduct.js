@@ -628,16 +628,19 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
     //</div>
     
 
-    const cree_stor_in_mira_bg = document.getElementById("cree_stor_in_mira_bg");
+    const backgroundProdect_page = document.getElementById("backgroundProdect_page");
     const anullerfacture_= document.getElementById("anullerfacture_");
     const formulaire_d_achat= document.getElementById("formulaire_d_achat");
 
     acheter_btn1.addEventListener('click', function() {
         formulaire_d_achat.style.display = "flex";
+        backgroundProdect_page.style.display = "none";
     });
     
     anullerfacture_.addEventListener('click', function() {
         formulaire_d_achat.style.display = "none";
+        backgroundProdect_page.style.display = "flex";
+
     });
     
     
