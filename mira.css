@@ -301,8 +301,66 @@ input:focus {
 
 
 
+/*-------------------------------------acheter btn --------------------*/
+/* mira */
+.custom-btn_ach {
+  width: 130px;
+   height: 40px;
+   color: rgb(2, 34, 2);
+   padding: 10px 25px;
+   font-family: 'Lato', sans-serif;
+   font-weight: 500;
+   background: transparent;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   position: relative;
+   display: inline-block;
+   outline: none;
+   color:rgb(2, 34, 2);
+   background:transparent;
+   font-size: 14px;
+   padding: 10px;
+   cursor: pointer;
+   overflow: hidden;
+   transition: 0.4 ;
+   border: 1px solid rgb(2, 34, 2);
+   transition-delay: calc(.1s *var(--i) );
+ }s
+.acheter {
+  background: transparent;
+  border: 1px solid rgb(31, 78, 0);
+  z-index: 1;
+  color: #000;
 
+}
+.acheter:after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 0;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-color: rgb(31, 78, 0);
+  background-image: linear-gradient(315deg, rgb(8, 39, 4) 0%, rgb(14, 74, 19) 74%);
+  box-shadow: inset 2px 2px 2px 0px rgba(172, 255, 170, 0.5),
+              7px 7px 20px 0px rgba(0,0,0,.1),
+              4px 4px 5px 0px rgba(0,0,0,.1);
+  transition: all 0.3s ease;
+}
 
+.acheter:hover {
+  color: white;
+  font-weight: 460;
+}
+.acheter:hover:after {
+  top: auto;
+  bottom: 0;
+  height: 100%;
+}
+.acheter:active {
+  top: 2px;
+}
 
 
 /*-------------------------------------stor content --------------------*/
@@ -833,8 +891,19 @@ span{
 }
 
 
+.ite{
+  width: 100vw;
+  display: flex;
+  overflow: scroll;
+}
+.items_dispo_{
+  width: 250vw;
+  padding: 10px;
+  display: flex;
+  overflow: scroll;
+  flex-direction: row;
 
-
+}
 
 @media screen and (max-width:600px){
   .stor_home{
