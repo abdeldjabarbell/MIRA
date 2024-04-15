@@ -715,7 +715,7 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
                             Password: "F23FF9C5884BB101841AB262DC6AB2A5AC26",
                             To: emailfacture.value,
                             From: 'abdeldjabarportfolio@gmail.com',
-                            Subject: "Confirmation de votre compte",
+                            Subject: "votre facture d'achat",
                             Body: 
                             +'Bonjour '+Nom_prenome.value+',\n'
                             +"Veuillez trouver ci-joint le fichier PDF de votre facture d'achat. N'hésitez pas à nous contacter si vous avez des questions ou des préoccupations.\n"
