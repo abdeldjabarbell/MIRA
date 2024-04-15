@@ -1495,6 +1495,11 @@ span{
     margin-top: 10px;
 
   }
+
+  .custom-btn_ach.acheter{
+    background-color: rgb(18, 73, 18);
+    color: white;
+  }
   
 }
 

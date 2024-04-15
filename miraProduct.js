@@ -487,19 +487,20 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
          const QuantitéFac = document.getElementById("QuantitéFac");
          const nomDeProduitFac= document.getElementById("nomDeProduitFac");
          const produit_image_facture= document.getElementById("produit_image_facture");
+         const Date__= document.getElementById("Date__");
+
         
-        
-        const img_fa_ =document.createElement("img");
-        img_fa_.src= image1;
-        produit_image_facture.appendChild(img_fa_);
+        const srcimgProduit =document.getElementById("srcimgProduit");
+        srcimgProduit.src= image1;
         nomDeProduitFac.innerHTML=titre;
+
+        
 
 
          const select_your_color= document.getElementById("select_your_color");
          const Nom_prenome = document.getElementById("Nom_prenome");
          const numerotelephone= document.getElementById("numerotelephone");
          const adressPersonelle= document.getElementById("adressPersonelle");
-         const EmailFacture= document.getElementById("EmailFacture");
 
          const Quantite_de_produit_in = document.getElementById("Quantite_de_produit_in");
          const moinsbutton_fa = document.getElementById("moinsbutton_fa");
@@ -596,8 +597,6 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
             });
         }
 
-        
-        
         Nom_prenome.addEventListener('input', function() {
             nomeetprenom.innerHTML = "";
             nomeetprenom.innerHTML = Nom_prenome.value;
@@ -611,6 +610,8 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
             Adresse_.innerHTML = "";
             Adresse_.innerHTML = adressPersonelle.value;
         });
+
+
 
 
     //<div class="inpts_produit" style="width: 100%;">
@@ -637,8 +638,8 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
     const affichefacture_ = document.getElementById('affichefacture_');
     affichefacture_.addEventListener('click', async function() {
 
-        if (Nom_prenome.value === "" && numerotelephone.value === "" && adressPersonelle.value === "") {
-            alert("Veuillez remplir au moins un champ." );
+        if (Nom_prenome.value === "" || numerotelephone.value === "" || adressPersonelle.value === "") {
+            alert("Veuillez remplir tout champ." );
 
             
         } else if (CC < 1) {
@@ -662,6 +663,7 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
                 quantiteCom: Quantite_de_produit_in.value,
                 produitPhoto: image1,
                 titre_prod: titre,
+                commond: "pending",
                 timestamp: serverTimestamp()
             };
         
@@ -675,12 +677,17 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
                 
                 const anulerEnvoyerLaFacture= document.getElementById('anulerEnvoyerLaFacture');
                 anulerEnvoyerLaFacture.style.display="block";
+
                  anulerEnvoyerLaFacture.addEventListener('click', async function() {
                     messageenvoiyerfacture.innerHTML="";
                     achat_wating.style.display="none";
+                    location.reload();
+
                 });
 
                 const emailfacture= document.getElementById('emailfacture');
+
+
 
                 const envoyerLaFacture= document.getElementById('envoyerLaFacture');
                 
@@ -695,18 +702,49 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
                     }, 2000);
                 });
 
-                function generateAndSendPDF() {
-                    var content = document.getElementById('la_facture_de_commend');
-                    var opt = {
-                        margin:       1,
-                        filename:     'document.pdf',
-                        image:        { type: 'jpeg', quality: 0.98 },
-                        html2canvas:  { scale: 2 },
-                        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                async function generateAndSendPDF() {
+
+                    const mailRef = collection(db, 'Emails'); // Reference to the collection
+    
+                    const dataEmail = {
+                        nomeClient : Nom_prenome.value,
+                        emailFacture: emailfacture.value,
+                        timestamp: serverTimestamp()
                     };
+                    await addDoc(mailRef, dataEmail); // Use addDoc() instead of setDoc()
+
+
+
+
+                    const content= document.getElementById('la_facture_de_commend');
+
                     const dateMaintenant = new Date();
 
-                    // Génération du PDF
+                    // Obtention des parties de la date
+                    const jour = String(dateMaintenant.getDate()).padStart(2, '0');
+                    const mois = String(dateMaintenant.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0, donc +1 est nécessaire
+                    const annee = dateMaintenant.getFullYear();
+                    const heure = String(dateMaintenant.getHours()).padStart(2, '0');
+                    const minutes = String(dateMaintenant.getMinutes()).padStart(2, '0');
+                    const secondes = String(dateMaintenant.getSeconds()).padStart(2, '0');
+                    
+                    // Formatage de la date
+                    const dateFormatee = `${jour}/${mois}/${annee} ${heure}:${minutes}:${secondes}`;
+                    
+                    console.log(dateFormatee); // Exemple de sortie : "14/04/2024 15:30:45"
+
+                    Date__.innerHTML = "";
+                    Date__.innerHTML = dateFormatee;
+
+                    var opt = {
+                        margin: 1,
+                        filename: 'document.pdf',
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2 },
+                        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                    };
+                
+                    // Générer le PDF
                     html2pdf().from(content).set(opt).outputPdf('datauristring').then(function(pdfString) {
                         // Envoi de l'e-mail
                         Email.send({
@@ -716,30 +754,26 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
                             To: emailfacture.value,
                             From: 'abdeldjabarportfolio@gmail.com',
                             Subject: "votre facture d'achat",
-                            Body: 
-                            +'Bonjour '+Nom_prenome.value+',\n'
-                            +"Veuillez trouver ci-joint le fichier PDF de votre facture d'achat. N'hésitez pas à nous contacter si vous avez des questions ou des préoccupations.\n"
-                            +'Cordialement,\n'
-                            +"L'équipe de MIRA\n",
-                            
+                            Body: 'Bonjour ' + Nom_prenome.value + ',<br>' +
+                                "<br>Veuillez trouver ci-joint le fichier PDF de votre facture d'achat. N'hésitez pas à nous contacter si vous avez des questions ou des préoccupations." +
+                                '<br><br>Cordialement,' +
+                                "<br>L'équipe de MIRA",
+                
                             Attachments: [
                                 {
-                                    name: "MIRA_FACTURE_"+Nom_prenome.value+"_"+dateMaintenant+".pdf",
+                                    name: "MIRA_FACTURE_" + Nom_prenome.value + "_" + dateMaintenant + ".pdf",
                                     data: pdfString
                                 }
                             ]
                         }).then(function() {
-                            console.log('E'+Nom_prenome);
+                            location.reload();
 
-                            console.log('E-mail !'+emailfacture);
-
-                            console.log('E-mail envoyé avec succès !');
-                            
                         }).catch(function(error) {
                             console.error('Erreur lors de l\'envoi de l\'e-mail :', error);
                         });
                     });
                 }
+                
             } catch (error) {
 
                 console.error("Error adding document: ", error);
