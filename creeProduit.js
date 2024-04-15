@@ -346,6 +346,8 @@ produitselect.addEventListener('change', async function () {
             const idproduitSimilaire_1 = data.idproduit_Similaire1;
             const idproduitSimilaire_2 = data.idproduit_Similaire2;
             const idproduitSimilaire_3 = data.idproduit_Similaire3;
+            const idproduitSimilaire_4 = data.idproduit_Similaire4;
+
             const downloadURL_1 = data.imageUrl_produit_1; 
             const downloadURL_2 = data.imageUrl_produit_2;
             const downloadURL_3 = data.imageUrl_produit_3;
@@ -360,7 +362,8 @@ produitselect.addEventListener('change', async function () {
             const idproduitSimilaire1 = document.getElementById("idproduitSimilaire1");
             const idproduitSimilaire2 = document.getElementById("idproduitSimilaire2");
             const idproduitSimilaire3 = document.getElementById("idproduitSimilaire3");
-    
+            const idproduitSimilaire4 = document.getElementById("idproduitSimilaire4");
+
             Titre.value = Titreedit_;
             Soustitre.value = Sous_titre_;
             Description.value = Description_;
@@ -370,6 +373,8 @@ produitselect.addEventListener('change', async function () {
             idproduitSimilaire1.value = idproduitSimilaire_1;
             idproduitSimilaire2.value = idproduitSimilaire_2;
             idproduitSimilaire3.value = idproduitSimilaire_3;
+            idproduitSimilaire4.value = idproduitSimilaire_4;
+
     
             const gallery1 = document.getElementById('gallery1');
             const gallery2 = document.getElementById('gallery2');
@@ -606,7 +611,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                 const idproduitSimilaire1 = document.getElementById("idproduitSimilaire1").value;
                 const idproduitSimilaire2 = document.getElementById("idproduitSimilaire2").value;
                 const idproduitSimilaire3 = document.getElementById("idproduitSimilaire3").value;
-                
+                const idproduitSimilaire4 = document.getElementById("idproduitSimilaire4").value;
+
                 // Enregistrement des données dans Firestore
                 const docRef = await addDoc(collection(db, 'items', selec1, 'produits', selec2, 'produits'), {
                     Titre: Titre,
@@ -622,6 +628,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                     idproduit_Similaire1: idproduitSimilaire1,
                     idproduit_Similaire2: idproduitSimilaire2,
                     idproduit_Similaire3: idproduitSimilaire3,
+                    idproduit_Similaire4: idproduitSimilaire4,
+
                     imageUrl_produit_1: downloadURL1,
                     imageUrl_produit_2: downloadURL2,
                     imageUrl_produit_3: downloadURL3,
@@ -772,7 +780,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                 const idproduitSimilaire1 = document.getElementById("idproduitSimilaire1").value;
                 const idproduitSimilaire2 = document.getElementById("idproduitSimilaire2").value;
                 const idproduitSimilaire3 = document.getElementById("idproduitSimilaire3").value;
-                
+                const idproduitSimilaire4 = document.getElementById("idproduitSimilaire4").value;
+
 
                 const docRef = doc(db, 'items', selec1, 'produits', selec2, 'produits', selec3);
                 const docSnapshot = await getDoc(docRef);
@@ -789,6 +798,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                         idproduit_Similaire1: idproduitSimilaire1,
                         idproduit_Similaire2: idproduitSimilaire2,
                         idproduit_Similaire3: idproduitSimilaire3,
+                        idproduit_Similaire4: idproduitSimilaire4,
                         imageUrl_produit_1: downloadURL1,
                         imageUrl_produit_2: downloadURL2,
                         imageUrl_produit_3: downloadURL3,

@@ -1,6 +1,6 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc,collection,addDoc ,serverTimestamp} from "https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js";
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -524,7 +524,8 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
                  QuantitéFac.innerHTML = Quantite_de_produit_in.value;
 
                  Total_facture.innerHTML="";
-                 const n_p_demande = Quantite_de_produit_in.value         
+                 const n_p_demande = Quantite_de_produit_in.value   
+
                  if(promotion>0){
                      Total_facture.innerHTML= n_p_demande*pricePromo+"DA";
          
@@ -536,7 +537,8 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
 
              }
          });
-         
+         let tot=0;     
+
          plusbutton_fa.addEventListener('click', function() {
              let Quantite_de_produit_inval = parseInt(Quantite_de_produit_in.value);
              Quantite_de_produit_inval++;
@@ -544,14 +546,16 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
              QuantitéFac.innerHTML = Quantite_de_produit_in.value;
 
              Total_facture.innerHTML="";
-             const n_p_demande = Quantite_de_produit_in.value         
+             const n_p_demande = Quantite_de_produit_in.value ;
              if(promotion>0){
                  Total_facture.innerHTML= n_p_demande*pricePromo+"DA";
-     
+                 tot=n_p_demande*pricePromo;
+                 return tot;
              }
              if(promotion===0){
                  Total_facture.innerHTML= n_p_demande*priceOriginale+"DA";
-     
+                 tot=n_p_demande*priceOriginale;
+                 return tot;
              }
 
          });
@@ -569,7 +573,9 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
     
             }
         });
+        
         let colorselected ="";
+        let CC=0;
 
         for (let c = 0; c < N__color; c++) {
             const color_input = document.createElement("div");
@@ -578,6 +584,8 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
             select_your_color.appendChild(color_input);
         
             color_input.addEventListener('click', function() {
+                CC=CC+1;
+                console.log('cc='+CC);
                 coleur_fa.style.backgroundColor = colors[c];
                 colorselected = colors[c];
                 const allColorInputs = document.querySelectorAll(".color_input");
@@ -605,23 +613,6 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
         });
 
 
-        function checkInputs() {
-            const nomPrenomValue = nomeetprenom.value.trim();
-            const telephoneValue = numerotelephone.value.trim();
-            const adresseValue = adressPersonelle.value.trim();
-            const affichefacture_ = document.getElementById("affichefacture_");
-
-            if (nomPrenomValue !== "" && telephoneValue !== "" && adresseValue !== "" ) {
-                
-                affichefacture_.style.display = "block";
-            } else {
-                affichefacture_.style.display = "none";
-            }
-        }
-        Quantite_de_produit_in.addEventListener("input", checkInputs);
-        nomeetprenom.addEventListener("input", checkInputs);
-        numerotelephone.addEventListener("input", checkInputs);
-        adressPersonelle.addEventListener("input", checkInputs);
     //<div class="inpts_produit" style="width: 100%;">
     //    <label for="EmailFacture">Email</label>
     //    <input type="email" id="EmailFacture" required>
@@ -642,6 +633,124 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
         backgroundProdect_page.style.display = "flex";
 
     });
+
+    const affichefacture_ = document.getElementById('affichefacture_');
+    affichefacture_.addEventListener('click', async function() {
+
+        if (Nom_prenome.value === "" && numerotelephone.value === "" && adressPersonelle.value === "") {
+            alert("Veuillez remplir au moins un champ." );
+
+            
+        } else if (CC < 1) {
+            alert("Veuillez choisir une couleur.");
+        } else {
+         const achat_wating = document.getElementById('achat_wating');
+         achat_wating.style.display="flex"
+         const  messageenvoiyerfacture =document.getElementById('messageenvoiyerfacture');
+         messageenvoiyerfacture.innerHTML="Votre commande est en cours d'envoi.....";
+
+         
+            console.log(CC)
+            const collectionRef = collection(db, 'commands_no_users'); // Reference to the collection
+    
+            const data = {
+                fullName: Nom_prenome.value, 
+                adress: adressPersonelle.value,
+                telNumber: numerotelephone.value,
+                colorCom: colorselected,
+                prixTot: tot,
+                quantiteCom: Quantite_de_produit_in.value,
+                produitPhoto: image1,
+                titre_prod: titre,
+                timestamp: serverTimestamp()
+            };
+        
+            try {
+                await addDoc(collectionRef, data); // Use addDoc() instead of setDoc()
+                console.log("Document added successfully!");
+                messageenvoiyerfacture.innerHTML="Nous vous informons que votre commande a été correctement reçue. Nous vous contacterons dès que possible , merci";
+                messageenvoiyerfacture.style.color='green';
+                const envoyerLaFacture_div = document.getElementById('envoyerLaFacture_div');
+                envoyerLaFacture_div.style.display="block";
+                
+                const anulerEnvoyerLaFacture= document.getElementById('anulerEnvoyerLaFacture');
+                anulerEnvoyerLaFacture.style.display="block";
+                 anulerEnvoyerLaFacture.addEventListener('click', async function() {
+                    messageenvoiyerfacture.innerHTML="";
+                    achat_wating.style.display="none";
+                });
+
+                const emailfacture= document.getElementById('emailfacture');
+
+                const envoyerLaFacture= document.getElementById('envoyerLaFacture');
+                
+                envoyerLaFacture.addEventListener('click', async function() {
+                    generateAndSendPDF();
+                    messageenvoiyerfacture.innerHTML="terminer";
+                    messageenvoiyerfacture.style.color='green';
+                    messageenvoiyerfacture.style.fontSize="1.5rem";
+                    setTimeout(function() {
+                        messageenvoiyerfacture.innerHTML="";
+                        achat_wating.style.display="none"
+                    }, 2000);
+                });
+
+                function generateAndSendPDF() {
+                    var content = document.getElementById('la_facture_de_commend');
+                    var opt = {
+                        margin:       1,
+                        filename:     'document.pdf',
+                        image:        { type: 'jpeg', quality: 0.98 },
+                        html2canvas:  { scale: 2 },
+                        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                    };
+                    const dateMaintenant = new Date();
+
+                    // Génération du PDF
+                    html2pdf().from(content).set(opt).outputPdf('datauristring').then(function(pdfString) {
+                        // Envoi de l'e-mail
+                        Email.send({
+                            Host: "smtp.elasticemail.com",
+                            Username: "abdeldjabarportfolio@gmail.com",
+                            Password: "F23FF9C5884BB101841AB262DC6AB2A5AC26",
+                            To: emailfacture.value,
+                            From: 'abdeldjabarportfolio@gmail.com',
+                            Subject: "Confirmation de votre compte",
+                            Body: 
+                            +'Bonjour '+Nom_prenome.value+',\n'
+                            +"Veuillez trouver ci-joint le fichier PDF de votre facture d'achat. N'hésitez pas à nous contacter si vous avez des questions ou des préoccupations.\n"
+                            +'Cordialement,\n'
+                            +"L'équipe de MIRA\n",
+                            
+                            Attachments: [
+                                {
+                                    name: "MIRA_FACTURE_"+Nom_prenome.value+"_"+dateMaintenant+".pdf",
+                                    data: pdfString
+                                }
+                            ]
+                        }).then(function() {
+                            console.log('E'+Nom_prenome);
+
+                            console.log('E-mail !'+emailfacture);
+
+                            console.log('E-mail envoyé avec succès !');
+                            
+                        }).catch(function(error) {
+                            console.error('Erreur lors de l\'envoi de l\'e-mail :', error);
+                        });
+                    });
+                }
+            } catch (error) {
+
+                console.error("Error adding document: ", error);
+            }
+        }
+
+    });
+    
+    
+    
+
     
     
 

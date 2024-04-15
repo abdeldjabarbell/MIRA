@@ -943,7 +943,8 @@ span{
   justify-content: space-between;
   align-items: center;
   padding: 10px;  
-  background-color: var(--bg-color);
+  background-color:#e4ffcf;
+  border-top: 1px solid rgb(9, 29, 9);
   
 }
 .Confirm_formulaire_d_achat button{
@@ -1167,8 +1168,45 @@ span{
 
 }
 
+.achat_wating{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 400;
+  background-color: #0000008e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.watingcontett{
+  position: relative;
+  padding: 20px;
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.watingcontett img{
+  width: 80px;
+  margin-bottom: 5px;
+}
 
-
+.watingcontett p{
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+.xbtn{
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  background-color: rgb(255, 134, 134);
+  padding: 0px 5px;
+  border-radius: 3px;
+  color: white;
+}
 
 
 

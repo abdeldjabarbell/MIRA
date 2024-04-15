@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script> <!-- Ajout de la bibliothèque Email.js -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -47,8 +49,8 @@
         <div class="formulaire_d_achat_remplir">
 
             <div class="content_formulaire_d_achat">
-
-                <div class="la_facture_de_commend"> 
+                
+                <div class="la_facture_de_commend" id="la_facture_de_commend"> 
                     <div class="titregenerage">
                         <h1>FACTURE D'ACHAT</h1>
                         <p>.mira</p>
@@ -128,6 +130,26 @@
                 <button class="custom-btn_ach acheter" id="affichefacture_"> CONFIRMER</button>
                 <button class="Anullerbtn_" id="anullerfacture_"> Anuller</button>
 
+            </div>
+
+        </div>
+    </div>
+
+    <div class="achat_wating" id="achat_wating" style="display: none;">
+        <div class="watingcontett">
+            <button class="xbtn" id="anulerEnvoyerLaFacture" style="display: none;">x</button>
+            <img src="img/mira logoblack.png" alt="">
+            <p id="messageenvoiyerfacture"></p>
+            <div id="envoyerLaFacture_div" style="display: none;">
+                <h1>Réception de la facture</h1>
+                <p>Veuillez insérer votre adresse e-mail pour recevoir la facture de votre achat.</p>
+                <div class="inpts_produit" style="width: 100%;">
+                    <label for="emailfacture">email*</label>
+                    <input type="email" id="emailfacture" required>
+                </div>
+                <div class="btnenvoyerFacture">
+                    <button class="custom-btn_ach acheter" id="envoyerLaFacture">Recevoir</button>    
+                </div>
             </div>
 
         </div>
