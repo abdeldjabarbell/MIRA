@@ -637,12 +637,10 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
 
     const affichefacture_ = document.getElementById('affichefacture_');
     affichefacture_.addEventListener('click', async function() {
-
         if (Nom_prenome.value === "" || numerotelephone.value === "" || adressPersonelle.value === "") {
-            alert("Veuillez remplir tout champ." );
-
-            
-        } else if (CC < 1) {
+            alert("Veuillez remplir tous les champs.");
+        }
+        else if (CC < 1) {
             alert("Veuillez choisir une couleur.");
         } else {
          const achat_wating = document.getElementById('achat_wating');
