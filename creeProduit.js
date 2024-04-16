@@ -803,7 +803,6 @@ document.addEventListener('DOMContentLoaded', async function() {
                         imageUrl_produit_2: downloadURL2,
                         imageUrl_produit_3: downloadURL3,
                         imageUrl_produit_4: downloadURL4,
-                        timestamp: serverTimestamp()
                     };
                     await updateDoc(docRef, newData);
                     message_cree_produit.innerHTML = 'Les données de l\'élément ont été mises à jour avec succès. 🛠️';
