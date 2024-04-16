@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIRA</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/ScrollTrigger.min.js"></script>
+    
+</head>
+<body>
+    <header class="header">
+        <a href="homepage.html" class="logo"><img src="img/mira logoblack.png" alt=""></a>
+
+        <i class='bx bx-menu-alt-left' id="menu-icon"></i> 
+
+        <nav class="navbar" id="navbarid">
+            <button class="btn" id="retourner_au_home">Retourner</button>
+        </nav>
+    </header>
+
+    <section class="cree_un_projet">
+        <div class="cree_un_projet_admin_name">
+            <img src="img/mira logoblack.png" alt="" style="width: 50px;">
+            <h1>Bienvenue sur votre espace pour modifier votre produit.</h1>
+            <p id="nom_prenom_admin"></p>
+        </div>
+        <div class="informationproduitBG" id="informationproduitBG">
+                <div id="AjouterProduitForm" class="AjouterProduit">
+                    
+                    <!-- Explication pour l'utilisateur -->
+                    <h1>Informations générales du produit</h1>
+                    <p>Vous devez fournir des informations générales sur le produit, telles que le titre, le sous-titre et la description.</p>
+                
+                    <p>3/1/ Veuillez inclure les détails du titre et du sous-titre du produit</p>
+                    <div class="inpts_produit">
+                        <label for="Titre">Titre:</label>
+                        <input type="text" id="Titre" required>
+                    </div>
+                    <div class="inpts_produit">
+                        <label for="Soustitre">Sous-titre:</label>
+                        <input type="text" id="Soustitre" required>
+                   
+                    </div>
+                    <p>3/2/ Veuillez fournir une description qui identifie clairement le produit</p>
+                    <div class="inpts_produit">
+                        <label for="Description">Description :</label>
+                        <input type="text" id="Description" required>
+                    </div>
+                    <br>
+                
+                    <!-- Explication pour l'utilisateur -->
+                    <h1>Informations de vente</h1>
+                    <p>Vous devez fournir des informations sur le prix, les promotions et la quantité de stock disponible pour le produit.</p>
+                
+                    <p>4/1/ Veuillez fournir le prix du produit</p>
+                    <div class="inpts_produit">
+                        <label for="prix">Prix :</label>
+                        <input type="number" id="prix" required value="0">
+                    </div>
+                    <p>4/2/ Veuillez fournir le pourcentage de promotion (si vous ne voulez pas faire de promotion, laissez le pourcentage à 0%)</p>
+                    <div class="inpts_produit">
+                        <label for="promotion">Promotion % :</label>
+                        <input type="number" id="promotion" required value="0">
+                    </div>
+                    <p>4/3/ Veuillez fournir la quantité de ce produit dans votre stock</p>
+                    <div class="inpts_produit">
+                        <label for="quantiteproduit">Quantité :</label>
+                        <input type="number" id="quantiteproduit" required value="0">
+                    </div>
+                    <br>
+                    <h3>4/4/ Sélectionnez les couleurs disponibles dans votre stock</h3>
+                    <p>Veuillez choisir les couleurs disponibles pour ce produit en utilisant le sélecteur de couleur ci-dessous. Vous pouvez également ajouter plus de couleurs en cliquant sur le bouton "+".</p>
+                    <div id="inputs_add_inputs"></div>
+                    
+                    <div id="ajoutercouleurBg" class="btncolors">
+                        <button class="btn souvgarder" id="addcolor" style="width: 50px;margin-right: 5px;">+</button>
+                        <button class="btn supprimer" id="delectcolor" style="width: 50px;display: none;">-</button>
+                    </div>
+
+                    <br>
+                    
+
+                
+                    <div class="btnss">
+
+                        <button class="btn modifier" id="btnn_edit" type="submit" style="display: block;">
+                            <div id="originaledit" style="display: block;">
+                                modifier
+                            </div>
+                            <div class="cs-loader-inner" id="loaderedit" style="display: none;">
+                                <label>	●</label>
+                                <label>	●</label>
+                                <label>	●</label>
+                                <label>	●</label>
+                            </div>
+                            <div id="Doneedit" style="display: none;">
+                                terminée
+                            </div>
+                        </button>
+                    </div>
+                    <br><br>
+                    <p id="message_cree_produit"></p>
+                    <br><br>
+
+                </div>
+        </div>
+    </section>
+
+    <div class="activatoin_compt" id="wt">
+        <div class="indexpage" >
+            <img  src="img/mira logoblack.png" alt="">
+        </div>
+    </div>
+
+    <script src="updateproduct.js" type="module"></script>
+    
+</body>
+</html>
