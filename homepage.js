@@ -49,7 +49,9 @@ const original = document.getElementById("original");
 const Done = document.getElementById("Done");
 
 const titlenumberNotif = document.getElementById("titlenumberNotif");
+const titlenumberCommands = document.getElementById("titlenumberCommands");
 const notifbtn = document.getElementById("notifbtn");
+const commandsbtn = document.getElementById("commandsbtn");
 const deconection = document.getElementById("deconection");
 
 
@@ -161,7 +163,6 @@ acive_compt_form.addEventListener("submit", async (e) => {
                         
                     }
 
-                    
                     await addDoc(notificationsCollectionRef, notificationData);
                     setTimeout(() => {
                         refreshPage();
@@ -186,6 +187,156 @@ acive_compt_form.addEventListener("submit", async (e) => {
         }
     });
 }
+
+// Référence à la barre de recherche
+const searchInput = document.getElementById("searchInput");
+
+// Ajout d'un gestionnaire d'événements pour écouter les modifications dans la barre de recherche
+searchInput.addEventListener("input", function() {
+    const searchText = searchInput.value.toLowerCase(); // Convertir le texte de recherche en minuscules
+    // Boucle à travers tous les produits pour les filtrer en fonction du texte de recherche
+    const produits = document.querySelectorAll(".produit_in_home");
+    produits.forEach(produit => {
+        const title = produit.querySelector(".title__sub h3").textContent.toLowerCase(); // Titre du produit
+        const sousTitle = produit.querySelector(".title__sub p").textContent.toLowerCase(); // Sous-titre du produit
+
+        // Afficher ou masquer le produit en fonction du texte de recherche
+        if (title.includes(searchText) || sousTitle.includes(searchText)) {
+            produit.style.display = "flex"; // Afficher le produit
+        } else {
+            produit.style.display = "none"; // Masquer le produit
+        }
+    });
+});
+const loader_for_produit = document.getElementById("loader_for_produit");
+// Fonction asynchrone pour exécuter le code
+const fetchData = async () => {
+    loader_for_produit.style.display="flex";
+    // Référence à la collection principale dans Firestore
+    const querySnapshot = await getDocs(collection(db, 'items'));
+    
+
+    // Boucle for...of pour parcourir les documents de la collection principale
+    for (const doc of querySnapshot.docs) {
+        const id = doc.id; 
+        console.log("ID de l'élément principal:", id);
+        
+        // Référence à la sous-collection 'produits' pour chaque document de la collection principale
+        const subCollectionQuery = await getDocs(collection(db, 'items', id, 'produits'));
+        
+        // Boucle for...of pour parcourir les documents de la sous-collection 'produits'
+        for (const subDoc of subCollectionQuery.docs) {
+            const subId = subDoc.id; 
+            console.log("ID du collection :", subId);
+
+            const subCollectionQuery_ = await getDocs(collection(db, 'items', id, 'produits',subId, 'produits'));
+        
+            // Boucle for...of pour parcourir les documents de la sous-collection 'produits'
+            for (const subDoc of subCollectionQuery_.docs) {
+                const sub_pId = subDoc.id; 
+                const data = subDoc.data(); // Récupérer toutes les données du document
+            
+                const image1 = data.imageUrl_produit_1; 
+                const title = data.Titre;
+                const soustitle = data.Sous_titre;
+                const quantiteproduit = data.quantiteproduit;
+                const promotion = data.promotion;
+
+
+            
+
+                console.log("ID du produit :", sub_pId);
+                console.log("Image du produit :", image1);
+            
+                // Création des éléments HTML
+
+                const toutLesproduitBG = document.querySelector(".toutLesproduitBG");
+
+ 
+
+                const produit_in_home = document.createElement("div");
+                produit_in_home.className = "produit_in_home";
+                if(quantiteproduit<10){
+                    produit_in_home.style.backgroundColor="#ffbebe";
+                } 
+                if(promotion>0){
+                    produit_in_home.style.borderRight= "10px solid orange";
+                }
+                const imgProduit = document.createElement("div");
+                imgProduit.className = "imgProduit";
+                const imgProduitimg = document.createElement("img");
+                imgProduitimg.src = image1;
+                imgProduit.appendChild(imgProduitimg);
+                produit_in_home.appendChild(imgProduit);
+            
+                const title__sub = document.createElement("div");
+                title__sub.className = "title__sub";
+                const titleHeading = document.createElement("h3");
+                titleHeading.textContent = title;
+                title__sub.appendChild(titleHeading);
+
+                const SoustitleHeading = document.createElement("p");
+                SoustitleHeading.textContent = soustitle;
+                title__sub.appendChild(SoustitleHeading);
+
+                
+                const IdleHeading = document.createElement("p");
+                IdleHeading.textContent = sub_pId;
+                title__sub.appendChild(IdleHeading);
+
+                produit_in_home.appendChild(title__sub);
+
+                const btn_cop = document.createElement("button");
+                btn_cop.className = "copy_id_home";
+                const btn_cop_i = document.createElement("i");
+                btn_cop_i.className = "bx bx-copy";
+                btn_cop.appendChild(btn_cop_i);
+                produit_in_home.appendChild(btn_cop);
+
+                    // Ajout d'un gestionnaire d'événements pour copier l'ID du produit au clic
+                btn_cop.addEventListener("click", function() {
+                    // Copier l'ID du produit dans le presse-papiers
+                    navigator.clipboard.writeText(sub_pId)
+                        .then(() => {
+                            IdleHeading.style.color="orange";
+                            IdleHeading.style.transition="0.5s ease";
+                            btn_cop_i.style.color="orange";
+                            btn_cop_i.style.transition="0.5s ease";
+                            setTimeout(function() {
+                                btn_cop_i.style.color="green";
+                                IdleHeading.style.color="black";
+
+
+                            }, 2000); // 3000 milliseconds = 3 seconds                            
+
+                        })
+                        .catch(err => {
+                            console.error("Erreur lors de la copie de l'ID du produit :", err);
+                            alert("Erreur lors de la copie de l'ID du produit. Veuillez réessayer !");
+                        });
+                });
+
+                toutLesproduitBG.appendChild(produit_in_home);
+
+
+
+            }
+            
+        }
+    }
+};
+
+// Appel de la fonction fetchData() pour récupérer les données
+fetchData().then(() => {
+    // Changer le display du loader une fois que fetchData() est terminé
+    loader_for_produit.style.display = "none"; // Supposons que loader_for_produit est l'élément qui représente le loader
+}).catch(error => {
+    // En cas d'erreur lors de l'exécution de fetchData()
+    console.error("Une erreur s'est produite lors de la récupération des données :", error);
+    // Tu peux également ajouter ici un code pour gérer l'erreur, comme afficher un message d'erreur à l'utilisateur
+});
+
+
 
 // Recharge la page actuelle
 function refreshPage() {
@@ -218,6 +369,19 @@ if (docSnapshot.exists()) {
     }   
 }
 
+const commandsnumberRef = doc(db, "commands_no_users", "n_comm_notif");
+const comDocSnapshot = await getDoc(commandsnumberRef);
+if (comDocSnapshot.exists()) {
+    const num_notifcomm = comDocSnapshot.data().num_notifcomm;
+    if(num_notifcomm===0){
+        titlenumberCommands.style.display="none";
+    }else{
+        titlenumberCommands.innerText= num_notifcomm;
+        titlenumberCommands.style.display="flex";
+    }   
+}
+
+
 notifbtn.addEventListener("click", async (e) => {
     e.preventDefault();
     const notifinumberRef = doc(db, "notifications", "notif_number");
@@ -226,6 +390,16 @@ notifbtn.addEventListener("click", async (e) => {
         numero: numeroprim
     });
     window.location.href = 'notification.html';
+});
+
+commandsbtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const notifinumberRef = doc(db, "commands_no_users", "n_comm_notif");
+    var numeroprim = 0;
+    await updateDoc(notifinumberRef, {
+        num_notifcomm: numeroprim
+    });
+    window.location.href = 'commends.html';
 });
 deconection.addEventListener("click", async (e) => {
     e.preventDefault();
@@ -712,7 +886,14 @@ button_partager_store_collection.addEventListener("click", async (e) => {
 
 
 
-
+ScrollReveal().reveal('.produit_in_home', {
+    origin: 'top',
+    reset: true,
+    distance: '40px',
+    duration: 1500,
+    delay: 200,
+    interval: 200 // Pour animer les éléments l'un après l'autre
+});
 
 
 

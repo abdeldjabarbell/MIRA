@@ -22,14 +22,21 @@
 
         <nav class="navbar" id="navbarid">
             <a href="#home"class="active">Accueil</a>
-            <a href="#commandes">Commandes </a>
+            <a href="#commandes"id="commandsbtn">
+                <div class="titlenavbar">
+                    <div class="titletext">Commands </div>
+                    <div class="titlenumber" id="titlenumberCommands" style="display: none;"></div>
+                </div>
+            </a>
             <a href="#message">Messages</a>
+
             <a href="#notification" id="notifbtn">
                 <div class="titlenavbar">
                     <div class="titletext">Notifications </div>
                     <div class="titlenumber" id="titlenumberNotif" style="display: none;"></div>
                 </div>
             </a>
+            
             <br>
             <button class="btn" id="deconection">déconnecter</button>
         </nav>
@@ -37,8 +44,7 @@
 
     <div class="backgroundHome">
         <div class="serchBackground">
-            <input type="text" id="shershtab" name="shershtab" required placeholder="Chercher..."><br><br>
-            <button class="btn" type="submit" >chercher</button>
+            <input type="text" id="searchInput" name="shershtab" required placeholder="Chercher..."><br><br>
         </div>
         <div class="bgBtnCreatProject">
             <div class="informationAdmin">
@@ -48,6 +54,20 @@
             <button class="btn" id="creat_project_btnn" style="background:rgb(255, 200, 0) ;color: black;">Créer +</button>
         </div>
         <div class="BackgroundofActivity">
+            <div class="toutLesproduitactvity">
+                <div class="loaderplace">
+                    <div class="cs-loader-inner" id="loader_for_produit" style="display: none;">
+                        <label>	●</label>
+                        <label>	●</label>
+                        <label>	●</label>
+                        <label>	●</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="toutLesproduitBG">
+
+            </div>
         </div>
     </div>
 
@@ -201,7 +221,11 @@
 
 
 
+    <script src="https://unpkg.com/scrollreveal"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
 
 
 

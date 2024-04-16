@@ -34,6 +34,10 @@ const nav_btn_ser = document.getElementById('nav_btn_ser');
 const user_nav = document.getElementById('user_nav');
 const logo_image = document.getElementById('logo_image');
 
+logo_image.addEventListener('click', function() {
+    window.location.href = `mira_stors.html?`; // Redirection vers la page du produit avec l'ID du produit
+    //window.history.back();
+});
 
 search_btn.addEventListener("click", async (e) => {
     normal_nav.style.opacity="0";

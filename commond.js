@@ -36,6 +36,17 @@ const firebaseConfig = {
 
 
 
+
+const notification = document.getElementById("notification");
+const notificationbg_space = document.getElementById("notificationbg_space");
+const image_notif_bg = document.getElementById("image_notif_bg");
+const text_notif_bg = document.getElementById("text_notif_bg");
+const time_and_titre = document.getElementById("time_and_titre");
+const notification_titre = document.getElementById("notification_titre");
+const date_noti = document.getElementById("date_noti");
+const notification_text_content = document.getElementById("notification_text_content");
+
+const voir_plus_de_notif = document.getElementById("voir_plus_de_notif");
 const wt = document.getElementById("wt");
 
 const retourner_au_home = document.getElementById("retourner_au_home");
@@ -120,36 +131,6 @@ async function fetchItems() {
     querySnapshot.forEach((doc) => {
         const data = doc.data();
         const formattedTimestamp = formatDate(data.timestamp);
-
-        const notification = document.createElement('div');
-        notification.classList="notification";
-        const image_notif_bg = document.createElement('div');
-        image_notif_bg.classList="image_notif_bg";
-        const notif_img = document.createElement('img');
-        notif_img.classList="image_notif_bg img";
-        notif_img.src="img/mira logoblack.png";
-        const text_notif_bg = document.createElement('div');
-        text_notif_bg.classList="text_notif_bg";
-        const time_and_titre = document.createElement('div');
-        time_and_titre.classList="time_and_titre";
-        const notification_titre = document.createElement('h1');
-        notification_titre.innerHTML=data.title_notif;
-        const date_noti = document.createElement('p');
-        date_noti.innerHTML=formattedTimestamp;
-        const notification_text_content = document.createElement('p');
-        notification_text_content.innerHTML= data.notification;
-
-
-
-
-        notificationbg_space.appendChild(notification);
-        notification.appendChild(image_notif_bg);
-        image_notif_bg.appendChild(notif_img);
-        notification.appendChild(text_notif_bg);
-        text_notif_bg.appendChild(time_and_titre);
-        time_and_titre.appendChild(notification_titre);
-        time_and_titre.appendChild(date_noti);
-        text_notif_bg.appendChild(notification_text_content);
 
 
 

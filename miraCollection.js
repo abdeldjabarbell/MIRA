@@ -19,7 +19,6 @@ const firebaseConfig = {
   const db = getFirestore(app);
   const storage = getStorage(app);
 
-
 const search_backround = document.getElementById('search_backround');
 const header = document.getElementById('header');
 
@@ -32,8 +31,12 @@ const button_search_confirm = document.getElementById('button_search_confirm');
 const menu_navbar = document.getElementById('menu_navbar');
 const nav_btn_ser = document.getElementById('nav_btn_ser');
 const user_nav = document.getElementById('user_nav');
-const logo_image = document.getElementById('logo_image');
+const logo_image = document.getElementById("logo_image");
 
+logo_image.addEventListener('click', function() {
+    window.location.href = `mira_stors.html?`; // Redirection vers la page du produit avec l'ID du produit
+    //window.history.back();
+});
 
 search_btn.addEventListener("click", async (e) => {
     normal_nav.style.opacity="0";
@@ -524,7 +527,6 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = `mira.html?store=${nomMagasin}`; // Redirection vers la page du produit avec l'ID du produit
     });
 });
-
 
 
 

@@ -1,6 +1,6 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
-import { getFirestore, doc, getDoc,collection,addDoc ,serverTimestamp} from "https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc,collection,addDoc ,updateDoc,serverTimestamp} from "https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js";
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -637,6 +637,7 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
 
     const affichefacture_ = document.getElementById('affichefacture_');
     affichefacture_.addEventListener('click', async function() {
+        
         if (Nom_prenome.value === "" || numerotelephone.value === "" || adressPersonelle.value === "") {
             alert("Veuillez remplir tous les champs.");
         }
@@ -647,6 +648,8 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
          achat_wating.style.display="flex"
          const  messageenvoiyerfacture =document.getElementById('messageenvoiyerfacture');
          messageenvoiyerfacture.innerHTML="Votre commande est en cours d'envoi.....";
+
+
 
          
             console.log(CC)
@@ -664,9 +667,22 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
                 commond: "pending",
                 timestamp: serverTimestamp()
             };
+
         
             try {
                 await addDoc(collectionRef, data); // Use addDoc() instead of setDoc()
+
+                        //creat notif number
+                        const notifinumberRef = doc(db, "commands_no_users", "n_comm_notif");
+                        const docSnapshot = await getDoc(notifinumberRef);
+                        if (docSnapshot.exists()) {
+                            const numero = docSnapshot.data().num_notifcomm;
+                            var numeroprim = numero+1;
+                            await updateDoc(notifinumberRef, {
+                                num_notifcomm: numeroprim
+                            });
+                            
+                        }
                 console.log("Document added successfully!");
                 messageenvoiyerfacture.innerHTML="Nous vous informons que votre commande a été correctement reçue. Nous vous contacterons dès que possible , merci";
                 messageenvoiyerfacture.style.color='green';
@@ -771,11 +787,15 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
                         });
                     });
                 }
+
+                
                 
             } catch (error) {
 
                 console.error("Error adding document: ", error);
             }
+
+
         }
 
     });
