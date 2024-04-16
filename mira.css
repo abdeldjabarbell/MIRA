@@ -580,12 +580,16 @@ input:focus {
   font-size: 12px;
   padding: 4px;
   cursor: pointer;
-
-
+  overflow: hidden;
+}
+.bg_item_titre p {
+  white-space: nowrap;
 }
 .p_bg_item_titre{
   font-size: 12px;
   cursor: pointer;
+  display: inline;
+
 
 }
 .bg_item_prix{
