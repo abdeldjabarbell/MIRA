@@ -38,27 +38,7 @@ const  wt = document.getElementById("wt");
 
 const  retourner_au_home = document.getElementById("retourner_au_home");
 
-const  select_action = document.getElementById("select_action");
 
-const  typeproduit = document.getElementById("typeproduit");
-const  produitcollection = document.getElementById("produitcollection");
-const  produitselect = document.getElementById("produitselect");
-
-const  fileInput1 = document.getElementById("fileInput1");
-const  gallery1 = document.getElementById("gallery1");
-const  imagge1 = document.getElementById("imagge1");
-
-const  fileInput2 = document.getElementById("fileInput2");
-const  gallery2 = document.getElementById("gallery2");
-const  imagge2 = document.getElementById("imagge2");
-
-const  fileInput3 = document.getElementById("fileInput3");
-const  gallery3 = document.getElementById("gallery3");
-const  imagge3 = document.getElementById("imagge3");
-
-const  fileInput4 = document.getElementById("fileInput4");
-const  gallery4 = document.getElementById("gallery4");
-const  imagge4 = document.getElementById("imagge4");
 
 
 const  btnn_edit = document.getElementById("btnn_edit");
@@ -70,7 +50,6 @@ const  Doneedit = document.getElementById("Doneedit");
 
 const  message_cree_produit = document.getElementById("message_cree_produit");
 
-const  p_image_modifier = document.getElementById("p_image_modifier");
 
 
 
@@ -179,12 +158,21 @@ async function fetchDataAndUpdate() {
                 inputs_add_inputs.appendChild(add_colorbg_);
             }
 
+            const idproduitSimilaire_1 = data.idproduit_Similaire1;
+            const idproduitSimilaire_2 = data.idproduit_Similaire2;
+            const idproduitSimilaire_3 = data.idproduit_Similaire3;
+            const idproduitSimilaire_4 = data.idproduit_Similaire4;
+
             const Titre = document.getElementById("Titre");
             const Soustitre = document.getElementById("Soustitre");
             const Description = document.getElementById("Description");
             const prix = document.getElementById("prix");
             const promotion = document.getElementById("promotion");
             const quantiteproduit = document.getElementById("quantiteproduit");
+            const idproduitSimilaire1 = document.getElementById("idproduitSimilaire1");
+            const idproduitSimilaire2 = document.getElementById("idproduitSimilaire2");
+            const idproduitSimilaire3 = document.getElementById("idproduitSimilaire3");
+            const idproduitSimilaire4 = document.getElementById("idproduitSimilaire4");
 
             Titre.value = Titreedit_;
             Soustitre.value = Sous_titre_;
@@ -192,6 +180,10 @@ async function fetchDataAndUpdate() {
             prix.value = prix_;
             promotion.value = promotion_;
             quantiteproduit.value = quantiteproduit_;
+            idproduitSimilaire1.value = idproduitSimilaire_1;
+            idproduitSimilaire2.value = idproduitSimilaire_2;
+            idproduitSimilaire3.value = idproduitSimilaire_3;
+            idproduitSimilaire4.value = idproduitSimilaire_4;
 
             k = 0; // Resetting k at the end of the block
 
@@ -324,7 +316,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     function refreshPage() {
-        window.location.reload(); 
+        window.location.replace("homepage.html");
+
+       // window.location.reload(); 
     }
 
     btnn_edit.addEventListener("click", async (e) => {
@@ -368,6 +362,10 @@ document.addEventListener('DOMContentLoaded', async function() {
                 const promotion = parseFloat(document.getElementById("promotion").value);
                 const quantiteproduit = parseInt(document.getElementById("quantiteproduit").value);
 
+                const idproduitSimilaire1 = document.getElementById("idproduitSimilaire1").value;
+                const idproduitSimilaire2 = document.getElementById("idproduitSimilaire2").value;
+                const idproduitSimilaire3 = document.getElementById("idproduitSimilaire3").value;
+                const idproduitSimilaire4 = document.getElementById("idproduitSimilaire4").value;
 
                 const docRef = doc(db, 'items', selectedId, 'produits', selectedId2, 'produits', selectedId3);
                 const docSnapshot = await getDoc(docRef);
@@ -381,6 +379,10 @@ document.addEventListener('DOMContentLoaded', async function() {
                         quantiteproduit: quantiteproduit,
                         colors_number: n_colors,
                         colors: Edit_colors_in_stock,
+                        idproduit_Similaire1: idproduitSimilaire1,
+                        idproduit_Similaire2: idproduitSimilaire2,
+                        idproduit_Similaire3: idproduitSimilaire3,
+                        idproduit_Similaire4: idproduitSimilaire4,
 
                     };
                     await updateDoc(docRef, newData);

@@ -318,7 +318,10 @@ const fetchData = async () => {
 
                 toutLesproduitBG.appendChild(produit_in_home);
 
-                produit_in_home.addEventListener('click', () => {
+                title__sub.addEventListener('click', () => {
+                    window.location.href = `updateproduct.html?store=${id}&collection_pr=${subId}&id=${sub_pId}`; 
+                }); 
+                imgProduit.addEventListener('click', () => {
                     window.location.href = `updateproduct.html?store=${id}&collection_pr=${subId}&id=${sub_pId}`; 
                 }); 
 
