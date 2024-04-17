@@ -27,7 +27,18 @@ async function getDetailsProduit(productId, storeName, collect_p) {
         return null;
     }
 }
+acheter_btn1.addEventListener('click', function() {
+    console.log("formulaire_d_achat flex")
 
+     formulaire_d_achat.style.display = "flex";
+     backgroundProdect_page.style.display = "none";
+ });
+ 
+ anullerfacture_.addEventListener('click', function() {
+     formulaire_d_achat.style.display = "none";
+     backgroundProdect_page.style.display = "flex";
+
+ });
 
 // Fonction pour afficher les détails du produit
 async function afficherDetailsProduit(productId, storeName, collect_p) {
@@ -191,7 +202,7 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
             prixstyel.className="prixstyel";
             prixstyel.innerHTML= priceOriginale+"DA";
             prix_prixpromo.appendChild(prixstyel);
-            acheter_btn1.innerHTML=priceOriginale+ " DA";
+            acheter_btn1.innerHTML= "Acheter: "+priceOriginale+ " DA";
 
         }
         
@@ -232,13 +243,14 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
             disponibilite_.innerHTML = "Non disponible";
             disponibilite_.style.color = "red";
 
-            acheter_btn1.style.color=" rgba(115, 115, 114, 0.709)";  
-            acheter_btn1.style.border="1px solid  rgba(115, 115, 114, 0.709)";
-            acheter_btn1.disabled = false;
+            acheter_btn1.style.border="1px solid red";
+            acheter_btn1.style.color="red";  
+
 
         } else if (quantiteproduit < 10 && quantiteproduit > 0) {
             disponibilite_.innerHTML = "Limité : " + quantiteproduit;
             disponibilite_.style.color = "red";
+            acheter_btn1.style.color="red";  
         } else {
             disponibilite_.innerHTML = "Disponible";
             disponibilite_.style.color = "green";
@@ -457,11 +469,7 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
                 }); 
 
 
-
-
-
-
-
+                 
                 
             } else {
  
@@ -489,9 +497,14 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
          const produit_image_facture= document.getElementById("produit_image_facture");
          const Date__= document.getElementById("Date__");
 
-        
+         const backgroundProdect_page = document.getElementById("backgroundProdect_page");
+         const anullerfacture_= document.getElementById("anullerfacture_");
+         const formulaire_d_achat= document.getElementById("formulaire_d_achat");
+     
+
+         
         const srcimgProduit =document.getElementById("srcimgProduit");
-        srcimgProduit.src= image1;
+        srcimgProduit.src= images[0];
         nomDeProduitFac.innerHTML=titre;
 
         
@@ -619,21 +632,8 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
     //    <input type="email" id="EmailFacture" required>
     //</div>
     
-
-    const backgroundProdect_page = document.getElementById("backgroundProdect_page");
-    const anullerfacture_= document.getElementById("anullerfacture_");
-    const formulaire_d_achat= document.getElementById("formulaire_d_achat");
-
-    acheter_btn1.addEventListener('click', function() {
-        formulaire_d_achat.style.display = "flex";
-        backgroundProdect_page.style.display = "none";
-    });
     
-    anullerfacture_.addEventListener('click', function() {
-        formulaire_d_achat.style.display = "none";
-        backgroundProdect_page.style.display = "flex";
 
-    });
 
     const affichefacture_ = document.getElementById('affichefacture_');
     affichefacture_.addEventListener('click', async function() {

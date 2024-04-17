@@ -338,14 +338,7 @@ const fetchData = async () => {
 
     
 
-    ScrollReveal().reveal('.produit_in_home', {
-        origin: 'top',
-        reset: true,
-        distance: '40px',
-        duration: 1500,
-        delay: 200,
-        interval: 200 // Pour animer les éléments l'un après l'autre
-    });
+
 };
 
 // Appel de la fonction fetchData() pour récupérer les données
