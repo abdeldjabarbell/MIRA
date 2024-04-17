@@ -279,6 +279,11 @@ const fetchData = async () => {
                 SoustitleHeading.textContent = soustitle;
                 title__sub.appendChild(SoustitleHeading);
 
+                const CollectionHeading = document.createElement("p");
+                CollectionHeading.textContent = id +" > "+subId;
+                CollectionHeading.style.fontWeight="500";
+                title__sub.appendChild(CollectionHeading);
+
                 
                 const IdleHeading = document.createElement("p");
                 IdleHeading.textContent = sub_pId;
@@ -329,6 +334,17 @@ const fetchData = async () => {
             
         }
     }
+
+    
+
+    ScrollReveal().reveal('.produit_in_home', {
+        origin: 'top',
+        reset: true,
+        distance: '40px',
+        duration: 1500,
+        delay: 200,
+        interval: 200 // Pour animer les éléments l'un après l'autre
+    });
 };
 
 // Appel de la fonction fetchData() pour récupérer les données
@@ -890,15 +906,6 @@ button_partager_store_collection.addEventListener("click", async (e) => {
 
 
 
-
-ScrollReveal().reveal('.produit_in_home', {
-    origin: 'top',
-    reset: true,
-    distance: '40px',
-    duration: 1500,
-    delay: 200,
-    interval: 200 // Pour animer les éléments l'un après l'autre
-});
 
 
 
