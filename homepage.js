@@ -200,6 +200,7 @@ searchInput.addEventListener("input", function() {
         const title = produit.querySelector(".title__sub h3").textContent.toLowerCase(); // Titre du produit
         const sousTitle = produit.querySelector(".title__sub p").textContent.toLowerCase(); // Sous-titre du produit
 
+        
         // Afficher ou masquer le produit en fonction du texte de recherche
         if (title.includes(searchText) || sousTitle.includes(searchText)) {
             produit.style.display = "flex"; // Afficher le produit
