@@ -204,7 +204,7 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
             prixstyel.className="prixstyel";
             prixstyel.innerHTML= priceOriginale+"DA";
             prix_prixpromo.appendChild(prixstyel);
-            acheter_btn1.innerHTML=priceOriginale+ " DA";
+            acheter_btn1.innerHTML="Acheter: "+priceOriginale+ " DA";
 
         }
         
@@ -248,7 +248,7 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
             acheter_btn1.style.border="1px solid red";
             acheter_btn1.style.color="red";  
 
-
+            
         } else if (quantiteproduit < 10 && quantiteproduit > 0) {
             disponibilite_.innerHTML = "Limité : " + quantiteproduit;
             disponibilite_.style.color = "red";
@@ -553,7 +553,7 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
              }
          });
          let tot=0;     
-
+         acheter_bn1
          plusbutton_fa.addEventListener('click', function() {
              let Quantite_de_produit_inval = parseInt(Quantite_de_produit_in.value);
              Quantite_de_produit_inval++;
