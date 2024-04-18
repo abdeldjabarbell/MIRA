@@ -1,65 +1,54 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Transition de liste verticale lors du défilement</title>
+<title>ScrollReveal avec des éléments créés dynamiquement</title>
 <style>
-  /* Styles pour la liste */
-  #ma-liste {
-    width: 200px;
-    height: 300px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-  }
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  li {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+  /* Styles juste pour la démo */
+  .box {
+    width: 100px;
+    height: 100px;
+    background-color: lightblue;
+    margin: 20px;
   }
 </style>
 </head>
 <body>
+<div class="ontainer">
+  <div id="container"></div>
 
-<div id="ma-liste">
-  <ul>
-    <li>Élément 1</li>
-    <li>Élément 2</li>
-    <li>Élément 3</li>
-    <li>Élément 4</li>
-    <li>Élément 5</li>
-    <li>Élément 6</li>
-    <li>Élément 7</li>
-    <li>Élément 8</li>
-    <li>Élément 9</li>
-    <li>Élément 10</li>
-  </ul>
 </div>
 
+
+
+<script src="https://unpkg.com/scrollreveal"></script>
 <script>
-function transitionListOnScroll() {
-    const list = document.getElementById('ma-liste');
+// Création de quelques éléments div avec une classe "box"
+const container = document.getElementById('container');
 
-    window.addEventListener('scroll', () => {
-        const listRect = list.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-
-        if (listRect.top < windowHeight && listRect.bottom > 0) {
-            list.style.transition = 'transform 0.3s ease-in-out';
-            list.style.transform = `translateY(10px)`;
-
-            setTimeout(() => {
-                list.style.transform = 'translateY(0)';
-            }, 300);
-        }
-    });
+for (let i = 0; i < 5; i++) {
+  const box = document.createElement('div');
+  box.classList.add('box');
+  box.textContent = `Box ${i+1}`;
+  container.appendChild(box);
 }
+for (let i = 0; i < 5; i++) {
+  const box = document.createElement('div');
+  box.classList.add('bo');
+  box.textContent = `Bo ${i+1}`;
+  container.appendChild(box);
+}
+// Initialisation de ScrollReveal
+ScrollReveal().reveal('.box, .bo', {
+  origin: 'bottom',
+  distance: '50px',
+  duration: 1000,
+  delay: 200,
+  easing: 'ease-in-out',
+  interval: 200 // Pour animer les éléments l'un après l'autre
+});
 
-transitionListOnScroll();
 </script>
-
 </body>
 </html>

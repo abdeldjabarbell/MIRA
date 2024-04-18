@@ -52,6 +52,8 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
         const titre=detailsProduit.Titre;
         const soustitre=detailsProduit.Sous_titre;
         const price=detailsProduit.prix;
+        const depenses=detailsProduit.depenses;
+
         const quantiteproduit=detailsProduit.quantiteproduit;
         const n_colors=detailsProduit.n_colors;
         const colors=detailsProduit.colors;
@@ -202,7 +204,7 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
             prixstyel.className="prixstyel";
             prixstyel.innerHTML= priceOriginale+"DA";
             prix_prixpromo.appendChild(prixstyel);
-            acheter_btn1.innerHTML= "Acheter: "+priceOriginale+ " DA";
+            acheter_btn1.innerHTML=priceOriginale+ " DA";
 
         }
         
@@ -245,7 +247,6 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
 
             acheter_btn1.style.border="1px solid red";
             acheter_btn1.style.color="red";  
-            acheter_btn1.disabled = true;
 
 
         } else if (quantiteproduit < 10 && quantiteproduit > 0) {
@@ -287,7 +288,7 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
         produitDetailles_bg.appendChild(showLe_);
         
 
-
+        
         showMor_.addEventListener('click', () => {
             showMore();
         }); 
@@ -482,7 +483,6 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
                  items_dispo.appendChild(message_prod_smilair);
 
                 console.log("cest pas possible de telecharger d'autre produits similaires");
-                return null;
             }
         }
 
@@ -509,7 +509,7 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
         nomDeProduitFac.innerHTML=titre;
 
         
-
+        
 
          const select_your_color= document.getElementById("select_your_color");
          const Nom_prenome = document.getElementById("Nom_prenome");
@@ -655,7 +655,10 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
          
             console.log(CC)
             const collectionRef = collection(db, 'commands_no_users'); // Reference to the collection
-    
+    console.log("productId ="+productId);
+        console.log("stor ="+storeName);
+    console.log("colle ="+collect_p);
+
             const data = {
                 fullName: Nom_prenome.value, 
                 adress: adressPersonelle.value,
@@ -666,8 +669,13 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
                 produitPhoto: image1,
                 titre_prod: titre,
                 commond: "pending",
-                Email: "//",
+                Email:"//",
+                id_prod: productId,
+                store_prod:storeName,
+                coll_prod:collect_p,
+                depenses : depenses,
                 timestamp: serverTimestamp()
+
             };
 
         
