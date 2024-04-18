@@ -553,7 +553,6 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
              }
          });
          let tot=0;     
-         acheter_bn1
          plusbutton_fa.addEventListener('click', function() {
              let Quantite_de_produit_inval = parseInt(Quantite_de_produit_in.value);
              Quantite_de_produit_inval++;
