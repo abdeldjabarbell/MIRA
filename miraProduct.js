@@ -245,6 +245,7 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
 
             acheter_btn1.style.border="1px solid red";
             acheter_btn1.style.color="red";  
+            acheter_btn1.disabled = true;
 
 
         } else if (quantiteproduit < 10 && quantiteproduit > 0) {
@@ -665,6 +666,7 @@ async function afficherDetailsProduit(productId, storeName, collect_p) {
                 produitPhoto: image1,
                 titre_prod: titre,
                 commond: "pending",
+                Email: "//",
                 timestamp: serverTimestamp()
             };
 
