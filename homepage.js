@@ -1,7 +1,3 @@
-
-
-
-
 //nav bar
 let menuIcon = document.querySelector('#menu-icon');
 let navbar = document.querySelector('.navbar');
@@ -888,7 +884,6 @@ button_partager_store_collection.addEventListener("click", async (e) => {
         }
     }
 });
-
 
 
 

@@ -309,6 +309,7 @@ produitselect.addEventListener('change', async function () {
             const Sous_titre_ = data.Sous_titre;
             const Description_ = data.Description;
             const prix_ = data.prix;
+            const depenses_ = data.depenses;
             const promotion_ = data.promotion;
             const quantiteproduit_ = data.quantiteproduit;
             const n_colors_in_stock_ = data.colors.length;
@@ -357,6 +358,7 @@ produitselect.addEventListener('change', async function () {
             const Soustitre = document.getElementById("Soustitre");
             const Description = document.getElementById("Description");
             const prix = document.getElementById("prix");
+            const depenses = document.getElementById("depenses");
             const promotion = document.getElementById("promotion");
             const quantiteproduit = document.getElementById("quantiteproduit");
             const idproduitSimilaire1 = document.getElementById("idproduitSimilaire1");
@@ -368,6 +370,7 @@ produitselect.addEventListener('change', async function () {
             Soustitre.value = Sous_titre_;
             Description.value = Description_;
             prix.value = prix_;
+            depenses.value = depenses_;
             promotion.value = promotion_;
             quantiteproduit.value = quantiteproduit_;
             idproduitSimilaire1.value = idproduitSimilaire_1;
@@ -606,6 +609,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 const Soustitre = document.getElementById("Soustitre").value;
                 const Description = document.getElementById("Description").value;
                 const prix = parseFloat(document.getElementById("prix").value);
+                const depenses = parseFloat(document.getElementById("depenses").value);
                 const promotion = parseFloat(document.getElementById("promotion").value);
                 const quantiteproduit = parseInt(document.getElementById("quantiteproduit").value);
                 const idproduitSimilaire1 = document.getElementById("idproduitSimilaire1").value;
@@ -619,6 +623,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     Sous_titre: Soustitre,
                     Description: Description,
                     prix: prix,
+                    depenses:depenses,
                     promotion: promotion,
                     quantiteproduit: quantiteproduit,
                     colors_number: n_colors,
@@ -775,6 +780,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 const Soustitre = document.getElementById("Soustitre").value;
                 const Description = document.getElementById("Description").value;
                 const prix = parseFloat(document.getElementById("prix").value);
+                const depenses = parseFloat(document.getElementById("depenses").value);
                 const promotion = parseFloat(document.getElementById("promotion").value);
                 const quantiteproduit = parseInt(document.getElementById("quantiteproduit").value);
                 const idproduitSimilaire1 = document.getElementById("idproduitSimilaire1").value;
@@ -791,6 +797,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                         Sous_titre: Soustitre,
                         Description: Description,
                         prix: prix,
+                        depenses:depenses,
                         promotion: promotion,
                         quantiteproduit: quantiteproduit,
                         colors_number: n_colors,

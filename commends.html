@@ -21,20 +21,110 @@
 
         <i class='bx bx-menu-alt-left' id="menu-icon"></i> 
 
-        <nav class="navbar" id="navbarid">
+        <nav class="navbar" id="navbarid"> 
+
             <button class="btn" id="retourner_au_home">Retourner</button>
         </nav>
     </header>    
 
-    <section class="commondsBG">
-        <h1>les commenfs sur MIRA</h1>
+    
+    
+    <section class="cree_un_projet">
+        <p id="nom_prenom_admin"></p>
+        <br>
+        <label for="statusFilter">Filtrer par état :</label>
+        <select id="statusFilter">
+            <option value="pending">En attente</option>
+            <option value="confirme">Confirmé</option>
+            <option value="retour">Retour</option>
+            <option value="annule">Annulé</option>
+        </select>
+        <br>
+        <p id="numberDesCommends"></p>
+        <br>
 
-        
+        <div class="commendsBG" id="commendsBG"></div>
 
+    
     </section>
-    
-    
-    
+
+
+    <div class="commend_detailes_admin" id="commend_detailes_admin" style="display: none;">
+        <div class="commend_detailes_admin_BG">
+            <div class="title_c_d_">
+                <h1>Decision des commandes</h1>
+                <p>Espace pour prendre la décision sur le sort des commandes.</p>
+                <button class="" id="fermer_f_cdabg">Fermer</button>
+            </div>
+            <div class="option_cdabg">
+                <h2>Image du produit</h2>
+                <div class="image_cdabg">
+                    <img id="image_cdabg" src="" alt="">
+                </div>
+            </div>
+            <div class="option_cdabg">
+                <h2>Produit</h2>
+                <p id="nameProduit_cdabg"></p>
+            </div>
+            <div class="option_cdabg">
+                <h2>Couleur</h2>
+                <div class="coleurProduit_cdabg" id="coleurProduit_cdabg"></div>
+            </div>
+            <div class="option_cdabg">
+                <h2>Quantité</h2>
+                <p id="quantiteProduit_cdabg"></p>
+            </div>
+            <div class="option_cdabg">
+                <h2>Prix de vente</h2>
+                <p id="prixProduit_cdabg"></p>
+            </div>
+            <div class="option_cdabg">
+                <h2>Les dépenses</h2>
+                <p id="depensesProduit_cdabg"></p>
+            </div>
+            <div class="option_cdabg">
+                <h2>La marge</h2>
+                <p id="laMarge_cdabg"></p>
+            </div>
+            <div class="option_cdabg">
+                <h2>Nom du client</h2>
+                <p id="nameClient_cdabg"></p>
+            </div>
+            <div class="option_cdabg">
+                <h2>Adresse</h2>
+                <p id="AdressClient_cdabg"></p>
+            </div>
+            <div class="option_cdabg">
+                <h2>Téléphone</h2>
+                <p id="TelephoneClient_cdabg"></p>
+            </div>
+            <div class="option_cdabg">
+                <h2>Email</h2>
+                <p id="EmailClient_cdabg"></p>
+            </div>
+            <div class="option_cdabg">
+                <h2>Date de la commende</h2>
+                <p id="date_c_cdabg"></p>
+            </div>
+            <div class="option_cdabg">
+                <h2>Verification</h2>
+                <h2 id="Verification_cdabg"></h2>
+            </div>            
+            <div class="option_cdabg" id="verifier_cdabg__cdabg">
+                <button class="btn souvgarder" id="verifier_cdabg">verifier</button>
+            </div>
+            <div  id="decision__cdabg" class="option_cdabg" style="justify-content: space-around; flex-direction: row;display: none;">
+                <button class="btn supprimer"id="annuler_cdabg">annulé</button>
+                <button class="btn souvgarder"id="confirmer_cdabg">confirmé</button>
+            </div>
+            <div  id="decisionConfirmer__cdabg" class="option_cdabg" style="justify-content: space-around; flex-direction: row;display: none;">
+                <button class="btn supprimer"id="retour_cdabg">Retour</button>
+                <button class="btn souvgarder"id="vender_cdabg">vender</button>
+            </div>
+
+            <br><br><br><br><br><br><br><br>
+        </div>
+    </div>
     
     
     <div class="activatoin_compt" id="wt" >
