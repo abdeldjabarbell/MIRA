@@ -288,198 +288,207 @@ async function afficherSuggestions(searchTerm) {
         
 
         
-
-
-        // Fonction pour afficher la liste des achats
-        async function afficherListeAchats() {
-            const searchInput = document.getElementById('searchInput');
-            try {
-
-                 // Référence au document dans Firestore
-
-                        // Référence au document dans Firestore
-                        const docRef = await getDocs(collection(db, 'items', nomMagasin, 'produits',nomColl, 'produits'));
-                        const collection_produit = nomColl;
-                        // Afficher les documents
-                        docRef.forEach((doc) => {
-                         const data = doc.data();
-                     
-                         // Récupération des données
-                         const image_produit = data.imageUrl_produit_1;
-                         const time_produit = data.timestamp; // Conversion en objet Date
- 
-                         const titre_de_produit = data.Titre;
-                         const prix_de_produit = data.prix;
-                         const promotion_produit = data.promotion;
-                         const colors_produit = data.colors;
-                         const n_colors_produit = data.colors_number;
-                         const quantiteproduit = data.quantiteproduit;
- 
- 
-                         const items_dispo = document.querySelector(".items_dispo");
-                         const bg_item = document.createElement("div");
-                         bg_item.className = 'bg_item';
-                     
-                         const bg_item_img = document.createElement("div");
-                         bg_item_img.className = "bg_item_img";
-                         const img_produi = document.createElement("img");
-                         img_produi.src = image_produit;
- 
-                         const time_produit_mj = new Date(time_produit.seconds * 1000);
-                         const dateNow = new Date();
- 
-                         const differenceInMillis = Math.abs(time_produit_mj - dateNow); // Différence en millisecondes
-                         const differenceInDays = differenceInMillis / (1000 * 60 * 60 * 24); // Conversion en jours
-                           
- 
- 
-                         if (differenceInDays < 4) { 
-                             const new_produit = document.createElement("div");
-                             new_produit.className = "new_produit";
-                             const p_new_produit = document.createElement("p");
-                             p_new_produit.innerText = "Nouveau";
-                             new_produit.appendChild(p_new_produit);
-                             bg_item_img.appendChild(new_produit);
-                         }
-                         if (quantiteproduit > 0 && quantiteproduit < 10) { 
-                             const limited_edition = document.createElement("div");
-                             limited_edition.className = "limited_edition";
-                             const p_limited_edition = document.createElement("p");
-                             p_limited_edition.innerText = "Édition limitée : " + quantiteproduit;
-                             limited_edition.appendChild(p_limited_edition);
-                             bg_item_img.appendChild(limited_edition);
- 
-                         } else if (quantiteproduit === 0) { 
-                             const limited_edition = document.createElement("div");
-                             limited_edition.className = "limited_edition";
-                             const p_limited_edition = document.createElement("p");
-                             p_limited_edition.innerText = "non disponible";
-                             limited_edition.appendChild(p_limited_edition);
-                             bg_item_img.appendChild(limited_edition);
-                         }
-                         
- 
- 
-                         
-                     
-                         bg_item_img.appendChild(img_produi);
-                         bg_item.appendChild(bg_item_img);
- 
-                         const colleection_name = document.createElement("div");
-                         colleection_name.className = "colleection_name";
-                         const p_colleection_name = document.createElement("p");
-                         p_colleection_name.innerText = collection_produit ;
-                         colleection_name.appendChild(p_colleection_name);
-                         bg_item_img.appendChild(colleection_name);
-                     
-                         // Titre du produit
-                         const bg_item_titre = document.createElement("div");
-                         bg_item_titre.className = "bg_item_titre";
-                         const p_bg_item_titre = document.createElement("p");
-                         p_bg_item_titre.innerHTML = titre_de_produit;
-                         p_bg_item_titre.className="p_bg_item_titre";
-                         bg_item_titre.appendChild(p_bg_item_titre);
-                         bg_item.appendChild(bg_item_titre);
-                     
-                         // Prix du produit
-                         const bg_item_prix = document.createElement("div");
-                         bg_item_prix.className = "bg_item_prix";
-                     
-                         if (promotion_produit === 0) { // Pas de promotion
-                             const p_bg_item_prix_originale = document.createElement("p");
-                             p_bg_item_prix_originale.innerHTML = prix_de_produit+"DA";
-                             p_bg_item_prix_originale.className = "p_bg_item_prix_originale";
- 
-                             bg_item_prix.appendChild(p_bg_item_prix_originale);
-                         } else { // Avec promotion
-                             const promotion_bar = document.createElement("div");
-                             promotion_bar.className = "promotion_bar";
-                             const p_promotion = document.createElement("p");
-                             p_promotion.innerHTML = "Promotion";
-                             promotion_bar.appendChild(p_promotion);
-                             bg_item_img.appendChild(promotion_bar);
-                     
-                             const nouveauPrix = prix_de_produit * (1 - promotion_produit / 100);
-                             const p_bg_item_prix_originale = document.createElement("p");
-                             p_bg_item_prix_originale.className = "p_bg_item_prix_originale";
-                             p_bg_item_prix_originale.innerHTML = nouveauPrix+"DA"; // Affichage avec deux décimales
-                             bg_item_prix.appendChild(p_bg_item_prix_originale);
-                             //ancien prix
-                             const p_bg_item_prix_promotion = document.createElement("p");
-                             p_bg_item_prix_promotion.innerHTML = prix_de_produit +"DA";
-                             p_bg_item_prix_promotion.className = "p_bg_item_prix_promotion";
-                             bg_item_prix.appendChild(p_bg_item_prix_promotion);
- 
-                         }
-                     
-                         bg_item.appendChild(bg_item_prix);
-                     
-                         // Couleurs du produit
-                         const bg_item_coleurs = document.createElement("div");
-                         bg_item_coleurs.className = "bg_item_coleurs";
-                         for (let i = 0; i < n_colors_produit; i++) {
-                             const color_dispo = document.createElement("div");
-                             color_dispo.className = "color_dispo";
-                             color_dispo.style.backgroundColor = colors_produit[i];
-                             bg_item_coleurs.appendChild(color_dispo);
-                         }
-                         bg_item.appendChild(bg_item_coleurs);
-                         items_dispo.appendChild(bg_item);
-                     
-                         bg_item.addEventListener('click', () => {
-                             window.location.href = `miraProduct.html?store=${nomMagasin}&collection_pr=${collection_produit}&id=${doc.id}`; // Redirection vers la page du produit avec l'ID du produit
-                         });    
-                  
-                     });
-                     
-
-                // Écouter l'événement de saisie pour la recherche
-                searchInput.addEventListener('input', () => {
-                    const searchTerm = searchInput.value;
-                    afficherSuggestions(searchTerm);
-                    effectuerRecherche(searchTerm);
-
-                    
-                });
-
- 
-                
-                // Effacer les suggestions lorsque l'input est vide
-                searchInput.addEventListener('blur', () => {
-                    if (searchInput.value === '') {
-                        const suggestionsDiv = document.getElementById('suggestion_');
-                        suggestionsDiv.innerHTML = '';
-                    }
-                });
-
-
-                ScrollReveal({ 
-                    reset: true ,
-                    distance: '10px',
-                    duration:1500,
-                    delay:200,
-                    interval: 200 // Pour animer les éléments l'un après l'autre
-                
-                });
-                
-                ScrollReveal().reveal('.bg_item', { origin: 'top'});
-                
-            } catch (error) {
-                console.error("Erreur lors de la récupération des documents:", error);
-            }
+        function convertToLowerCase(text) {
+            return text.toLowerCase();
         }
         
+        
+        
 
-        // Appel de la fonction pour afficher la liste des achats lors du chargement de la page
-        window.onload = afficherListeAchats;
+// Fonction pour afficher la liste des achats
+async function afficherListeAchats() {
+    const searchInput = document.getElementById('searchInput');
+    try {
+        const docRefEX = await getDocs(collection(db, 'items', nomMagasin, 'produits'));
+        docRefEX.forEach((doc) => {
+            const data = doc.id;
+            console.log("id : " + data);
 
-        afficherListeAchats();
+        });
+        const Nom_collection = convertToLowerCase(nomColl);
+
+        // Référence au document dans Firestore
+
+        const docRef = await getDocs(collection(db, 'items', nomMagasin, 'produits', Nom_collection, 'produits'));
+        const collection_produit = nomColl;
+
+        try {
+            console.log("Collection name: " + nomColl);
+            console.log("Number of documents retrieved: " + docRef.size); // Log the number of documents retrieved
+
+            if (!docRef.empty) {
+                // Afficher les documents
+                docRef.forEach((doc) => {
+                    const data = doc.data();
+                    console.log("Document data:", data);
+
+                    // Récupération des données
+                    const image_produit = data.imageUrl_produit_1;
+                    const time_produit = data.timestamp; // Conversion en objet Date
+                    const titre_de_produit = data.Titre;
+                    const prix_de_produit = data.prix;
+                    const promotion_produit = data.promotion;
+                    const colors_produit = data.colors;
+                    const n_colors_produit = data.colors_number;
+                    const quantiteproduit = data.quantiteproduit;
+
+                    console.log("Image produit:", image_produit);
+
+                    const items_dispo = document.querySelector(".items_dispo");
+                    const bg_item = document.createElement("div");
+                    bg_item.className = 'bg_item';
+
+                    const bg_item_img = document.createElement("div");
+                    bg_item_img.className = "bg_item_img";
+                    const img_produi = document.createElement("img");
+                    img_produi.src = image_produit;
+
+                    const time_produit_mj = new Date(time_produit.seconds * 1000);
+                    const dateNow = new Date();
+                    const differenceInMillis = Math.abs(time_produit_mj - dateNow); // Différence en millisecondes
+                    const differenceInDays = differenceInMillis / (1000 * 60 * 60 * 24); // Conversion en jours
+
+                    if (differenceInDays < 4) {
+                        const new_produit = document.createElement("div");
+                        new_produit.className = "new_produit";
+                        const p_new_produit = document.createElement("p");
+                        p_new_produit.innerText = "Nouveau";
+                        new_produit.appendChild(p_new_produit);
+                        bg_item_img.appendChild(new_produit);
+                    }
+
+                    if (quantiteproduit > 0 && quantiteproduit < 10) {
+                        const limited_edition = document.createElement("div");
+                        limited_edition.className = "limited_edition";
+                        const p_limited_edition = document.createElement("p");
+                        p_limited_edition.innerText = "Édition limitée : " + quantiteproduit;
+                        limited_edition.appendChild(p_limited_edition);
+                        bg_item_img.appendChild(limited_edition);
+                    } else if (quantiteproduit === 0) {
+                        const limited_edition = document.createElement("div");
+                        limited_edition.className = "limited_edition";
+                        const p_limited_edition = document.createElement("p");
+                        p_limited_edition.innerText = "non disponible";
+                        limited_edition.appendChild(p_limited_edition);
+                        bg_item_img.appendChild(limited_edition);
+                    }
+
+                    bg_item_img.appendChild(img_produi);
+                    bg_item.appendChild(bg_item_img);
+
+                    const colleection_name = document.createElement("div");
+                    colleection_name.className = "colleection_name";
+                    const p_colleection_name = document.createElement("p");
+                    p_colleection_name.innerText = collection_produit;
+                    colleection_name.appendChild(p_colleection_name);
+                    bg_item_img.appendChild(colleection_name);
+
+                    // Titre du produit
+                    const bg_item_titre = document.createElement("div");
+                    bg_item_titre.className = "bg_item_titre";
+                    const p_bg_item_titre = document.createElement("p");
+                    p_bg_item_titre.innerHTML = titre_de_produit;
+                    p_bg_item_titre.className = "p_bg_item_titre";
+                    bg_item_titre.appendChild(p_bg_item_titre);
+                    bg_item.appendChild(bg_item_titre);
+
+                    // Prix du produit
+                    const bg_item_prix = document.createElement("div");
+                    bg_item_prix.className = "bg_item_prix";
+                    
+                    if (promotion_produit === 0) { // Pas de promotion
+                        const p_bg_item_prix_originale = document.createElement("p");
+                        p_bg_item_prix_originale.innerHTML = prix_de_produit + "DA";
+                        p_bg_item_prix_originale.className = "p_bg_item_prix_originale";
+                        bg_item_prix.appendChild(p_bg_item_prix_originale);
+                    } else { // Avec promotion
+                        const promotion_bar = document.createElement("div");
+                        promotion_bar.className = "promotion_bar";
+                        const p_promotion = document.createElement("p");
+                        p_promotion.innerHTML = "Promotion";
+                        promotion_bar.appendChild(p_promotion);
+                        bg_item_img.appendChild(promotion_bar);
+
+                        const nouveauPrix = parseFloat(prix_de_produit * (1 - promotion_produit / 100).toFixed(2));
+                        const p_bg_item_prix_originale = document.createElement("p");
+                        p_bg_item_prix_originale.className = "p_bg_item_prix_originale";
+                        p_bg_item_prix_originale.innerHTML = nouveauPrix + "DA"; // Affichage avec deux décimales
+                        bg_item_prix.appendChild(p_bg_item_prix_originale);
+
+                        //ancien prix
+                        const p_bg_item_prix_promotion = document.createElement("p");
+                        p_bg_item_prix_promotion.innerHTML = prix_de_produit + "DA";
+                        p_bg_item_prix_promotion.className = "p_bg_item_prix_promotion";
+                        bg_item_prix.appendChild(p_bg_item_prix_promotion);
+                    }
+
+                    bg_item.appendChild(bg_item_prix);
+
+                    // Couleurs du produit
+                    const bg_item_coleurs = document.createElement("div");
+                    bg_item_coleurs.className = "bg_item_coleurs";
+                    for (let i = 0; i < n_colors_produit; i++) {
+                        const color_dispo = document.createElement("div");
+                        color_dispo.className = "color_dispo";
+                        color_dispo.style.backgroundColor = colors_produit[i];
+                        bg_item_coleurs.appendChild(color_dispo);
+                    }
+                    bg_item.appendChild(bg_item_coleurs);
+                    items_dispo.appendChild(bg_item);
+
+                    bg_item.addEventListener('click', () => {
+                        window.location.href = `miraProduct.html?store=${nomMagasin}&collection_pr=${collection_produit}&id=${doc.id}`; // Redirection vers la page du produit avec l'ID du produit
+                    });
+
+                });
+            } else {
+                console.log("No documents found."); // Log a message if no documents are retrieved
+            }
+        } catch (error) {
+            console.error("Error while fetching or iterating over documents:", error);
+        }
+
+        // Écouter l'événement de saisie pour la recherche
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value;
+            afficherSuggestions(searchTerm);
+            effectuerRecherche(searchTerm);
+        });
+
+        // Effacer les suggestions lorsque l'input est vide
+        searchInput.addEventListener('blur', () => {
+            if (searchInput.value === '') {
+                const suggestionsDiv = document.getElementById('suggestion_');
+                suggestionsDiv.innerHTML = '';
+            }
+        });
+
+        ScrollReveal({
+            reset: true,
+            distance: '10px',
+            duration: 1500,
+            delay: 200,
+            interval: 200 // Pour animer les éléments l'un après l'autre
+        });
+
+        ScrollReveal().reveal('.bg_item', { origin: 'top' });
+
+    } catch (error) {
+        console.error("Erreur lors de la récupération des documents:", error);
+    }
+}
+
+// Appel de la fonction pour afficher la liste des achats lors du chargement de la page
+window.onload = afficherListeAchats;
+
+afficherListeAchats();
+
 
 }
 
 const urlParams = new URLSearchParams(window.location.search);
-const selected_store = urlParams.get('store');
-const selected_coll = urlParams.get('collection_pr');
+const selected_store = urlParams.get('store').toString();
+const selected_coll = urlParams.get('collection_pr').toString();
 // Utilisation de la fonction pour afficher les détails du magasin "Femmes"
 afficherDetailsMagasin(selected_store,selected_coll);
 
@@ -524,7 +533,7 @@ function scrollFunction() {
 document.addEventListener('DOMContentLoaded', function() {
     const returnButton = document.getElementById('retour');
     returnButton.addEventListener('click', function() {
-        window.location.href = `mira.html?store=${nomMagasin}`; // Redirection vers la page du produit avec l'ID du produit
+        window.location.href = `mira.html?store=${selected_store}`; // Redirection vers la page du produit avec l'ID du produit
     });
 });
 

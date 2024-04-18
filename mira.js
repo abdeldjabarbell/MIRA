@@ -375,8 +375,9 @@ async function afficherSuggestions(searchTerm) {
                             p_promotion.innerHTML = "Promotion";
                             promotion_bar.appendChild(p_promotion);
                             bg_item_img.appendChild(promotion_bar);
-                    
-                            const nouveauPrix = prix_de_produit * (1 - promotion_produit / 100);
+
+                            const nouveauPrix = parseFloat(prix_de_produit * (1 - promotion_produit / 100).toFixed(2));
+
                             const p_bg_item_prix_originale = document.createElement("p");
                             p_bg_item_prix_originale.className = "p_bg_item_prix_originale";
                             p_bg_item_prix_originale.innerHTML = nouveauPrix+"DA"; // Affichage avec deux décimales
