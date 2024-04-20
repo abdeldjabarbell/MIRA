@@ -34,10 +34,111 @@ const nav_btn_ser = document.getElementById('nav_btn_ser');
 const user_nav = document.getElementById('user_nav');
 const logo_image = document.getElementById('logo_image');
 
+const menu_mira = document.getElementById('menu_mira');
+const closeMenu = document.getElementById('closeMenu');
+const les_Stores_m = document.getElementById('les_Stores_m');
+
+
+menu_navbar.addEventListener('click', function() {
+    menu_mira.style.right="0";
+});
+closeMenu.addEventListener('click', function() {
+    menu_mira.style.right="-100%";
+});
+les_Stores_m.addEventListener('click', function() {
+    window.location.href = "mira_stors.html";
+});
+
+const optionmenu_store_ = document.getElementById('optionmenu_store_');
+const querySnapshotmenu = await getDocs(collection(db, 'items'));
+querySnapshotmenu.forEach(async (doc) => {
+    const Nom_store = doc.id; 
+
+    const  titreStoreOption = document.createElement("div");
+    titreStoreOption.className="titreStoreOption";
+    const titreStoreOption_titre = document.createElement("div");
+    titreStoreOption_titre.className="titreStoreOption_titre";
+    const bx_bx_store_alt = document.createElement("i");
+    bx_bx_store_alt.className="bx bx-store-alt";
+    const namestore = document.createElement("p");
+    namestore.innerHTML= Nom_store;
+
+    titreStoreOption_titre.appendChild(bx_bx_store_alt);
+    titreStoreOption_titre.appendChild(namestore);
+    titreStoreOption.appendChild(titreStoreOption_titre);
+
+    const titreStoreOption_content = document.createElement("div");
+    titreStoreOption_content.className="titreStoreOption_content";   
+
+    const querySnapshotmenu_coll = await getDocs(collection(db, 'items', Nom_store, 'produits'));
+    querySnapshotmenu_coll.forEach((doc) => {
+
+        const Nom_collection = doc.id;    
+
+        const titreStoreOption_content_coll = document.createElement("div");
+        titreStoreOption_content_coll.className="titreStoreOption_content_coll";
+        const bx_subdirectory_right= document.createElement("i");
+        bx_subdirectory_right.className="bx bx-subdirectory-right";
+        const namecollection = document.createElement("p");
+        namecollection.innerHTML= Nom_collection;
+    
+        titreStoreOption_content_coll.appendChild(bx_subdirectory_right);
+        titreStoreOption_content_coll.appendChild(namecollection);
+        titreStoreOption_content.appendChild(titreStoreOption_content_coll);
+
+
+        titreStoreOption_content_coll.addEventListener('click', function() {
+            window.location.href = `miraCollection.html?store=${Nom_store}&collection_pr=${Nom_collection}`; 
+        });
+    });
+    titreStoreOption.appendChild(titreStoreOption_content);
+
+    optionmenu_store_.appendChild(titreStoreOption);
+
+
+    let isContentOpen = false;
+    
+    titreStoreOption_titre.addEventListener('click', function() {
+        if (!isContentOpen) {
+            titreStoreOption_content.style.display = "flex";
+            titreStoreOption_content.style.height = "auto";
+            isContentOpen = true;
+        } else {
+            titreStoreOption_content.style.height = "0";
+            titreStoreOption_content.style.display = "none";
+            isContentOpen = false;
+        }
+    });
+
+    
+
+});
+
+
+//<div class="titreStoreOption">
+//<div class="titreStoreOption_titre" id="titreStoreOption_titre">
+//    <i class='bx bx-store-alt' ></i>
+//    <p>Decoratoin</p>
+//</div>
+//<div class="titreStoreOption_content" id="titreStoreOption_content" >
+//
+//    <div class="titreStoreOption_content_coll">
+//        <i class='bx bx-subdirectory-right'></i>
+//        <p>lamps</p>
+//    </div>
+//</div>
+//</div>
+
+
+
+
+
 logo_image.addEventListener('click', function() {
     window.location.href = `mira_stors.html?`; // Redirection vers la page du produit avec l'ID du produit
     //window.history.back();
 });
+
+
 
 search_btn.addEventListener("click", async (e) => {
     normal_nav.style.opacity="0";
@@ -53,6 +154,7 @@ search_btn.addEventListener("click", async (e) => {
     }, 300);
 
 });
+
 button_search_confirm.addEventListener("click", async (e) => {
     e.preventDefault();
     closesuggedtionTab();
@@ -74,8 +176,6 @@ function closesuggedtionTab(){
         search_backround.style.display="none";
     }, 300);
 }
-
-
 
 
 
